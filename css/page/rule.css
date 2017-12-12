@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* 权限组公共样式 */
+.layui-container .rule-row {
+  position: relative;
+  height: 100%;
+}
+.layui-container .rule-row .jur-head {
+  margin-bottom: 20px;
+}
+.layui-container .rule-row .structure-row {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: 350px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px #eee;
+  z-index: 999;
+  overflow: auto;
+  border-radius: 5px;
+}
+.layui-container .rule-row .structure-row .alert-title {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  background: #0a6aa1;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+}
+.layui-container .rule-row .structure-row .example-handle {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+.layui-container .rule-row .structure-row .tree-main {
+  height: 408px;
+  overflow: auto;
+}
+.layui-container .rule-row .paren-canter {
+  float: left;
+  width: 18%;
+}
+.layui-container .rule-row .paren-canter .example-handle {
+  float: left;
+}
+.layui-container .rule-row .layui-form {
+  padding: 20px 20px 10px 20px;
+}
+.layui-container .rule-row .layui-form .rule-list .layui-form-item {
+  width: 33%;
+  float: left;
+  clear: none;
+}
+.layui-container .rule-row .tree-main {
+  padding: 15px 20px;
+}
+.layui-container .rule-row .form-list {
+  text-align: center;
+}

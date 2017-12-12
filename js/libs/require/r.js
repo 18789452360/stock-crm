@@ -352,8 +352,8 @@ var requirejs, require, define, xpcUtil;
     }
 
     /**
-     * Simple function to mix in properties from source into page,
-     * but only if page does not already have a property of the same name.
+     * Simple function to mix in properties from source into target,
+     * but only if target does not already have a property of the same name.
      */
     function mixin(target, source, force, deepStringMixin) {
         if (source) {
@@ -1475,7 +1475,7 @@ var requirejs, require, define, xpcUtil;
          * @returns {Object}
          */
         function getScriptData(evt) {
-            //Using currentTarget instead of page for Firefox 2.0's sake. Not
+            //Using currentTarget instead of target for Firefox 2.0's sake. Not
             //all old browsers will be supported, but this one was easy enough
             //to support and still makes sense.
             var node = evt.currentTarget || evt.srcElement;
@@ -1952,7 +1952,7 @@ var requirejs, require, define, xpcUtil;
              * that was loaded.
              */
             onScriptLoad: function (evt) {
-                //Using currentTarget instead of page for Firefox 2.0's sake. Not
+                //Using currentTarget instead of target for Firefox 2.0's sake. Not
                 //all old browsers will be supported, but this one was easy enough
                 //to support and still makes sense.
                 if (evt.type === 'load' ||
@@ -6705,7 +6705,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    //   3. AssignmentTargets
 	    //
 	    // In order to avoid exponential backtracking, we use two flags to denote if the production can be
-	    // binding element or assignment page.
+	    // binding element or assignment target.
 	    //
 	    // The three productions have the relationship:
 	    //
@@ -28644,7 +28644,7 @@ define('build', function (require) {
                                     relPath = build.makeRelativeFilePath(config.dir, path);
 
                                 if (file.exists(path) &&
-                                    // not a build layer page
+                                    // not a build layer target
                                     !isLayer &&
                                     // not outside the build directory
                                     relPath.indexOf('..') !== 0) {
@@ -29086,7 +29086,7 @@ define('build', function (require) {
     };
 
     /**
-     * Mixes additional source config into page config, and merges some
+     * Mixes additional source config into target config, and merges some
      * nested config, like paths, correctly.
      */
     function mixConfig(target, source, skipArrays) {
@@ -29510,7 +29510,7 @@ define('build', function (require) {
         } else if (config.modules && config.name) {
             throw new Error('"name" and "modules" options are incompatible. ' +
                             'Either use "name" if doing a single file ' +
-                            'optimization, or "modules" if you want to page ' +
+                            'optimization, or "modules" if you want to target ' +
                             'more than one file for optimization.');
         }
 
@@ -29605,7 +29605,7 @@ define('build', function (require) {
         //Track the deps, but in a different key, so that they are not loaded
         //as part of config seeding before all config is in play (#648). Was
         //going to merge this in with "include", but include is added after
-        //the "name" page. To preserve what r.js has done previously, make
+        //the "name" target. To preserve what r.js has done previously, make
         //sure "deps" comes before the "name".
         if (config.deps) {
             config._depsInclude = config.deps;

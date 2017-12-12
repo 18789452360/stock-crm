@@ -1,0 +1,760 @@
+@charset "utf-8";
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #999;
+}
+::-webkit-scrollbar-track {
+  background-color: #ccc;
+}
+.my-client-container {
+  overflow: hidden;
+}
+.my-client-container .header-tabs {
+  width: auto;
+  height: auto;
+  background-color: #fff;
+}
+.my-client-container .header-tabs .nav {
+  margin: 0 auto;
+  overflow: hidden;
+  height: 48px;
+  border-bottom: 2px solid #2883E1;
+}
+.my-client-container .header-tabs .nav .arrow {
+  float: left;
+  line-height: 49px;
+}
+.my-client-container .header-tabs .nav .arrow i {
+  cursor: pointer;
+}
+.my-client-container .header-tabs .nav .left-arrow i {
+  display: inherit;
+  height: 100%;
+  padding: 0 15px;
+  border-right: 1px solid #eee;
+}
+.my-client-container .header-tabs .nav .right-arrow {
+  float: right;
+  display: flex;
+}
+.my-client-container .header-tabs .nav .right-arrow a {
+  display: inline-block;
+  padding: 0 15px;
+  background-color: #fff;
+  border-left: 1px solid #eee;
+}
+.my-client-container .header-tabs .nav .tabs {
+  float: left;
+}
+.my-client-container .header-tabs .nav .tabs li {
+  padding: 15px 25px 15px 15px;
+  background-color: #fff;
+  float: left;
+}
+.my-client-container .header-tabs .nav .tabs .tabs-item {
+  background-color: #f5f5f5;
+  position: relative;
+}
+.my-client-container .header-tabs .nav .tabs .tabs-item i {
+  font-size: 12px;
+  position: absolute;
+  right: 6px;
+  top: 16px;
+  color: #999;
+  cursor: pointer;
+}
+.my-client-container .header-tabs .nav .tabs .tabs-item:hover,
+.my-client-container .header-tabs .nav .tabs .tabs-item-active {
+  background-color: #2883E1;
+}
+.my-client-container .header-tabs .nav .tabs .tabs-item:hover a,
+.my-client-container .header-tabs .nav .tabs .tabs-item-active a,
+.my-client-container .header-tabs .nav .tabs .tabs-item:hover i,
+.my-client-container .header-tabs .nav .tabs .tabs-item-active i {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse {
+  position: fixed;
+  height: calc(100% - 51px);
+  outline: 1px solid;
+  width: 240px;
+  background: #243443;
+  overflow-y: auto;
+}
+.my-client-container .sidebar-collapse h3 {
+  padding: 15px 20px 15px 24px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: normal;
+}
+.my-client-container .sidebar-collapse h3 i {
+  margin-top: 5px;
+  float: right;
+  cursor: pointer;
+}
+.my-client-container .sidebar-collapse h3 i.disable {
+  color: #90A9B1;
+}
+.my-client-container .sidebar-collapse h3.show-add + .add-group-wrap {
+  display: block;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap {
+  display: none;
+  height: 56px;
+  width: 240px;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap input {
+  width: 145px;
+  height: 35px;
+  border: 1px solid #2883E1;
+  background-color: #243443;
+  color: #fff;
+  text-indent: .6em;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap .btn-wrap {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap .btn-wrap span {
+  cursor: pointer;
+  color: #97a9bc;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap .btn-wrap span:hover {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap .btn-wrap span.ok {
+  margin-right: 6px;
+}
+.my-client-container .sidebar-collapse h3 + .add-group-wrap .err {
+  color: #f2493b;
+  font-size: 12px;
+}
+.my-client-container .sidebar-collapse .line {
+  width: 100%;
+  height: 2px;
+  background: url("../../images/line.png") no-repeat;
+}
+.my-client-container .sidebar-collapse > .nav > li > a {
+  color: #97a9bc;
+  font-weight: 500;
+  padding: 14px 20px 14px 18px;
+}
+.my-client-container .sidebar-collapse .nav > li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.my-client-container .sidebar-collapse .nav li {
+  position: relative;
+}
+.my-client-container .sidebar-collapse .nav li > a {
+  display: inline-block;
+  width: 165px;
+}
+.my-client-container .sidebar-collapse .nav li > a i {
+  margin-right: 6px;
+}
+.my-client-container .sidebar-collapse .nav li > a .nav-label {
+  margin-left: 5px;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.my-client-container .sidebar-collapse .nav li > a .iconfont {
+  position: absolute;
+  right: -28px;
+}
+.my-client-container .sidebar-collapse .nav li > a .iconfont.icon-right {
+  margin-top: 4px;
+  font-size: 12px;
+}
+.my-client-container .sidebar-collapse .nav li a {
+  position: relative;
+}
+.my-client-container .sidebar-collapse .nav li.show-add .add-group-wrap {
+  display: block;
+}
+.my-client-container .sidebar-collapse .nav li .edit-del-wrap {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 16px;
+  width: 40px;
+  height: 15px;
+}
+.my-client-container .sidebar-collapse .nav li .edit-del-wrap i {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+}
+.my-client-container .sidebar-collapse .nav li .edit-del-wrap i.edit {
+  background: url("../../images/icon_edit.png") center -17px no-repeat;
+}
+.my-client-container .sidebar-collapse .nav li .edit-del-wrap i.edit:hover {
+  background: url("../../images/icon_edit.png") center 0 no-repeat;
+}
+.my-client-container .sidebar-collapse .nav li .edit-del-wrap i.del {
+  background: url("../../images/icon_del_group.png") center -18px no-repeat;
+  margin-left: 8px;
+}
+.my-client-container .sidebar-collapse .nav li .edit-del-wrap i.del:hover {
+  background: url("../../images/icon_del_group.png") center 2px no-repeat;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap {
+  display: none;
+  height: 56px;
+  width: 240px;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap input {
+  width: 145px;
+  height: 35px;
+  border: 1px solid #2883E1;
+  background-color: #243443;
+  color: #fff;
+  text-indent: .6em;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap .btn-wrap {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap .btn-wrap span {
+  cursor: pointer;
+  color: #97a9bc;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap .btn-wrap span:hover {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap .btn-wrap span.ok {
+  margin-right: 6px;
+}
+.my-client-container .sidebar-collapse .nav li .add-group-wrap .err {
+  color: #f2493b;
+  font-size: 12px;
+}
+.my-client-container .sidebar-collapse .nav li.active {
+  transition: all 0.3s;
+  background: #1A2836;
+}
+.my-client-container .sidebar-collapse .nav li.active > a {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav li.active .nav-second-level {
+  margin-left: 14px;
+}
+.my-client-container .sidebar-collapse .nav li.active .nav-second-level li a {
+  color: #97a9bc;
+}
+.my-client-container .sidebar-collapse .nav li.active .nav-second-level li a .iconfont {
+  left: 30px;
+  display: none;
+}
+.my-client-container .sidebar-collapse .nav li.active .nav-second-level li:hover a {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav li.active .nav-second-level li.choice {
+  background-color: #1a2836;
+}
+.my-client-container .sidebar-collapse .nav li.active .nav-second-level li.choice > a {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav li.active .in {
+  display: block;
+}
+.my-client-container .sidebar-collapse .nav li:hover {
+  background-color: #1a2836;
+}
+.my-client-container .sidebar-collapse .nav li:hover > a {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav li:hover .edit-del-wrap {
+  display: inline-block;
+}
+.my-client-container .sidebar-collapse .nav li.choice {
+  background-color: #1a2836;
+}
+.my-client-container .sidebar-collapse .nav li.choice > a {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav:last-of-type {
+  border-bottom: none;
+}
+.my-client-container .sidebar-collapse .nav.nav-second-level > li.active {
+  border: none;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level {
+  transition: all .2s;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li {
+  position: relative;
+  border-bottom: none !important;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li a {
+  padding: 7px 15px 7px 18px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li:last-child {
+  margin-bottom: 10px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li.show-add .add-group-wrap {
+  display: block;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .edit-del-wrap {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  width: 40px;
+  height: 15px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .edit-del-wrap i {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .edit-del-wrap i.edit {
+  background: url("../../images/icon_edit.png") center 0 no-repeat;
+  margin-left: 3px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .edit-del-wrap i.del {
+  background: url("../../images/icon_del_group.png") center 0 no-repeat;
+  margin-left: 5px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .add-group-wrap {
+  display: none;
+  height: 56px;
+  width: 240px;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .add-group-wrap input {
+  width: 145px;
+  height: 35px;
+  border: 1px solid #2883E1;
+  background-color: #243443;
+  color: #fff;
+  text-indent: .6em;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .add-group-wrap .btn-wrap {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .add-group-wrap .btn-wrap span {
+  cursor: pointer;
+  color: #97a9bc;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .add-group-wrap .btn-wrap span.ok {
+  margin-right: 6px;
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li .add-group-wrap .err {
+  color: #f2493b;
+  font-size: 12px;
+}
+.my-client-container .sidebar-collapse .nav .nav-second-level li:hover .edit-del-wrap {
+  display: inline-block;
+}
+.my-client-container .sidebar-collapse .nav .nav-third-level li {
+  border-bottom: none !important;
+}
+.my-client-container .sidebar-collapse .nav .nav-third-level li a {
+  padding-left: 40px;
+}
+.my-client-container .sidebar-collapse .collapse {
+  display: none;
+}
+.my-client-container .sidebar-collapse .active {
+  border-left: 4px solid #2883E1;
+  background: #293846;
+}
+.my-client-container .sidebar-collapse .active > a .icon-right {
+  transform: rotate(90deg);
+  transition: all 0.2s ease-out 0s;
+}
+.my-client-container .main-wrap {
+  width: auto;
+  margin-left: 240px;
+  margin-top: 51px;
+}
+.my-client-container .main-wrap .search-btn-container {
+  min-width: 1600px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 3px;
+}
+.my-client-container .main-wrap .search-btn-container .example-handle {
+  text-align: right;
+}
+.my-client-container .main-wrap .main {
+  padding: 0;
+}
+.my-client-container .main-wrap .main .condition {
+  padding-top: 13px;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header {
+  height: 31px;
+  border-radius: 3px;
+  padding: 20px 20px 10px 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header.fixedTop {
+  position: fixed;
+  top: 41px;
+  width: 1560px;
+  z-index: 1;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li {
+  float: left;
+  margin-right: 30px;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li a {
+  color: #2883E1;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li a.disable {
+  color: #999;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li.check-all .squaredFour {
+  margin-right: 20px;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li.clear-custom {
+  border: 1px solid #2883E1;
+  display: inline-block;
+  border-radius: 3px;
+  position: relative;
+  top: -5px;
+  float: right;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li.clear-custom > a {
+  display: inline-block;
+  color: #2883E1;
+  padding: 5px 10px 5px 10px;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li.phone-helper {
+  float: right;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-header li.phone-helper .squaredFour {
+  margin-right: 10px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container {
+  background-color: #fff;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead {
+  height: 60px;
+  line-height: 60px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr {
+  border-bottom: 1px solid #eee;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th {
+  font-size: 16px;
+  text-align: center;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.usr-name {
+  text-align: left;
+  padding-left: 80px;
+  width: 240px;
+  box-sizing: border-box;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th a {
+  color: #777;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-contact,
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-news {
+  width: 220px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-contact a,
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-news a {
+  padding-right: 10px;
+  position: relative;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-contact a i,
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-news a i {
+  position: absolute;
+  right: -5px;
+  top: 3px;
+  width: 8px;
+  height: 14px;
+  display: inline-block;
+  background: url("../../images/sort_default.png") center no-repeat;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-contact a.asc i,
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-news a.asc i {
+  background: url("../../images/sort_asc.png") center no-repeat;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-contact a.desc i,
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-news a.desc i {
+  background: url("../../images/sort_desc.png") center no-repeat;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr:nth-child(2n+1) {
+  background-color: #fcfcfc;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr:hover {
+  background-color: #f3f3f3;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td {
+  text-align: center;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a {
+  display: inline-block;
+  vertical-align: inherit;
+  height: 70px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a dl {
+  margin-top: 14px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a dl span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* outline: 1px solid; */
+  white-space: nowrap;
+  width: 220px;
+  display: inline-block;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a.empty {
+  line-height: 70px;
+  width: 100%;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name {
+  padding-left: 20px;
+  width: 220px;
+  text-align: left;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name a {
+  line-height: 70px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name a img {
+  margin-left: 32px;
+  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name a dl {
+  margin-top: 0;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name a dl dd {
+  float: left;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name a dl dd.name {
+  white-space: nowrap;
+  width: 120px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.from-channel {
+  width: 125px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.from-channel a {
+  width: inherit;
+  line-height: 70px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.contact {
+  width: 240px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.recent-buy {
+  width: 300px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.product {
+  width: 300px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.product span {
+  width: 300px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it {
+  position: relative;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it.has-more .more-tells-boxs {
+  display: block;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it > a {
+  transition: all .2s;
+  width: 22px;
+  height: 20px;
+  display: inline-block;
+  background: url("../../images/phone_default.png") top center no-repeat;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it > a.has-phone {
+  background: url("../../images/phone_hover.png") top center no-repeat;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs {
+  display: none;
+  width: 200px;
+  max-height: 200px;
+  position: absolute;
+  z-index: 99;
+  top: 10px;
+  right: 33px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px #d7d7d7;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs header {
+  height: 50px;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+  line-height: 50px;
+  font-size: 16px;
+  color: #666;
+  text-indent: 20px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs header a {
+  display: inline-block;
+  float: right;
+  margin-right: 15px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs section {
+  max-height: 150px;
+  overflow: auto;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs section ul li {
+  height: 50px !important;
+  line-height: 50px;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs section ul li a {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  float: right;
+  margin: 15px 15px 0 0;
+  background: url(../../images/contact-gay.png) no-repeat 0 0;
+  vertical-align: sub;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it .more-tells-boxs section ul li a:hover {
+  background: url(../../images/contact-gay-hover.png) no-repeat 0 0;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-footer {
+  border-radius: 3px;
+  padding: 15px 10px 0 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-footer .show-num {
+  margin-top: 20px;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-footer .show-num li {
+  float: left;
+  color: #666;
+  margin-right: 15px;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-footer .show-num li .cur {
+  color: #2883E1;
+}
+.my-client-container .main-wrap .main .condition .table-box .t-footer .page-total {
+  margin-top: 15px;
+  margin-right: 25px;
+}
+.my-client-container .main-wrap .main .condition .table-box .no-result {
+  height: 500px;
+  background: url("../../images/no-result-ico.png") center 110px no-repeat;
+}
+.my-client-container .main-wrap .main .condition .table-box .no-result > p {
+  font-size: 16px;
+  color: #999;
+  padding-top: 240px;
+  position: relative;
+  left: -8px;
+}
+.my-client-container .main-wrap .main .condition .examine-select {
+  padding-bottom: 0;
+}
+.my-client-container .main-wrap .main .condition .examine-select .filter-a.active {
+  color: #2883E1;
+  border: 1px solid #2883E1;
+}
+.my-client-container .main-wrap .main .condition .examine-select .filter-a.active i {
+  color: #2883E1;
+}
+.my-client-container .main-wrap .main .condition .examine-select .filter-a.open + .filter-time,
+.my-client-container .main-wrap .main .condition .examine-select .filter-a.open ~ .organize-framework {
+  display: block;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time,
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .organize-framework {
+  margin-top: 5px;
+  display: none;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag > ul {
+  margin-bottom: 10px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag > ul strong {
+  color: #2883E1;
+  padding-left: 8px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag > ul .child li {
+  float: left;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag > ul .child li > a {
+  font-size: 14px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  color: #666;
+  padding: 0 8px;
+  height: 24px;
+  display: inline-block;
+  line-height: 24px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag > ul .child li > a:hover {
+  color: #999;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag > ul .child li > a.active {
+  background-color: #2883E1;
+  color: #fff;
+  border-radius: 2px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag .ec-tag-empty {
+  padding-bottom: 15px;
+  padding-left: 15px;
+  color: #2883E1;
+  font-weight: bold;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag .btns {
+  text-align: right;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag .btns button {
+  border-radius: 3px;
+  border: 0;
+  width: 60px;
+  height: 24px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag .btns .cancel {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #666;
+  margin-right: 16px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag .btns .ensure {
+  background-color: #2883E1;
+  color: #fff;
+  margin-right: 20px;
+}
+.my-client-container .main-wrap .main .condition .examine-select .examine-filter .filter-time.ec-tag .btns .ensure:hover {
+  background-color: #0E75DE;
+}

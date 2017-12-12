@@ -1,0 +1,121 @@
+<!-- 转移客户询问框 -->
+<div class="share-usr-container">
+    <div class="organize-framework">
+        <div class="organize-content">
+            <div class="customer-group pull-left">
+                <form class="layui-form" action="">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-filter="search-org" lay-search="" class="search-org"></select>
+                        </div>
+                    </div>
+                </form>
+                <nav class="sidebar-nav"></nav>
+            </div>
+            <div class="choose-people pull-right">
+                <h2>已添加：<span>0</span>人</h2>
+                <ul></ul>
+            </div>
+            <div class="warning clearfix">*&nbsp;你是否确定转移选中的<span>0</span>个用户</div>
+        </div>
+    </div>
+</div>
+
+<script id="org-search" type="text/html">
+    <option value="">请输入用户姓名、账号</option>
+    {? each data as item index ?}
+    <option value="{? item.id + ',' + item.name ?}">{? item.name ?}</option>
+    {? /each ?}
+</script>
+
+<script id="share-usr-left" type="text/html">
+    <ul class="metismenu">
+        {? each data as item index ?}
+        <li>
+            <a class="{? !item.type && 'has-arrow' ?}" href="javascript:;" aria-expanded="false" data-id="{? item.id ?}"
+               data-name="{? item.name ?}">
+                {? item.name ?}
+                {?if !item.type ?}<span class="check-all-btn">全选</span>{?/if ?}
+            </a>
+            {?if item.child ?}
+            <ul aria-expanded="false">
+                {? each item.child as item2 index ?}
+                <li>
+                    <a class="{? !item2.type && 'has-arrow' ?}" href="javascript:;" aria-expanded="false"
+                       data-id="{? item2.id ?}" data-name="{? item2.name ?}">
+                        {? item2.name ?}
+                        {?if !item2.type ?}<span class="check-all-btn">全选</span>{?/if ?}
+                    </a>
+                    {?if item2.child ?}
+                    <ul aria-expanded="false">
+                        {? each item2.child as item3 index ?}
+                        <li>
+                            <a class="{? !item3.type && 'has-arrow' ?}" href="javascript:;" aria-expanded="false"
+                               data-id="{? item3.id ?}" data-name="{? item3.name ?}">
+                                {? item3.name ?}
+                                {?if !item3.type ?}<span class="check-all-btn">全选</span>{?/if ?}
+                            </a>
+                            {?if item3.child ?}
+                            <ul aria-expanded="false">
+                                {? each item3.child as item4 index ?}
+                                <li>
+                                    <a class="{? !item4.type && 'has-arrow' ?}" href="javascript:;"
+                                       aria-expanded="false" data-id="{? item4.id ?}" data-name="{? item4.name ?}">
+                                        {? item4.name ?}
+                                        {?if !item4.type ?}<span class="check-all-btn">全选</span>{?/if ?}
+                                    </a>
+                                    {?if item4.child ?}
+                                    <ul aria-expanded="false">
+                                        {? each item4.child as item5 index ?}
+                                        <li>
+                                            <a class="{? !item5.type && 'has-arrow' ?}" href="javascript:;"
+                                               aria-expanded="false" data-id="{? item5.id ?}"
+                                               data-name="{? item5.name ?}">
+                                                {? item5.name ?}
+                                                {?if !item5.type ?}<span class="check-all-btn">全选</span>{?/if ?}
+                                            </a>
+                                            {?if item5.child ?}
+                                            <ul aria-expanded="false">
+                                                {? each item5.child as item6 index ?}
+                                                <li>
+                                                    <a class="{? !item6.type && 'has-arrow' ?}" href="javascript:;"
+                                                       aria-expanded="false" data-id="{? item6.id ?}"
+                                                       data-name="{? item6.name ?}">
+                                                        {? item6.name ?}
+                                                        {?if !item6.type ?}<span class="check-all-btn">全选</span>{?/if ?}
+                                                    </a>
+                                                    {?if item6.child ?}
+                                                    <ul aria-expanded="false">
+                                                        <!--暂时支持到7层-->
+                                                    </ul>
+                                                    {?/if ?}
+                                                </li>
+                                                {? /each ?}
+                                            </ul>
+                                            {?/if ?}
+                                        </li>
+                                        {? /each ?}
+                                    </ul>
+                                    {?/if ?}
+                                </li>
+                                {? /each ?}
+                            </ul>
+                            {?/if ?}
+                        </li>
+                        {? /each ?}
+                    </ul>
+                    {?/if ?}
+                </li>
+                {? /each ?}
+            </ul>
+            {?/if ?}
+        </li>
+        {? /each ?}
+    </ul>
+</script>
+
+<script id="share-usr-right" type="text/html">
+    {? each data as item index ?}
+    <li data-id="{? item.id ?}" data-name="{? item.name ?}">{? item.name ?} <i class="del-choose"></i></li>
+    {? /each ?}
+</script>

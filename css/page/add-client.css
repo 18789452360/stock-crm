@@ -1,0 +1,162 @@
+@charset "utf-8";
+.add-client-container .main .layui-row {
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  padding: 0 !important;
+}
+.add-client-container .main .layui-row .layui-row-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px;
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 20px;
+}
+.add-client-container .main .layui-row .layui-form {
+  padding: 0 20px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item {
+  margin-bottom: 14px;
+  position: relative;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span i.add-ico {
+  background: url("../../images/add_ico.png") center 0 no-repeat;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span i.del-ico {
+  background: url("../../images/del_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item:last-of-type {
+  margin-bottom: 0;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .err-prompt {
+  color: #f2493b;
+  display: inherit;
+  margin-top: 10px;
+  word-break: break-all;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .err {
+  padding-left: 20px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item:last-of-type {
+  border: 0;
+}
+.add-client-container .main .layui-row .remarks-list ul {
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.add-client-container .main .layui-row .remarks-list ul li {
+  border: 1px solid #EDEDED;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 2px;
+  padding: 5px 10px;
+  height: 20px;
+  line-height: 20px;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item.active {
+  color: #2883E1;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item.active:hover {
+  color: #2883E1;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item:hover {
+  color: #666;
+  border: 1px solid #ccc;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks {
+  color: #999;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../../images/add_ico.png") center top no-repeat;
+  vertical-align: bottom;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks:hover {
+  background-color: #e8f3ff;
+  border-color: #2883e0;
+  color: #2883e0;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks:hover i {
+  background-position: center bottom;
+}
+.add-client-container .main .layui-row .remarks-list ul .disabled-add {
+  color: #999;
+}
+.add-client-container .main .layui-row .remarks-list ul .disabled-add i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  background: url("../../images/add_ico.png") center 0 no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input {
+  position: relative;
+  display: flex;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input input {
+  border: 1px solid #2883E1;
+  text-indent: 1em;
+  width: 230px;
+  height: 30px;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input button {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 64px;
+  border: 1px solid #eee;
+  color: #666;
+  margin-left: 9px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input button.ok {
+  background-color: #2883E1;
+  color: #fff;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input button:hover {
+  opacity: .8;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input .err-tip {
+  line-height: 52px;
+  color: #f2493b;
+}
+.add-client-container .main .layui-row .row-cue {
+  padding: 0 17px 17px;
+  color: #999;
+}
+.add-client-container .main .layui-row.usr-info .layui-form-item .layui-form-label > span {
+  color: #f2493b;
+}
+.add-client-container .main .btn-box {
+  padding: 36px 0;
+  text-align: center;
+}
+.add-client-container .main .btn-box button {
+  height: 40px;
+  width: 140px;
+  font-size: 18px;
+}

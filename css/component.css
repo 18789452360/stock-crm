@@ -1,0 +1,173 @@
+.examine {
+  margin: 20px 0;
+}
+.examines {
+  margin: 20px 0;
+  overflow: hidden;
+}
+.example-handle {
+  float: right;
+  font-size: 0;
+  text-align: right;
+}
+.example-handle .examine-operate {
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 10px;
+  margin-left: 20px;
+  color: #fff;
+  background: #2883E1;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 3px;
+}
+.example-handle .examine-operate i {
+  display: inline-block;
+  margin-right: 6px;
+}
+/* 导航样式 */
+.example-tab {
+  height: 42px;
+}
+.example-tab .examine-await {
+  display: inline-block;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 20px;
+  margin-right: 20px;
+  font-size: 18px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.example-tab .examine-await:hover {
+  color: #fff;
+  background: #2883E1;
+  border-color: transparent;
+}
+/* 标签样式 */
+.examine-tag {
+  margin: 10px 0;
+}
+.examine-tag .tag-title {
+  float: left;
+  width: 60px;
+  height: 28px;
+  line-height: 28px;
+}
+.examine-tag ul {
+  vertical-align: top;
+  display: block;
+  font-size: 0;
+  margin-left: 60px;
+}
+.examine-tag ul li {
+  display: inline-block;
+  margin: 0 20px 10px 0;
+}
+.examine-tag ul li .tag-a {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+  padding: 0 10px;
+}
+.examine-tag ul li .tag-a:hover {
+  color: #fff;
+  background: #2883E1;
+  border-radius: 3px;
+}
+.examine-tag ul li .tag-active {
+  color: #fff;
+  background: #2883E1;
+  border-radius: 3px;
+}
+/* 搜索框样式 */
+.examine-search {
+  display: inline-block;
+}
+.examine-search .tag-title {
+  float: left;
+  width: 60px;
+  height: 28px;
+  line-height: 28px;
+}
+.examine-search .search-parent {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  height: 28px;
+}
+.examine-search .search-parent .search-inp {
+  display: block;
+  width: 260px;
+  height: 28px;
+  padding-left: 10px;
+  border: 1px solid #D0CECD;
+  vertical-align: middle;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.examine-search .search-parent .search-icon {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: -28px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  color: #fff;
+  background: #D0CECD;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #D0CECD;
+  border-left: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
+}
+/* 选择器样式 */
+.examine-select {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.examine-select .tag-title {
+  float: left;
+  width: 60px;
+  height: 28px;
+  line-height: 28px;
+}
+.examine-select .examine-filter {
+  float: left;
+  position: relative;
+  margin-right: 20px;
+}
+.examine-select .examine-filter .filter-a {
+  height: 28px;
+  line-height: 28px;
+}
+.examine-select .examine-filter .filter-a i {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px;
+  color: #999;
+}
+.examine-select .examine-filter .filter-a .rotate-i {
+  transform: rotate(180deg);
+}
+.examine-select .examine-filter .filter-ul {
+  display: none;
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #666;
+  z-index: 10;
+}
+.examine-select .examine-filter .filter-ul li {
+  padding: 5px;
+}

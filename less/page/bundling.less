@@ -1,0 +1,262 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.add-client-container {
+
+    // 搜索
+    .examine-search {
+        .layui-input-inline {
+            width: 340px;
+            .layui-input {
+                padding-right: 34px;
+                &:focus {
+                    border-color: #2883e1 !important;
+                }
+            }
+            .layui-form-danger:focus {
+                border-color: #2883e1 !important;
+            }
+            .layui-btn {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                width: 36px;
+                min-width: 36px;
+                height: 34px;
+                background-color: #ccc;
+                padding: 0;
+                &:hover {
+                    background-color: #2883e1;
+                    opacity: 1;
+                    border-color: #2883e1;
+                }
+                &.available {
+                    background-color: #2883e1;
+                }
+            }
+        }
+    }
+    .add-remark-title {
+        background-color: @white-color;
+        height: 74px;
+        .layui-container {
+            padding: 20px 0 20px 0 !important;
+            .layui-inline {
+                text-align: right;
+                float: right;
+                .add-btn {
+                    display: inline-block;
+                    border: 1px solid #dbdbdb;
+                    padding: 5px 8px 5px 5px;
+                    border-radius: 4px;
+                    color: #999;
+                    cursor: pointer;
+                    margin-right: 10px;
+                    i {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        background: url("../../images/add_ico.png") center top no-repeat;
+                        vertical-align: bottom;
+                    }
+                    &:hover {
+                        background-color: #e8f3ff;
+                        border-color: #2883e0;
+                        color: #2883e0;
+                        i {
+                            background-position: center bottom;
+                        }
+                    }
+                }
+                .tips {
+                    color: #999;
+                }
+            }
+        }
+    }
+    .main {
+        padding: 0 !important;
+        margin-bottom: 60px !important;
+        .layui-row {
+            background-color: @white-color;
+            border-radius: 3px;
+            overflow: hidden;
+
+            // 基本信息
+            &.head-row {
+                margin-top: 20px;
+                padding: 20px 40px;
+                line-height: 38px;
+                border-bottom: 1px solid @border-color;
+                .client-icon {
+                    margin-right: 20px;
+                    img {
+                        width: 61px;
+                        height: 61px;
+                        border-radius: 50%;
+                        border: 1px solid #ddd;
+                    }
+                }
+                .basic-info {
+                    color: #666;
+                    .client-name {
+                        font-size: 18px;
+                        color: #222;
+                    }
+                    .label-list {
+                        overflow: hidden;
+                        li {
+                            margin-top: 5px;
+                            float: left;
+                            min-width: 56px;
+                            line-height: 20px;
+                            color: @white-color;
+                            background-color: red;
+                            padding: 4px 10px;
+                            border-radius: 3px;
+                            margin-left: 13px;
+                            text-align: center;
+                            margin-bottom: 5px;
+                        }
+                    }
+                    .info-row {
+                        .layui-col-md1 {
+                            min-width: 105px;
+                        }
+                    }
+                    .phone-row {
+                        span {
+                            margin-right: 10px;
+                            i {
+                                margin-left: 10px;
+                                color: @blue-color;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 绑定关系列表
+            .remarks-list {
+                h3 {
+                    padding-left: 40px;
+                    padding-top: 20px;
+                    font-size: 16px;
+                }
+                ul {
+                    overflow: hidden;
+                    padding: 10px 10px 10px 20px;
+                    display: flex;
+                    flex-flow: row wrap;
+                    li {
+                        border: 1px solid #EDEDED;
+                        margin: 10px;
+                        border-radius: 2px;
+                        padding: 5px 8px 5px 10px;
+                        height: 20px;
+                        line-height: 20px;
+                        transition: all .2s;
+                        cursor: default;
+                    }
+                    .list-item {
+                        &.active {
+                            color: @blue-color;
+                            border: 1px solid @blue-color;
+                        }
+                        &:hover {
+                            color: #777;
+                            border: 1px solid #ccc;
+                        }
+                        i {
+                            display: inline-block;
+                            width: 12px;
+                            height: 12px;
+                            margin-left: 0;
+                            cursor: pointer;
+                            background: url("../../images/del_remark_ico.png") center no-repeat;
+                        }
+                    }
+                    .add-remarks {
+                        color: #999;
+                        i {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            vertical-align: bottom;
+                            background: url("../../images/add_ico.png") center no-repeat;
+                        }
+                    }
+                    .disabled-add {
+                        color: #999;
+                        i {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            vertical-align: bottom;
+                            background: url("../../images/add_ico.png") center no-repeat;
+                        }
+                    }
+                    .add-input {
+                        height: 40px;
+                        position: relative;
+                        input {
+                            border: 1px solid @blue-color;
+                            text-indent: 1em;
+                            width: 230px;
+                            height: 30px;
+                            display: inline-block;
+                            margin-top: 10px;
+                            border-radius: 4px;
+                        }
+                        span {
+                            display: inline-block;
+                            padding: 7px;
+                            box-sizing: border-box;
+                            width: 64px;
+                            border: 1px solid @border-color;
+                            color: #666;
+                            margin-left: 9px;
+                            cursor: pointer;
+                            border-radius: 4px;
+                            text-align: center;
+                            &.ok {
+                                background-color: @blue-color;
+                                color: @white-color;
+                                border: 1px solid @blue-color;
+                            }
+                            &:hover {
+                                opacity: .8;
+                            }
+                        }
+                        .err-tip {
+                            position: absolute;
+                            right: -190px;
+                            top: 16px;
+                            color: @red-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 默认无结果提示
+        .no-result {
+            margin-top: 15px;
+            height: 700px;
+            p {
+                color: #999;
+                font-size: 16px;
+                padding-top: 420px;
+            }
+
+            // 搜索后无结果
+            &.searched {
+                height: 200px;
+                p {
+                    padding-top: 160px;
+                }
+            }
+        }
+    }
+}

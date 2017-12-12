@@ -1,0 +1,118 @@
+@charset "utf-8";
+/* 服务记录公共样式 */
+.layui-container {
+  overflow: scroll;
+}
+.layui-container .common-row .jur-top {
+  margin-top: 20px;
+  padding: 20px 0;
+}
+.layui-container .common-row .jur-top .juf-form {
+  padding: 0 20px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item {
+  margin-bottom: 20px;
+  float: left;
+  clear: none;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-form-label {
+  width: 100px;
+  box-sizing: border-box;
+  padding: 7px 10px 0 0;
+  text-align: right;
+  color: #999;
+  font-size: 16px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .jur-line {
+  color: #999;
+  padding: 0 6px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .jur-name-label {
+  width: 100px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input,
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-select,
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-textarea {
+  height: 34px;
+  border-color: #ccc!important;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-form-checkbox[lay-skin=primary] {
+  margin-top: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-form-checkbox {
+  margin-top: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input-inline {
+  width: 156px;
+  margin-right: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input-block {
+  display: inline-block;
+  min-height: 34px;
+  margin-left: 0;
+  margin-right: 20px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-inline {
+  vertical-align: middle;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .depart-query {
+  margin-left: 0;
+}
+.layui-container .common-row .jur-top .juf-form .example-handle {
+  text-align: center;
+  vertical-align: middle;
+}
+.layui-container .common-row .jur-top .juf-form .example-handle .examine-query {
+  margin-left: 20px;
+  float: left;
+}
+.layui-container .common-row .jur-top .juf-form .example-handle .layui-btn {
+  border: 1px solid #f5f5f5;
+  background-color: #ffffff;
+  color: #999;
+}
+.layui-container .common-row .jur-top .juf-form .example-handle .active {
+  color: #2883e1;
+  border-color: #2883e1;
+}
+.layui-container .common-row .jur-top .juf-form .label {
+  margin: 20px 0;
+}
+.layui-container .common-row .jur-top .juf-form .label a {
+  float: left;
+}
+.layui-container .common-row .jur-top .juf-form .jur-handle {
+  display: inline-block;
+  margin-left: 20px;
+}
+.layui-container .common-row .noData {
+  height: 400px;
+  text-align: center;
+}
+.layui-container .common-row .noData .notd {
+  text-align: center;
+  background: url(../../images/noData.png) no-repeat center;
+}
+.layui-container .common-row .jur-total .point {
+  color: #999;
+  padding: 0px 10px;
+}
+.layui-container .common-row .jur-total .point i {
+  color: #2883e1;
+}
+.layui-container .common-row .table .conwidth {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 50px;
+}
+.layui-container .common-row .small {
+  width: 15%;
+}
+.layui-container .common-row .con {
+  max-width: 40%;
+}

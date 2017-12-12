@@ -1,0 +1,186 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.add-client-container {
+    .main {
+        // 页面公共
+        .layui-row {
+            background-color: @white-color;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            padding: 0 !important;
+            .layui-row-title {
+                font-size: 16px;
+                font-weight: bold;
+                padding: 20px;
+                border-bottom: 1px solid @bg-color;
+                margin-bottom: 20px;
+            }
+            .layui-form {
+                padding: 0 20px;
+                .layui-form-item {
+                    .phone-box {
+                        .input-item {
+                            margin-bottom: 14px;
+                            position: relative;
+                            span {
+                                position: absolute;
+                                top: 10px;
+                                right: 12px;
+                                i {
+                                    display: inline-block;
+                                    width: 20px;
+                                    height: 20px;
+                                    margin-left: 20px;
+                                    cursor: pointer;
+                                    &.add-ico {
+                                        background: url("../../images/add_ico.png") center 0 no-repeat;
+                                    }
+                                    &.del-ico {
+                                        background: url("../../images/del_ico.png") center no-repeat;
+                                    }
+                                }
+                            }
+                        }
+                        .input-item:last-of-type {
+                            margin-bottom: 0;
+                        }
+                    }
+                    .err-prompt {
+                        color: @red-color;
+                        display: inherit;
+                        margin-top: 10px;
+                        word-break: break-all;
+                    }
+                    .err {
+                        padding-left: 20px;
+                    }
+                }
+                .layui-form-item:last-of-type {
+                    border: 0;
+                }
+            }
+            .remarks-list {
+                ul {
+                    overflow: hidden;
+                    padding: 10px;
+                    display: flex;
+                    flex-flow: row wrap;
+                    li {
+                        border: 1px solid #EDEDED;
+                        cursor: pointer;
+                        margin: 10px;
+                        border-radius: 2px;
+                        padding: 5px 10px;
+                        height: 20px;
+                        line-height: 20px;
+                    }
+                    .list-item {
+                        &.active {
+                            color: @blue-color;
+                            border: 1px solid @blue-color;
+                        }
+                        &.active:hover {
+                            color: @blue-color;
+                            border: 1px solid @blue-color;
+                        }
+                        &:hover {
+                            color: #666;
+                            border: 1px solid #ccc;
+                        }
+                    }
+                    .add-remarks {
+                        color: #999;
+                        i {
+                          display: inline-block;
+                          width: 20px;
+                          height: 20px;
+                          background: url("../../images/add_ico.png") center top no-repeat;
+                          vertical-align: bottom;
+                        }
+                        &:hover{
+                          background-color: #e8f3ff;
+                          border-color: #2883e0;
+                          color: #2883e0;
+                          i{
+                            background-position: center bottom;
+                          }
+                        }
+                    }
+                    .disabled-add {
+                        //background-color: @border-color;
+                        color: #999;
+                        i {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            vertical-align: bottom;
+                            background: url("../../images/add_ico.png") center 0 no-repeat;
+                        }
+                    }
+                    .add-input {
+                        position: relative;
+                        display: flex;
+                        input {
+                            border: 1px solid @blue-color;
+                            text-indent: 1em;
+                            width: 230px;
+                            height: 30px;
+                            display: inline-block;
+                            margin-top: 10px;
+                            border-radius: 4px;
+                        }
+                        button {
+                            display: inline-block;
+                            //padding: 7px;
+                            box-sizing: border-box;
+                            width: 64px;
+                            border: 1px solid @border-color;
+                            color: #666;
+                            margin-left: 9px;
+                            cursor: pointer;
+                            border-radius: 4px;
+                            text-align: center;
+                            &.ok {
+                                background-color: @blue-color;
+                                color: @white-color;
+                                border: 1px solid @blue-color;
+                            }
+                            &:hover {
+                                opacity: .8;
+                            }
+                        }
+                        .err-tip {
+                            line-height: 52px;
+                            color: @red-color;
+                        }
+                    }
+                }
+            }
+            .row-cue {
+                padding: 0 17px 17px;
+                color: #999;
+            }
+            // 客户信息
+            &.usr-info {
+                .layui-form-item {
+                    .layui-form-label {
+                        > span {
+                            color: @red-color;
+                        }
+                    }
+                }
+            }
+        }
+        .btn-box {
+            padding: 36px 0;
+            text-align: center;
+            button {
+                height: 40px;
+                width: 140px;
+                font-size: 18px;
+            }
+        }
+    }
+}

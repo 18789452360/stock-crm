@@ -1,0 +1,822 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #999;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ccc;
+}
+
+.my-client-container {
+    overflow: hidden;
+    // 面包屑
+    .header-tabs {
+        width: auto;
+        height: auto;
+        background-color: #fff;
+        .nav {
+            margin: 0 auto;
+            overflow: hidden;
+            height: 48px;
+            border-bottom: 2px solid @blue-color;
+            .arrow {
+                float: left;
+                line-height: 49px;
+                i {
+                    cursor: pointer;
+                }
+            }
+            .left-arrow {
+                i {
+                    display: inherit;
+                    height: 100%;
+                    padding: 0 15px;
+                    border-right: 1px solid #eee;
+                }
+            }
+            .right-arrow {
+                float: right;
+                display: flex;
+                a {
+                    display: inline-block;
+                    padding: 0 15px;
+                    background-color: #fff;
+                    border-left: 1px solid #eee;
+                }
+            }
+            .tabs {
+                float: left;
+                li {
+                    padding: 15px 25px 15px 15px;
+                    background-color: #fff;
+                    float: left;
+                }
+                .tabs-item {
+                    background-color: @bg-color;
+                    position: relative;
+                    i {
+                        font-size: 12px;
+                        position: absolute;
+                        right: 6px;
+                        top: 16px;
+                        color: #999;
+                        cursor: pointer;
+                    }
+                }
+                .tabs-item:hover,
+                .tabs-item-active {
+                    background-color: @blue-color;
+                    a, i {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    // 侧栏
+    .sidebar-collapse {
+        position: fixed;
+        height: ~"calc(100% - 51px)";
+        outline: 1px solid;
+        width: 240px;
+        background: #243443;
+        overflow-y: auto;
+        h3 {
+            padding: 15px 20px 15px 24px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: normal;
+            //border-bottom: 1px solid #2e3d4c;
+            i {
+                margin-top: 5px;
+                float: right;
+                cursor: pointer;
+                &.disable {
+                    color: #90A9B1;
+                }
+            }
+            &.show-add + .add-group-wrap {
+                display: block;
+            }
+            & + .add-group-wrap {
+                display: none;
+                height: 56px;
+                width: 240px;
+                box-sizing: border-box;
+                padding-left: 10px;
+                input {
+                    width: 145px;
+                    height: 35px;
+                    border: 1px solid @blue-color;
+                    background-color: #243443;
+                    color: @white-color;
+                    text-indent: .6em;
+                    border-radius: 3px;
+                    margin-bottom: 3px;
+                }
+                .btn-wrap {
+                    margin-right: 10px;
+                    margin-top: 10px;
+                    span {
+                        cursor: pointer;
+                        color: #97a9bc;
+                        &:hover {
+                            color: @white-color;
+                        }
+                        &.ok {
+                            margin-right: 6px;
+                        }
+                    }
+                }
+                .err {
+                    color: #f2493b;
+                    font-size: 12px;
+                }
+            }
+        }
+        .line {
+            width: 100%;
+            height: 2px;
+            background: url("../../images/line.png") no-repeat;
+        }
+
+        // 树形菜单----begin
+        & > .nav {
+            //margin-bottom: 10px;
+            & > li > a {
+                color: #97a9bc;
+                font-weight: 500;
+                padding: 14px 20px 14px 18px;
+            }
+        }
+        .nav {
+            //border-bottom: 1px solid #2e3d4c;
+            > li {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            li {
+                position: relative;
+                > a {
+                    display: inline-block;
+                    width: 165px;
+                    i {
+                        margin-right: 6px;
+                    }
+                    .nav-label {
+                        margin-left: 5px;
+                        width: 100%;
+                        display: inline-block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .iconfont {
+                        position: absolute;
+                        right: -28px;
+                        &.icon-right {
+                            margin-top: 4px;
+                            font-size: 12px;
+                        }
+                    }
+                }
+                a {
+                    position: relative;
+                }
+                // 编辑 & 删除群组-------
+                &.show-add {
+                    .add-group-wrap {
+                        display: block;
+                    }
+                }
+                .edit-del-wrap {
+                    display: none;
+                    position: absolute;
+                    right: 10px;
+                    top: 16px;
+                    width: 40px;
+                    height: 15px;
+                    i {
+                        display: inline-block;
+                        height: 12px;
+                        width: 12px;
+                        cursor: pointer;
+                        &.edit {
+                            background: url("../../images/icon_edit.png") center -17px no-repeat;
+                        }
+                        &.edit:hover {
+                            background: url("../../images/icon_edit.png") center 0 no-repeat;
+                        }
+                        &.del {
+                            background: url("../../images/icon_del_group.png") center -18px no-repeat;
+                            margin-left: 8px;
+                        }
+                        &.del:hover {
+                            background: url("../../images/icon_del_group.png") center 2px no-repeat;
+                        }
+                    }
+                }
+                .add-group-wrap {
+                    display: none;
+                    height: 56px;
+                    width: 240px;
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    input {
+                        width: 145px;
+                        height: 35px;
+                        border: 1px solid @blue-color;
+                        background-color: #243443;
+                        color: @white-color;
+                        text-indent: .6em;
+                        border-radius: 3px;
+                        margin-bottom: 3px;
+                    }
+                    .btn-wrap {
+                        margin-right: 10px;
+                        margin-top: 10px;
+                        span {
+                            cursor: pointer;
+                            color: #97a9bc;
+                            &:hover {
+                                color: @white-color;
+                            }
+                            &.ok {
+                                margin-right: 6px;
+                            }
+                        }
+                    }
+                    .err {
+                        color: #f2493b;
+                        font-size: 12px;
+                    }
+                }
+                // 编辑 & 删除群组-------end
+                // 激活
+                &.active {
+                    transition: all 0.3s;
+                    background: #1A2836;
+                    > a {
+                        color: @white-color;
+                    }
+                    .nav-second-level {
+                        margin-left: 14px;
+                        li {
+                            a {
+                                color: #97a9bc;
+                                .iconfont {
+                                    left: 30px;
+                                    display: none;
+                                }
+                            }
+                            &:hover {
+                                a {
+                                    color: @white-color;
+                                }
+                            }
+                            &.choice {
+                                background-color: #1a2836;
+                                > a {
+                                    color: @white-color;
+                                }
+                            }
+                        }
+                    }
+                    .in {
+                        display: block;
+                    }
+                }
+                &:hover {
+                    background-color: #1a2836;
+                    > a {
+                        color: @white-color;
+                        //.iconfont {
+                        //    display: none;
+                        //}
+                    }
+                    .edit-del-wrap {
+                        display: inline-block;
+                    }
+                }
+                &.choice {
+                    background-color: #1a2836;
+                    > a {
+                        color: @white-color;
+                    }
+                }
+            }
+            &:last-of-type {
+                border-bottom: none;
+            }
+            &.nav-second-level > li.active {
+                border: none;
+            }
+            .nav-second-level {
+                transition: all .2s;
+                li {
+                    position: relative;
+                    border-bottom: none !important;
+                    a {
+                        padding: 7px 15px 7px 18px;
+                    }
+                    &:last-child {
+                        margin-bottom: 10px;
+                    }
+                    // 编辑 & 删除群组-------
+                    &.show-add {
+                        .add-group-wrap {
+                            display: block;
+                        }
+                    }
+                    .edit-del-wrap {
+                        display: none;
+                        position: absolute;
+                        right: 10px;
+                        top: 8px;
+                        width: 40px;
+                        height: 15px;
+                        i {
+                            display: inline-block;
+                            height: 12px;
+                            width: 12px;
+                            cursor: pointer;
+                            &.edit {
+                                background: url("../../images/icon_edit.png") center 0 no-repeat;
+                                margin-left: 3px;
+                            }
+                            &.del {
+                                background: url("../../images/icon_del_group.png") center 0 no-repeat;
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                    .add-group-wrap {
+                        display: none;
+                        height: 56px;
+                        width: 240px;
+                        box-sizing: border-box;
+                        padding-left: 10px;
+                        input {
+                            width: 145px;
+                            height: 35px;
+                            border: 1px solid @blue-color;
+                            background-color: #243443;
+                            color: @white-color;
+                            text-indent: .6em;
+                            border-radius: 3px;
+                            margin-bottom: 3px;
+                        }
+                        .btn-wrap {
+                            margin-right: 10px;
+                            margin-top: 10px;
+                            span {
+                                cursor: pointer;
+                                color: #97a9bc;
+                                &.ok {
+                                    margin-right: 6px;
+                                    color: @white-color;
+                                }
+                            }
+                        }
+                        .err {
+                            color: #f2493b;
+                            font-size: 12px;
+                        }
+                    }
+                    // 编辑 & 删除群组-------end
+                    &:hover {
+                        .edit-del-wrap {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+            .nav-third-level {
+                li {
+                    border-bottom: none !important;
+                    a {
+                        padding-left: 40px;
+                    }
+                }
+            }
+        }
+        .collapse {
+            display: none;
+        }
+        .active {
+            border-left: 4px solid @blue-color;
+            background: #293846;
+            > a .icon-right {
+                transform: rotate(90deg);
+                transition: all .2s ease-out 0s;
+            }
+        }
+        // 树形菜单----end
+    }
+    // 正文内容区域
+    .main-wrap {
+        width: auto;
+        margin-left: 240px;
+        margin-top: 51px;
+        // 搜索条
+        .search-btn-container {
+            min-width: 1600px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: @white-color;
+            border-radius: 3px;
+            .example-handle {
+                text-align: right;
+            }
+        }
+        .main {
+            padding: 0;
+            .condition {
+                padding-top: 13px;
+                // 表格
+                .table-box {
+                    .t-header {
+                        &.fixedTop {
+                            position: fixed;
+                            top: 41px;
+                            width: 1560px;
+                            z-index: 1;
+                        }
+                        height: 31px;
+                        border-radius: 3px;
+                        padding: 20px 20px 10px 20px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        background-color: #f5f5f5;
+                        li {
+                            float: left;
+                            margin-right: 30px;
+                            a {
+                                color: @blue-color;
+                                &.disable {
+                                    color: #999;
+                                }
+                            }
+                            &.check-all {
+                                .squaredFour {
+                                    margin-right: 20px;
+                                }
+                            }
+                            &.clear-custom {
+                                border: 1px solid @blue-color;
+                                display: inline-block;
+                                border-radius: 3px;
+                                position: relative;
+                                top: -5px;
+                                float: right;
+                                > a {
+                                    display: inline-block;
+                                    color: @blue-color;
+                                    padding: 5px 10px 5px 10px;
+                                }
+                            }
+                            &.phone-helper {
+                                .squaredFour {
+                                    margin-right: 10px;
+                                }
+                                float: right;
+                            }
+
+                        }
+                    }
+                    .table-container {
+                        background-color: #fff;
+                        .m-table {
+                            thead {
+                                height: 60px;
+                                line-height: 60px;
+                                tr {
+                                    border-bottom: 1px solid #eee;
+                                    th {
+                                        font-size: 16px;
+                                        text-align: center;
+                                        &.usr-name {
+                                            text-align: left;
+                                            padding-left: 80px;
+                                            width: 240px;
+                                            box-sizing: border-box;
+                                        }
+                                        a {
+                                            color: #777;
+                                        }
+                                        &.recent-contact, &.recent-news {
+                                            width: 220px;
+                                            a {
+                                                padding-right: 10px;
+                                                position: relative;
+                                                i {
+                                                    position: absolute;
+                                                    right: -5px;
+                                                    top: 3px;
+                                                    width: 8px;
+                                                    height: 14px;
+                                                    display: inline-block;
+                                                    background: url("../../images/sort_default.png") center no-repeat;
+                                                }
+                                                // 升序
+                                                &.asc i {
+                                                    background: url("../../images/sort_asc.png") center no-repeat;
+                                                }
+                                                // 降序
+                                                &.desc i {
+                                                    background: url("../../images/sort_desc.png") center no-repeat;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tbody {
+                                tr {
+                                    border-bottom: 1px solid #eee;
+                                    &:last-of-type {
+                                        border-bottom: none;
+                                    }
+                                    &:nth-child(2n+1) {
+                                        background-color: #fcfcfc;
+                                    }
+                                    &:hover {
+                                        background-color: #f3f3f3;
+                                    }
+                                    td {
+                                        text-align: center;
+                                        > a {
+                                            display: inline-block;
+                                            vertical-align: inherit;
+                                            height: 70px;
+                                            dl {
+                                                margin-top: 14px;
+                                                span {
+                                                    text-overflow: ellipsis;
+                                                    overflow: hidden;
+                                                    /* outline: 1px solid; */
+                                                    white-space: nowrap;
+                                                    width: 220px;
+                                                    display: inline-block;
+                                                }
+                                            }
+                                            &.empty {
+                                                line-height: 70px;
+                                                width: 100%;
+                                            }
+                                        }
+                                        &.usr-name {
+                                            padding-left: 20px;
+                                            width: 220px;
+                                            text-align: left;
+                                            a {
+                                                line-height: 70px;
+                                                img {
+                                                    margin-left: 32px;
+                                                    margin-right: 10px;
+                                                    width: 32px;
+                                                    height: 32px;
+                                                    border-radius: 50%;
+                                                    display: inline-block;
+                                                }
+                                                dl {
+                                                    margin-top: 0;
+                                                    dd {
+                                                        float: left;
+                                                        &.name {
+                                                            white-space: nowrap;
+                                                            width: 120px;
+                                                            text-overflow: ellipsis;
+                                                            overflow: hidden;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.from-channel {
+                                            width: 125px;
+                                            a {
+                                                width: inherit;
+                                                line-height: 70px;
+                                            }
+                                        }
+                                        &.contact {
+                                            width: 240px;
+                                        }
+                                        &.recent-buy {
+                                            width: 300px;
+                                        }
+                                        &.product {
+                                            width: 300px;
+                                            span {
+                                                width: 300px;
+                                            }
+                                        }
+                                        &.call-it {
+                                            position: relative;
+                                            &.has-more {
+                                                .more-tells-boxs {
+                                                    display: block;
+                                                }
+                                            }
+                                            > a {
+                                                transition: all .2s;
+                                                width: 22px;
+                                                height: 20px;
+                                                display: inline-block;
+                                                background: url("../../images/phone_default.png") top center no-repeat;
+                                                &.has-phone {
+                                                    background: url("../../images/phone_hover.png") top center no-repeat;
+                                                }
+                                            }
+                                            //多号码弹出层
+                                            .more-tells-boxs {
+                                                display: none;
+                                                width: 200px;
+                                                max-height: 200px;
+                                                position: absolute;
+                                                z-index: 99;
+                                                top: 10px;
+                                                right: 33px;
+                                                background-color: #fff;
+                                                border: 1px solid #eee;
+                                                box-sizing: border-box;
+                                                border-radius: 5px;
+                                                -moz-border-radius: 5px;
+                                                -webkit-border-radius: 5px;
+                                                box-shadow: 0px 0px 5px 1px #d7d7d7;
+                                                header {
+                                                    height: 50px;
+                                                    border-bottom: 1px solid #eee;
+                                                    box-sizing: border-box;
+                                                    line-height: 50px;
+                                                    font-size: 16px;
+                                                    color: #666;
+                                                    text-indent: 20px;
+                                                    a {
+                                                        display: inline-block;
+                                                        float: right;
+                                                        margin-right: 15px;
+                                                    }
+                                                }
+                                                section {
+                                                    max-height: 150px;
+                                                    overflow: auto;
+                                                    ul {
+                                                        li {
+                                                            height: 50px !important;
+                                                            line-height: 50px;
+                                                            //span {
+                                                            //    margin-right: 24px;
+                                                            //}
+                                                            a {
+                                                                display: inline-block;
+                                                                width: 18px;
+                                                                height: 18px;
+                                                                float: right;
+                                                                margin: 15px 15px 0 0;
+                                                                background: url(../../images/contact-gay.png) no-repeat 0 0;
+                                                                vertical-align: sub;
+                                                                &:hover {
+                                                                    background: url(../../images/contact-gay-hover.png) no-repeat 0 0;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .t-footer {
+                        border-radius: 3px;
+                        padding: 15px 10px 0 10px;
+                        margin-top: 20px;
+                        margin-bottom: 10px;
+                        background-color: #f5f5f5;
+                        .show-num {
+                            margin-top: 20px;
+                            li {
+                                float: left;
+                                color: #666;
+                                margin-right: 15px;
+                                .cur {
+                                    color: @blue-color;
+                                }
+                            }
+                        }
+                        .page-total {
+                            margin-top: 15px;
+                            margin-right: 25px;
+                        }
+                    }
+                    .no-result {
+                        height: 500px;
+                        background: url("../../images/no-result-ico.png") center 110px no-repeat;
+                        > p {
+                            font-size: 16px;
+                            color: #999;
+                            padding-top: 240px;
+                            position: relative;
+                            left: -8px;
+                        }
+                    }
+                }
+                .examine-select {
+                    padding-bottom: 0;
+                    .filter-a {
+                        &.active {
+                            color: @blue-color;
+                            border: 1px solid @blue-color;
+                            i {
+                                color: @blue-color;
+                            }
+                        }
+                        &.open + .filter-time, &.open ~ .organize-framework {
+                            display: block;
+                        }
+                    }
+                    .examine-filter {
+                        .filter-time,
+                        .organize-framework {
+                            margin-top: 5px;
+                            display: none;
+                        }
+                        // ECTag 筛选临时
+                        .filter-time.ec-tag {
+                            > ul {
+                                margin-bottom: 10px;
+                                strong {
+                                    color: @blue-color;
+                                    padding-left: 8px;
+                                }
+                                .child {
+                                    li {
+                                        float: left;
+                                        > a {
+                                            font-size: 14px;
+                                            margin-bottom: 2px;
+                                            margin-right: 4px;
+                                            color: #666;
+                                            padding: 0 8px;
+                                            height: 24px;
+                                            display: inline-block;
+                                            line-height: 24px;
+                                            &:hover {
+                                                color: #999;
+                                            }
+                                            &.active {
+                                                background-color: #2883E1;
+                                                color: #fff;
+                                                border-radius: 2px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .ec-tag-empty {
+                                padding-bottom: 15px;
+                                padding-left: 15px;
+                                color: #2883E1;
+                                font-weight: bold;
+                            }
+                            .btns {
+                                text-align: right;
+                                button {
+                                    border-radius: 3px;
+                                    border: 0;
+                                    width: 60px;
+                                    height: 24px;
+                                }
+                                .cancel {
+                                    background-color: transparent;
+                                    border: 1px solid #ccc;
+                                    color: #666;
+                                    margin-right: 16px;
+                                }
+                                .ensure {
+                                    background-color: @blue-color;
+                                    color: #fff;
+                                    margin-right: 20px;
+                                    &:hover {
+                                        background-color: #0E75DE;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

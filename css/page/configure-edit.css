@@ -1,0 +1,120 @@
+@charset "utf-8";
+.container .main-wrap .main h2 {
+  background: #fff;
+  padding: 20px 20px;
+  font-size: 16px;
+}
+.container .main-wrap .main .formbar {
+  padding: 20px 20px;
+  background: #fff;
+}
+.container .main-wrap .main .layui-input-block .layui-input {
+  width: 250px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.container .main-wrap .main .del-btn {
+  color: #2883e0;
+}
+.container .main-wrap .main .btn-wrap {
+  margin-left: 80px;
+  padding: 30px;
+}
+.container .main-wrap .main .btn-wrap button {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+}
+.container .main-wrap .main .add {
+  padding: 20px 0;
+}
+.container .main-wrap .main dl dd {
+  padding: 10px 0;
+}
+.container .main-wrap .source .add {
+  margin-left: 110px;
+}
+.container .main-wrap .source .nodeBox li {
+  padding: 10px 10px;
+}
+.container .main-wrap .source .nodeBox li input {
+  width: 450px !important;
+}
+.container .main-wrap .online table {
+  border: 1px solid #eeeeee;
+}
+.container .main-wrap .online table .layui-form-checkbox {
+  padding: 5px 5px;
+}
+.container .main-wrap .online table .layui-input-block {
+  margin: 0;
+}
+.container .main-wrap .online table .name {
+  width: 120px;
+  text-align: center;
+}
+.container .main-wrap .online table .val {
+  text-align: left;
+}
+.container .main-wrap .followup .formbar .tit,
+.container .main-wrap .process .formbar .tit {
+  display: inline-block;
+  line-height: 45px;
+  text-align: center;
+}
+.container .main-wrap .followup .formbar .layui-input-block,
+.container .main-wrap .process .formbar .layui-input-block {
+  display: inline-block;
+  margin: 0;
+  line-height: 40px;
+  text-align: center;
+}
+.container .main-wrap .followup .formbar .layui-input-block .layui-input,
+.container .main-wrap .process .formbar .layui-input-block .layui-input {
+  margin: 0;
+}
+.container .main-wrap .followup .formbar .layui-form-checked,
+.container .main-wrap .process .formbar .layui-form-checked {
+  border: 0;
+}
+.container .main-wrap .followup .formbar .layui-form-checked i,
+.container .main-wrap .process .formbar .layui-form-checked i {
+  display: none;
+}
+.container .main-wrap .followup .formbar .type,
+.container .main-wrap .process .formbar .type {
+  width: 200px;
+}
+.container .main-wrap .followup .formbar .name,
+.container .main-wrap .process .formbar .name {
+  width: 400px;
+}
+.container .main-wrap .followup .formbar .sort,
+.container .main-wrap .process .formbar .sort {
+  width: 400px;
+}
+.container .main-wrap .followup .formbar .btn-wrap,
+.container .main-wrap .process .formbar .btn-wrap {
+  margin-left: 55px;
+}
+.container .main-wrap .payee .payeebox {
+  border-bottom: 1px solid #ccc;
+  margin-left: 110px;
+  padding: 20px 80px;
+}
+.container .main-wrap .payee .addname {
+  margin-left: 110px;
+  padding: 20px 20px;
+}
+.container .main-wrap .payee .layui-input-block {
+  margin: 20px 0px;
+}
+.container .main-wrap .payee .name .layui-input {
+  width: 400px;
+}
+.container .main-wrap .payee .btn-wrap {
+  margin-left: 100px;
+}
+.container .main-wrap .process .add {
+  margin-left: 75px;
+}

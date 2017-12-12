@@ -1,0 +1,213 @@
+@charset "utf-8";
+.my-client-container {
+  overflow: hidden;
+}
+.my-client-container .sidebar-collapse {
+  position: fixed;
+  height: 100%;
+  outline: 1px solid;
+  width: 240px;
+  background: #243443;
+}
+.my-client-container .sidebar-collapse h3 {
+  padding: 15px 20px 15px 30px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: normal;
+}
+.my-client-container .sidebar-collapse h3 i {
+  margin-top: 5px;
+  float: right;
+}
+.my-client-container .sidebar-collapse .sibNav li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.my-client-container .sidebar-collapse .sibNav li a {
+  display: block;
+  color: #97a9bc;
+  font-weight: 500;
+  padding: 17px 15px 17px 10px;
+  margin-left: 20px;
+  border-bottom: 1px solid #1a2836;
+  border-top: 1px solid #2e3d4c;
+  font-size: 16px;
+}
+.my-client-container .sidebar-collapse .sibNav li a i {
+  margin-right: 6px;
+  background: #f2493b;
+  color: #fff;
+  margin: 5px 5px;
+  padding: 0px 5px 1px;
+  border-radius: 8px 8px;
+  font-size: 10px;
+}
+.my-client-container .sidebar-collapse .sibNav li:hover {
+  background: #1a2836;
+}
+.my-client-container .sidebar-collapse .sibNav li:hover a {
+  color: #fff;
+}
+.my-client-container .sidebar-collapse .sibNav li.active {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  background: #1a2836;
+  border-left: 4px solid #2883E1;
+}
+.my-client-container .sidebar-collapse .sibNav li.active a {
+  color: #ffffff;
+}
+.my-client-container .main-wrap {
+  margin-left: 240px;
+  width: auto;
+  margin-top: 50px;
+}
+.my-client-container .main-wrap .layui-row {
+  padding: 20px;
+  margin: 0;
+  background-color: #fff;
+  border-radius: 3px;
+}
+.my-client-container .main-wrap .layui-row .top-tit {
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
+  padding: 5px 0px 0px 20px;
+}
+.my-client-container .main-wrap .layui-row .top-but {
+  text-align: right;
+}
+.my-client-container .main-wrap .layui-row .top-but .layui-btn {
+  margin-right: 20px;
+  width: 90px;
+  height: 30px;
+  color: #2883e0;
+  border: 1px solid #2883e0;
+  border-radius: 3px;
+  padding: 0 0;
+  line-height: 30px;
+  font-size: 14px;
+  background: #fff;
+}
+.my-client-container .main-wrap .layui-row .top-but .layui-btn-no {
+  border-color: #999;
+  color: #999;
+}
+.my-client-container .main-wrap .main {
+  padding: 0px 0px;
+}
+.my-client-container .main-wrap .main .layui-tab-card > .layui-tab-title {
+  background: #e8e8e8;
+}
+.my-client-container .main-wrap .main .layui-tab-card {
+  overflow: hidden;
+  margin-top: 30px;
+}
+.my-client-container .main-wrap .main .layui-tab-card .layui-tab-title {
+  overflow: hidden;
+  color: #999;
+  height: 50px;
+  width: 100%;
+}
+.my-client-container .main-wrap .main .layui-tab-card .layui-tab-title li {
+  width: 95px;
+  line-height: 50px;
+  margin-left: 0px;
+  color: #222;
+}
+.my-client-container .main-wrap .main .layui-tab-card .layui-tab-title .layui-this {
+  color: #222;
+  background: #e8e8e8;
+}
+.my-client-container .main-wrap .main .layui-tab-card .layui-tab-title .layui-this:after {
+  height: 50px;
+}
+.my-client-container .main-wrap .main .layui-tab-card .layui-tab-title .sm-active {
+  background: #fff;
+}
+.my-client-container .main-wrap .main .layui-tab-card .layui-tab-title .main-num {
+  padding-left: 10px;
+  color: #f2493b;
+}
+.my-client-container .main-wrap .main .layui-tab-content {
+  margin-top: -10px;
+  background: #fff;
+  overflow: hidden;
+}
+.my-client-container .main-wrap .main .news-list {
+  padding: 10px 10px;
+}
+.my-client-container .main-wrap .main .news-list li {
+  margin: 20px 10px;
+  border: 1px solid #f1f1f1;
+  background: #fcfcfc;
+  padding: 20px 20px 10px;
+}
+.my-client-container .main-wrap .main .news-list li .list-text {
+  font-size: 16px;
+  line-height: 25px;
+}
+.my-client-container .main-wrap .main .news-list li a {
+  color: #2883e0;
+}
+.my-client-container .main-wrap .main .news-list li a:hover {
+  text-decoration: underline;
+}
+.my-client-container .main-wrap .main .news-list .list-bot {
+  padding-top: 15px;
+  color: #999;
+  font-size: 14px;
+  line-height: 30px;
+}
+.my-client-container .main-wrap .main .news-list .list-bot .btn {
+  color: #fff;
+  background: #2883e0;
+  line-height: 20px;
+  margin-left: 20px;
+  border-radius: 3px;
+  padding: 0px 5px;
+}
+.my-client-container .main-wrap .main .news-list .list-bot .del-btn {
+  float: right;
+  font-size: 14px;
+  color: #666;
+}
+.my-client-container .main-wrap .main .news-list .list-bot .del-btn:hover {
+  color: #2883e0;
+  text-decoration: none;
+}
+.my-client-container .main-wrap .main .news-list .noNewsPc {
+  padding: 200px 0;
+  border: 0px;
+  background: #fff url(../../images/nonews.png) no-repeat center;
+}
+.my-client-container .main-wrap .main .bottom-page {
+  overflow: hidden;
+  padding: 20px;
+}
+.my-client-container .main-wrap .main .bottom-page .site-page {
+  color: #666;
+  line-height: 55px;
+}
+.my-client-container .main-wrap .main .bottom-page a.active {
+  color: #2883E1;
+}
+.my-client-container .main-wrap .main .bottom-page .recording {
+  color: #666;
+  margin-top: 15px;
+  margin-right: 20px;
+}
+.my-client-container .main-wrap .main .bottom-page .layui-laypage a {
+  font-size: 14px;
+  color: #999999;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  margin: 0px 4px;
+}
+.my-client-container .main-wrap .main .bottom-page .layui-laypage span {
+  margin: 0;
+}
+.my-client-container .main-wrap .main .bottom-page .layui-laypage .layui-laypage-curr .layui-laypage-em {
+  background: #2983e0;
+}

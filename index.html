@@ -1,117 +1,273 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit"/>
     <title>首页</title>
-    <link href="css/base/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/base/font-awesome.css" rel="stylesheet">
-    <link href="css/base/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="js/libs/layui/css/modules/layer/default/layer.css">
-    <link href="css/index.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <script src="./js/libs/jquery/jquery.min.js"></script>
 </head>
 <body>
 
-<div class="wrapper wrapper-content">
+<div id="app">
+    <!-- 引用公共头部(1:引入common.cs, 2:引入common.js, 3:添加id为header的div) -->
     <!-- 头部及logo用户中心 -->
-    <div class="row home-header">
-        <div class="col-md-6 col-sm-6 col-sm-12"><a href="" class="header-title"><img src="images/a3.jpg" alt=""></a><h3>首页</h3></div>
-        <div class="col-md-6 col-sm-6 col-sm-12">
+    <div class="home-header">
+        <div class="layui-container">
+            <h3 class="header-title">巨景档案管理系统</h3>
             <div class="header-right">
                 <a href="" class="user-photo"><img src="images/a8.jpg" alt=""></a>
-                <span>周杰伦</span>
-                <a href="">密码修改</a>
-                <a href="">退出</a>
-                <a class="email-icon"><i class="glyphicon glyphicon-envelope"></i><span class="email-total">1</span></a>
-            </div>
-        </div>
-    </div>
-    <!-- 主内容分类导航 -->
-    <div class="row home-cont">
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-        <div class="col-md-2 col-sm-4 col-xs-6 show-logo"><a href=""><img src="images/a1.jpg" alt=""></a></div>
-    </div>
-    <!-- 通知列表 -->
-    <div class="row home-list">
-        <!-- 待处理提醒 -->
-        <div class="col-md-6 col-sm-6">
-            <div class="row list-classify">
-                <div class="col-md-12 list-title">待处理提醒</div>
-                <div class="col-md-12">
-                    <ul>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                    </ul>
+                <div class="examine-select">
+                    <div class="examine-filter">
+                        <a class="filter-a">管理员Admin<i class="iconfont icon-down-arrow"></i></a>
+                        <ul class="filter-ul">
+                            <li><a>用户中心</a></li>
+                            <li><a>退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="email-icon">
+                    <i class="iconfont icon-email"><span class="email-total">6</span></i>
                 </div>
             </div>
         </div>
-        <!-- 消息中心 -->
-        <div class="col-md-6 col-sm-6">
-            <div class="row list-classify">
-                <div class="col-md-12 list-title">消息中心</div>
-                <div class="col-md-12">
-                    <ul>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                        <li class="classify-li">
-                            <a href=""><span class="explain">法务</span><span class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- vue测试 -->
-        <div class="col-md-12">
-            <div id="app">
-                <p>{{message}}</p>
-                <button class="button alert-mess" @clik>按钮</button>
-                <ul>
-                    <li v-for="item in option">姓名为: {{item.name}}, 年龄为: {{item.age}}</li>
-                </ul>
-            </div>
-        </div>
+    </div>
+    <div class="layui-container index-container">
+        <!-- 通知列表 -->
+        <div class="layui-row clearfix">
+            <!-- 待处理提醒 -->
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12 home-title">
+                <div class="home-dispose">
+                    <div class="dispose-cont">
+                        <div class="row dispose-list">
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>35,200</h3>
+                                    <p>我的档案客户</p>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>236</h3>
+                                    <p>今日新增档案客户</p>
+                                </div>
 
+                            </div>
+                        </div>
+                        <div class="row dispose-list">
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>1,263</h3>
+                                    <p>我的未读信息</p>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6 list-title">
+                                <div class="list-left">
+                                    <h3>63</h3>
+                                    <p>今日新增未读信息</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 消息中心 -->
+            <div class="layui-col-md8 layui-col-sm6 layui-col-xs12 home-message">
+                <div class="row list-classify">
+                    <div class="layui-col-md12 list-title">消息中心 <a href="javascript:;" class="title-more">更多</a></div>
+                    <div class="layui-col-md12">
+                        <ul>
+                            <li class="classify-li">
+                                <a href=""><span class="explain">法务</span><span
+                                      class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
+                            </li>
+                            <li class="classify-li">
+                                <a href=""><span class="explain">法务</span><span
+                                      class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
+                            </li>
+                            <li class="classify-li">
+                                <a href=""><span class="explain">法务</span><span
+                                      class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
+                            </li>
+                            <li class="classify-li">
+                                <a href=""><span class="explain">法务</span><span
+                                      class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
+                            </li>
+                            <li class="classify-li">
+                                <a href=""><span class="explain">法务</span><span
+                                      class="details">【发版公告】crm系统1.1.1</span><span class="date">2017-07-09</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 主内容分类导航 -->
+        <div class="layui-row home-cont clearfix">
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/client-manage/my-client.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>客户管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>客户审批</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/common/componet.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>项目管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/department-structure.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>标的管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/add-group.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>服务管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>财务管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/department-manage.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>部门管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/accounts-manage.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>账号管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/jurisdiction-list.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>权限管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/post-manage.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>职位管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/rank-manage.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>职级管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="/page/jurisdiction-manage/group-manage.html" data-type="tab">
+                    <img src="images/a1.jpg" alt="">
+                    <p>群组管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="">
+                    <img src="images/a1.jpg" alt="">
+                    <p>质检管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="">
+                    <img src="images/a1.jpg" alt="">
+                    <p>合同管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="">
+                    <img src="images/a1.jpg" alt="">
+                    <p>回访管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="">
+                    <img src="images/a1.jpg" alt="">
+                    <p>投诉管理</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="">
+                    <img src="images/a1.jpg" alt="">
+                    <p>资料库</p>
+                </a>
+            </div>
+            <div class="layui-col-md2 layui-col-sm4 layui-col-xs6 show-logo">
+                <a class="show-nav" href="">
+                    <img src="images/a1.jpg" alt="">
+                    <p>统计分析</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
-<script src="./js/libs/jquery/jquery.min.js"></script>
+<!-- 音频播放组件 start -->
+<div class="jplayer-container-box">
+    <div class="jplayer-container-wapper">
+        <!-- player ui start -->
+        <div class="jplayer-container-audio">
+            <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+            <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+                <div class="jp-type-single">
+                    <div class="jp-gui jp-interface">
+                        <div class="jp-play-head">
+                            <!-- 标题 -->
+                            <div class="jp-title-holder">我是录音文件名   2017-09-28  10:56</div>
+                            <!-- time start -->
+                            <div class="jp-time-holder">
+                                <div class="jp-current-time" role="timer" aria-label="time">01:24</div>
+                                <div class="jp-cut-off">/</div>
+                                <div class="jp-duration" role="timer" aria-label="duration">01:24</div>
+                            </div>
+                            <!-- // time end -->
+                        </div>
+                        <!-- 播放 暂停按钮 start -->
+                        <div class="jp-controls">
+                            <button class="jp-play" role="button" tabindex="0">play</button>
+                        </div>
+                        <!-- // 播放 暂停按钮 end -->
+                        <!-- 进度条 start -->
+                        <div class="jp-progress">
+                            <div class="jp-seek-bar">
+                                <div class="jp-play-bar"></div>
+                            </div>
+                        </div>
+                        <!-- // 进度条 end -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // player ui end -->
+        <div class="jplayer-container-down">
+            <a href="###">创建客户</a>
+            <a href="###">下载录音</a>
+        </div>
+    </div>
+</div>
+<!-- // 音频播放组件 end -->
+
 <script src="./js/libs/require/require.min.js"></script>
 <script src="./js/require.config.js"></script>
-<script src="js/app/index.js"></script>
+<script src="./js/app/index.js"></script>
 
 </body>
 </html>

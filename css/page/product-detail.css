@@ -1,0 +1,89 @@
+@charset "utf-8";
+.detai-product-container .main-row {
+  margin-bottom: 20px;
+}
+.detai-product-container .main-row:last-of-type {
+  margin-bottom: 0;
+}
+.detai-product-container .main-row h1 {
+  padding: 20px;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+}
+.detai-product-container .main-row h1 a {
+  color: #2883E1;
+  font-size: 14px;
+  font-weight: 400;
+}
+.detai-product-container .main-row h1 a:hover {
+  text-decoration: underline;
+}
+.detai-product-container .main-row .product-info {
+  padding: 20px 0;
+}
+.detai-product-container .main-row .product-info-item {
+  padding: 10px 10px;
+  font-size: 16px;
+}
+.detai-product-container .main-row .product-info-item label {
+  color: #666;
+  text-align: right;
+}
+.detai-product-container .main-row .product-info-item p,
+.detai-product-container .main-row .product-info-item span {
+  padding-left: 20px;
+  line-height: 1.5;
+  color: #222;
+}
+.detai-product-container .main-row .product-brief label {
+  width: 12.5%;
+  float: left;
+}
+.detai-product-container .main-row .main-table {
+  margin: 0;
+  color: #666;
+}
+.detai-product-container .main-row .main-table tr {
+  border-bottom: 1px solid #eee;
+  height: 50px;
+  line-height: 50px;
+  color: #222;
+  background-color: #fff;
+}
+.detai-product-container .main-row .main-table tr:nth-of-type(2n) {
+  background-color: #fcfcfc;
+}
+.detai-product-container .main-row .main-table tr:hover {
+  background-color: #eee;
+}
+.detai-product-container .main-row .main-table tr td {
+  text-align: center;
+  padding: 15px;
+  border: 0;
+}
+.detai-product-container .main-row .main-table .first-tr {
+  height: 60px;
+  color: #666;
+  padding: 10px 0;
+  background-color: #fff;
+}
+.detai-product-container .main-row .main-table .first-tr:hover {
+  background-color: #fff;
+}
+.detai-product-container .main-row .noData {
+  width: 100%;
+  height: 450px;
+  background: url('../../images/noData.png') no-repeat center center #fff;
+}
+.detai-product-container .layui-row-btn {
+  text-align: center;
+  padding: 10px;
+  background-color: #f5f5f5 !important;
+}
+.detai-product-container .layui-row-btn button,
+.detai-product-container .layui-row-btn a {
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}

@@ -1,0 +1,42 @@
+<!-- 跟进记录 -->
+<div class="add-record-container associate-track">
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">操作人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="operator" placeholder="请输入操作人姓名" class="layui-input operator ">
+            </div>
+            <label class="layui-form-label">产品名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="product" placeholder="请输入产品名称" class="layui-input product">
+            </div>
+        </div>
+        <div class="layui-form-item time-box">
+            <div class="layui-inline">
+                <label class="layui-form-label">跟进时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" readonly class="layui-input" id="start_track" placeholder="yyyy-MM-dd HH:mm:ss">
+                </div>
+                <span class="line">-</span>
+                <div class="layui-input-inline">
+                    <input type="text" readonly class="layui-input" id="end_track" placeholder="yyyy-MM-dd HH:mm:ss">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn inquire-btn" lay-filter="searchTrack">查询</button>
+                <button class="layui-btn layui-btn-primary reset-btn">重置</button>
+            </div>
+        </div>
+    </div>
+    <ul class="record-list layui-form" id="content">
+        
+    </ul>
+    <div class="add-footer">
+        <span id="total">已选0条</span>
+        <div class="record-page pull-right" id="track-page"></div>
+    </div>
+    <div class="btn-box">
+        <a href="javascript:;" class="layui-btn cancel layui-btn-primary">取消</a>
+        <a href="javascript:;" class="layui-btn ok">确认</a>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<!-- 编辑部门 -->
+<div class="confirm-tip finance-tip">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">审核结果</label>
+            <div class="layui-input-block finance-select">
+                <select name="action" lay-verify="required">
+                    <option value=""></option>
+                    <option value="8">审核通过</option>
+                    <option value="9">审核拒绝</option>
+                    <option value="10">转投诉</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">说明</label>
+            <div class="layui-input-block">
+                <textarea name="reason" placeholder="请输入审核说明,字数50字以内" class="layui-textarea finance-textarea" maxlength="50"></textarea>
+            </div>
+        </div>
+    </form>
+</div>

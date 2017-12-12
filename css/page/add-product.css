@@ -1,0 +1,43 @@
+@charset "utf-8";
+.add-product-container h2 {
+  background-color: #fff;
+  padding: 20px;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+}
+.add-product-container .layui-form {
+  background-color: #fff;
+  padding: 20px 20px;
+}
+.add-product-container .layui-form .layui-form-item {
+  line-height: 38px;
+}
+.add-product-container .layui-form .layui-form-item .layui-form-label {
+  position: relative;
+}
+.add-product-container .layui-form .layui-form-item .layui-form-label span {
+  position: relative;
+  top: 2px;
+  left: -4px;
+}
+.add-product-container .layui-form .layui-form-item .layui-input-block {
+  margin-left: 0;
+}
+.add-product-container .layui-form .layui-form-item .layui-input-block textarea {
+  height: 200px;
+}
+.add-product-container .layui-form .layui-form-item .prompt {
+  color: #f2493b;
+  margin-left: 20px;
+}
+.add-product-container .layui-row {
+  background-color: #f5f5f5 !important;
+  padding: 28px;
+  text-align: center;
+}
+.add-product-container .layui-row button {
+  width: 140px;
+  line-height: 40px;
+  height: 40px;
+  font-size: 18px;
+}

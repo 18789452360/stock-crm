@@ -1,0 +1,238 @@
+@charset "utf-8";
+.add-client-container .examine-search .layui-input-inline {
+  width: 340px;
+}
+.add-client-container .examine-search .layui-input-inline .layui-input {
+  padding-right: 34px;
+}
+.add-client-container .examine-search .layui-input-inline .layui-input:focus {
+  border-color: #2883e1 !important;
+}
+.add-client-container .examine-search .layui-input-inline .layui-form-danger:focus {
+  border-color: #2883e1 !important;
+}
+.add-client-container .examine-search .layui-input-inline .layui-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 36px;
+  min-width: 36px;
+  height: 34px;
+  background-color: #ccc;
+  padding: 0;
+}
+.add-client-container .examine-search .layui-input-inline .layui-btn:hover {
+  background-color: #2883e1;
+  opacity: 1;
+  border-color: #2883e1;
+}
+.add-client-container .examine-search .layui-input-inline .layui-btn.available {
+  background-color: #2883e1;
+}
+.add-client-container .add-remark-title {
+  background-color: #fff;
+  height: 74px;
+}
+.add-client-container .add-remark-title .layui-container {
+  padding: 20px 0 20px 0 !important;
+}
+.add-client-container .add-remark-title .layui-container .layui-inline {
+  text-align: right;
+  float: right;
+}
+.add-client-container .add-remark-title .layui-container .layui-inline .add-btn {
+  display: inline-block;
+  border: 1px solid #dbdbdb;
+  padding: 5px 8px 5px 5px;
+  border-radius: 4px;
+  color: #999;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.add-client-container .add-remark-title .layui-container .layui-inline .add-btn i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../../images/add_ico.png") center top no-repeat;
+  vertical-align: bottom;
+}
+.add-client-container .add-remark-title .layui-container .layui-inline .add-btn:hover {
+  background-color: #e8f3ff;
+  border-color: #2883e0;
+  color: #2883e0;
+}
+.add-client-container .add-remark-title .layui-container .layui-inline .add-btn:hover i {
+  background-position: center bottom;
+}
+.add-client-container .add-remark-title .layui-container .layui-inline .tips {
+  color: #999;
+}
+.add-client-container .main {
+  padding: 0 !important;
+  margin-bottom: 60px !important;
+}
+.add-client-container .main .layui-row {
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.add-client-container .main .layui-row.head-row {
+  margin-top: 20px;
+  padding: 20px 40px;
+  line-height: 38px;
+  border-bottom: 1px solid #eee;
+}
+.add-client-container .main .layui-row.head-row .client-icon {
+  margin-right: 20px;
+}
+.add-client-container .main .layui-row.head-row .client-icon img {
+  width: 61px;
+  height: 61px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+.add-client-container .main .layui-row.head-row .basic-info {
+  color: #666;
+}
+.add-client-container .main .layui-row.head-row .basic-info .client-name {
+  font-size: 18px;
+  color: #222;
+}
+.add-client-container .main .layui-row.head-row .basic-info .label-list {
+  overflow: hidden;
+}
+.add-client-container .main .layui-row.head-row .basic-info .label-list li {
+  margin-top: 5px;
+  float: left;
+  min-width: 56px;
+  line-height: 20px;
+  color: #fff;
+  background-color: red;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-left: 13px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.add-client-container .main .layui-row.head-row .basic-info .info-row .layui-col-md1 {
+  min-width: 105px;
+}
+.add-client-container .main .layui-row.head-row .basic-info .phone-row span {
+  margin-right: 10px;
+}
+.add-client-container .main .layui-row.head-row .basic-info .phone-row span i {
+  margin-left: 10px;
+  color: #2883E1;
+  cursor: pointer;
+}
+.add-client-container .main .layui-row .remarks-list h3 {
+  padding-left: 40px;
+  padding-top: 20px;
+  font-size: 16px;
+}
+.add-client-container .main .layui-row .remarks-list ul {
+  overflow: hidden;
+  padding: 10px 10px 10px 20px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.add-client-container .main .layui-row .remarks-list ul li {
+  border: 1px solid #EDEDED;
+  margin: 10px;
+  border-radius: 2px;
+  padding: 5px 8px 5px 10px;
+  height: 20px;
+  line-height: 20px;
+  transition: all .2s;
+  cursor: default;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item.active {
+  color: #2883E1;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item:hover {
+  color: #777;
+  border: 1px solid #ccc;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 0;
+  cursor: pointer;
+  background: url("../../images/del_remark_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks {
+  color: #999;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  background: url("../../images/add_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .disabled-add {
+  color: #999;
+}
+.add-client-container .main .layui-row .remarks-list ul .disabled-add i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  background: url("../../images/add_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input {
+  height: 40px;
+  position: relative;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input input {
+  border: 1px solid #2883E1;
+  text-indent: 1em;
+  width: 230px;
+  height: 30px;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input span {
+  display: inline-block;
+  padding: 7px;
+  box-sizing: border-box;
+  width: 64px;
+  border: 1px solid #eee;
+  color: #666;
+  margin-left: 9px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input span.ok {
+  background-color: #2883E1;
+  color: #fff;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input span:hover {
+  opacity: .8;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input .err-tip {
+  position: absolute;
+  right: -190px;
+  top: 16px;
+  color: #f2493b;
+}
+.add-client-container .main .no-result {
+  margin-top: 15px;
+  height: 700px;
+}
+.add-client-container .main .no-result p {
+  color: #999;
+  font-size: 16px;
+  padding-top: 420px;
+}
+.add-client-container .main .no-result.searched {
+  height: 200px;
+}
+.add-client-container .main .no-result.searched p {
+  padding-top: 160px;
+}

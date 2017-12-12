@@ -1,0 +1,290 @@
+@charset "utf-8";
+h2 {
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}
+.layui-form-select dl {
+  border-color: #2883E1;
+}
+.form {
+  color: #666;
+  user-select: none;
+}
+.form .form-content {
+  background-color: #fff;
+  padding: 20px 20px;
+}
+.form .form-item {
+  line-height: 38px;
+}
+.form .form-item .layui-form-label {
+  position: relative;
+  width: 180px;
+}
+.form .form-item .layui-form-label span {
+  position: relative;
+  top: 2px;
+  left: -4px;
+}
+.form .form-item .input-block {
+  margin-left: 5px;
+  width: 398px;
+}
+.form .form-item .input-block input,
+.form .form-item .input-block textarea {
+  border-color: #ccc;
+}
+.form .form-item .input-block textarea {
+  height: 200px;
+}
+.form .form-item .prompt {
+  color: #f2493b;
+  margin-left: 20px;
+}
+.form .btn-box {
+  padding: 30px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+.form .btn-box button,
+.form .btn-box a {
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}
+.form .btn-box a {
+  margin-right: 30px;
+}
+.product-inline {
+  position: relative;
+}
+.organize-framework {
+  position: absolute;
+  top: -100px;
+  left: 355px;
+  height: 484px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px 1px #d7d7d7;
+  background-color: #fff;
+  z-index: 99;
+}
+.organize-framework .organize-nav {
+  font-size: 16px;
+  color: #666;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #eee;
+  padding: 0 15px 0 20px;
+  font-weight: normal;
+  position: relative;
+}
+.organize-framework .organize-nav a {
+  background: url(../images/tel-close.png) no-repeat center;
+  width: 10px;
+  height: 10px;
+  display: inherit;
+  position: absolute;
+  right: 19px;
+  top: 20px;
+  z-index: 3;
+}
+.organize-framework .organize-content {
+  background-color: #fcfcfc;
+  height: 360px;
+  border-bottom: 1px solid #eee;
+}
+.organize-framework .organize-content .customer-group {
+  float: left;
+  border-right: 1px solid #eee;
+  width: 279px;
+  height: 100%;
+}
+.organize-framework .organize-content .customer-group .group-line {
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.organize-framework .organize-content .customer-group .group-line .layui-input-inline {
+  width: 100%;
+}
+.organize-framework .organize-content .customer-group ::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #ccc;
+}
+.organize-framework .organize-content .customer-group :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+}
+.organize-framework .organize-content .customer-group ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ccc;
+}
+.organize-framework .organize-content .customer-group :-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #ccc;
+}
+.organize-framework .organize-content .customer-group input {
+  width: 262px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding-left: 15px;
+}
+.organize-framework .organize-content .customer-group ::-webkit-scrollbar {
+  width: 5px;
+}
+.organize-framework .organize-content .customer-group ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ccc;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav {
+  height: 305px;
+  padding: 0 10px;
+  overflow-y: auto;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu li + li {
+  margin-top: 5px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu li:first-child {
+  margin-top: 5px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu li:last-child {
+  margin-bottom: 5px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu > li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu a {
+  position: relative;
+  display: block;
+  height: 19px;
+  line-height: 19px;
+  padding: 10px 15px 10px 25px;
+  outline-width: 0;
+  transition: all 0.3s ease-out;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu ul a {
+  padding: 10px 15px 10px 35px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu ul ul a {
+  padding: 10px 15px 10px 45px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu ul ul ul a {
+  padding: 10px 15px 10px 58px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu ul ul ul ul a {
+  padding: 10px 15px 10px 68px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu ul ul ul ul ul a {
+  padding: 10px 15px 10px 82px;
+}
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu a:hover,
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu a:focus,
+.organize-framework .organize-content .customer-group .sidebar-nav .metismenu a:active {
+  text-decoration: none;
+  background-color: #eee;
+  color: #000;
+}
+.organize-framework .organize-content .choose-people {
+  width: 297px;
+  float: right;
+}
+.organize-framework .organize-content .choose-people h2 {
+  font-size: 14px;
+  color: #666;
+  height: 50px;
+  line-height: 50px;
+  font-weight: normal;
+  padding: 0 19px;
+  background-color: #fcfcfc;
+  border: 0;
+}
+.organize-framework .organize-content .choose-people ul {
+  padding: 0 12px;
+}
+.organize-framework .organize-content .choose-people ul li {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 7px;
+  font-size: 14px;
+  color: #222;
+  position: relative;
+  cursor: pointer;
+}
+.organize-framework .organize-content .choose-people ul li:hover {
+  background-color: #eee;
+}
+.organize-framework .organize-content .choose-people ul li:hover i {
+  position: absolute;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  top: 7px;
+  right: 10px;
+  background: url(../../images/delete-people.png) no-repeat 0 0;
+}
+.organize-framework .organize-content .choose-people ul li:hover i:hover {
+  background: url(../../images/delete-people.png) no-repeat -20px 0;
+}
+.organize-framework .organize-bth {
+  text-align: right;
+  padding: 10px;
+  height: 50px;
+  line-height: 50px;
+}
+.organize-framework .organize-bth a {
+  border-radius: 3px;
+  border: 0;
+  width: 90px;
+  height: 34px;
+}
+.organize-framework .organize-bth .cancel {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #666;
+  margin-right: 16px;
+}
+.organize-framework .organize-bth .ensure {
+  background-color: #2883E1;
+  color: #fff;
+  margin-right: 20px;
+}
+.organize-framework .metismenu a {
+  position: relative;
+}
+.organize-framework .metismenu a span {
+  display: none;
+  position: absolute;
+  right: 0.6em;
+  color: #2883E1;
+}
+.organize-framework .metismenu a.has-arrow:after {
+  position: absolute;
+  content: url("../../images/triangle_right.png");
+  top: 25%;
+  transition: all 0.3s ease-out;
+}
+.organize-framework .metismenu a:hover span {
+  display: inline-block;
+}

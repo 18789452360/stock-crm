@@ -1,0 +1,48 @@
+<!-- 客户清理操作 -->
+<div class="clear-usr-container">
+    <ul></ul>
+    <div class="no-result"></div>
+    <div class="clr-footer clearfix">
+        <div class="page-group">
+            <span class="pull-left checked-num">已选 <span>0</span> 条</span>
+            <div class="clr-page pull-right">
+                <div class="pull-left total-num">共有 <span>0</span> 条记录</div>
+                <div id="page" class="pull-right"></div>
+            </div>
+        </div>
+        <div class="warning clearfix">
+            <p class="checked-num">*&nbsp;你是否确定清理选中的 <span>0</span> 个用户，清理后，将失去这些客户档案的管理权限</p>
+        </div>
+    </div>
+</div>
+
+<script id="clear-usr" type="text/html">
+    <li class="clr-title">
+        <dl>
+            <dd class="checkbox">
+                <div class="squaredFour">
+                    <input type="checkbox" value="None" id="_clr_check_all" name="check"/>
+                    <label for="_clr_check_all"></label>
+                </div>
+            </dd>
+            <dd class="name">客户姓名</dd>
+            <dd class="time">最后联系时间</dd>
+        </dl>
+    </li>
+    {? each data as value i ?}
+    <li class="clr-data">
+        <dl>
+            <dd class="checkbox">
+                <div class="squaredFour">
+                    <input type="checkbox" value="None" id="{? '_clr_check_item_' + i ?}" name="check"
+                           data-id="{? value.id ?}"/>
+                    <label for="{? '_clr_check_item_' + i ?}"></label>
+                </div>
+            </dd>
+            <dd class="name">{? value.real_name ?}({? value.sex === "0" ? '--' : (value.sex === "1" ? '男' : '女') ?})
+            </dd>
+            <dd class="time">{? value.lately_contact_time ?}</dd>
+        </dl>
+    </li>
+    {? /each ?}
+</script>

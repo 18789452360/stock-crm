@@ -1,0 +1,329 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+/* 权限组公共样式 */
+.layui-container {
+    // 共用表格等样式 
+    .common-row {
+        // 查询,新增等 
+        .jur-top {
+            margin-top: 20px;
+            .juf-form {
+                padding: 0 20px;
+                .layui-form-item {
+                    margin-bottom: 20px;
+                    float: left;
+                    clear: none;
+                    .layui-form-label {
+                        width: 75px;
+                        box-sizing: border-box;
+                        padding: 7px 10px 0 0;
+                        text-align: right;
+                        color: #999;
+                        font-size: 16px;
+                    }
+                    .jur-line {
+                        color: #999;
+                        padding: 0 6px;
+                    }
+                    .jur-name-label {
+                        width: 100px;
+                    }
+                    .layui-input, .layui-select, .layui-textarea {
+                        height: 34px;
+                        border-color: #ccc!important;
+                        &:focus {
+                            border-color: @blue-color!important;
+                        }
+                    }
+                    .layui-form-checkbox[lay-skin=primary] {
+                        margin-top: 0;
+                    }
+                    .layui-form-checkbox {
+                        margin-top: 0;
+                    }
+                    .layui-input-inline {
+                        width: 156px;
+                        margin-right: 0;
+                    }
+                    .layui-input-block {
+                        display: inline-block;
+                        min-height: 34px;
+                        margin-left: 0;
+                        margin-right: 20px;
+                    }
+                    .layui-inline {
+                        vertical-align: middle;
+                        margin-bottom: 0;
+                        margin-right: 0;
+                    }
+                    .depart-query {
+                        margin-left: 0;
+                    }
+                }
+                .example-handle {
+                    text-align: center;
+                    vertical-align: middle;
+                    .examine-query {
+                        margin-left: 20px;
+                        float: left;
+                    }
+                }
+                .handle-add {
+                    float: right;
+                }
+                .jur-handle {
+                    display: inline-block;
+                    margin-left: 20px;
+                }
+            }
+            // 合计权限等数量 
+        }
+        // 账号管理页面查询,新增等 
+        .jur-depart {
+            .juf-form {
+                .layui-form-item {
+                    .layui-input-block {
+                        width: 118px;
+                    }
+                }
+                .example-handle {
+                    margin-left: 30px;
+                }
+            }
+        }
+        .depart-img {
+            width: 30px;
+            height: 30px;
+        }
+    }
+    // 权限设置页面 
+    .jur-row {
+        padding: 20px;
+        .layui-form {
+            .layui-form-label {
+                display: block;
+                width: 100%;
+                padding: 0;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: left;
+
+            }
+            .layui-input-block {
+                margin-left: 0;
+            }
+        }
+        .examine {
+            text-align: center;
+            .add-jur-save {
+                margin-right: 20px;
+            }
+        }
+        .custom-label {
+            padding-top: 15px;
+            font-size: 16px;
+            margin-bottom: 0;
+            .layui-form-label {
+                line-height: 28px;
+            }
+        }
+    }
+    .h-title {
+        clear: both;
+        padding: 20px 0 10px 0;
+    }
+    .jur-label {
+        color: #e4393c;
+    }
+    .edit-last {
+        .jstree-ocl {
+            display: none;
+            &:first-child {
+                margin-left: 30px;
+            }
+        }
+        &:first-child {
+            margin-left: 50px;
+        }
+    }
+    .user-table {
+        margin-top: 20px;
+    }
+    .group-decript {
+        max-width: 300px;
+    }
+    // 帐号设置页面 
+    .accounts-row {
+        .layui-form {
+            .account-item {
+                padding: 20px;
+                .account-pho {
+                    margin-bottom: 0;
+                }
+            }
+            .layui-form-item {
+                .jur-add-photo {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-left: 20px;
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                    }
+                }
+                .jur-add-name {
+                    font-size: 16px;
+                    margin-left: 15px;
+                    margin-right: 20px;
+                }
+                .layui-form-label {
+                    display: block;
+                    width: 100%;
+                    padding: 0;
+                    font-weight: bold;
+                    text-align: left;
+                }
+                .layui-input-block {
+                    margin-left: 0;
+                    margin-right: 20px;
+                    .accounts-check {
+                        padding-left: 24px;
+                    }
+                }
+                .examine {
+                    text-align: center;
+                    .add-jur-save {
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .account-img {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    .squares {
+        label {
+            &:after {
+                content: '';
+                width: 9px;
+                height: 5px;
+                position: absolute;
+                top: 4px;
+                left: 4px;
+                border: 2px solid #999;
+                border-top: none;
+                border-right: none;
+                background: transparent;
+                opacity: 0;
+                transform: rotate(-45deg);
+            }
+        }
+        input[type=checkbox] {
+            visibility: hidden;
+            &:checked + label:after {
+                opacity: 1;
+            }
+            &:checked + label {
+                border: 1px solid #999;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+/* 权限设置树形样式 */
+.treeview {
+    li {
+        cursor: pointer;
+        a {
+            color: #fff;
+        }
+    }
+    .end-li {
+        margin: 3px 0 3px 40px;
+    }
+    .hitarea {
+        background: url(../../images/minus.gif) 0 6px no-repeat;
+        height: 16px;
+        width: 16px;
+        margin-left: -16px;
+        float: left;
+        cursor: pointer;
+    }
+    .expandable-hitarea {
+        background: url(../../images/plus.gif) 0 6px no-repeat;
+    }
+}
+
+/* 树形样式重置 */
+body,html { height: 100%;}
+.client-nav {
+    height: 100%;
+    padding: 0 20px 20px 20px;
+    font-size: 16px;
+    background: @white-color;
+    .examine {
+        text-align: center;
+        .examine-query {
+            margin-right: 20px;
+        }
+    }
+    .data-jur, .rule-jur {
+        h2 {
+            padding: 20px 0;
+        }
+        .account-titles {
+            margin-right: 20px;
+        }
+    }
+}
+.jur-label {
+    color: @red-color;
+}
+.position-input {
+    height: 34px;
+    width: 200px;
+    border: 1px solid @border-color;
+    padding-left: 10px;
+}
+.layui-form-select dl {
+    max-height: 180px;
+}
+.jstree-default .jstree-clicked {
+    background: #fff;
+}
+.jstree-default .jstree-disabled.jstree-clicked {
+    background: #fff;
+}
+.last-li {
+    float: left;
+}
+.import-usr-container .import-usr-group {
+    height: auto;
+}
+.import-usr-container .btn {
+    height: 60px;
+    line-height: 60px;
+}
+.break-all {
+    word-break: break-all;
+    padding: 0 40px;
+    height: 210px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

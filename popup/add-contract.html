@@ -1,0 +1,32 @@
+<!-- 添加合同信息 -->
+<div class="confirm-tip">
+    <form class="layui-form contract-confirm" action="">
+        <div class="layui-inline">
+            <label class="layui-form-label">邮寄时间：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="time" readonly class="layui-input post_time" id="addDateTime" placeholder="yyyy-MM-dd hh-mm-ss">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">快递公司及运单号：</label>
+            <div class="layui-input-block">
+                <textarea name="waybill" placeholder="请输入快递公司及运单号" class="layui-textarea delivery_number"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="contract" required  lay-verify="required" placeholder="请输入合同编号" autocomplete="off" class="layui-input department_name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同图片：</label>
+            <div class="layui-upload" style="padding-left: 125px;">
+                <button type="button" class="layui-btn" id="addUploadBtn">多图片上传</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    <div class="layui-upload-list" id="addUploadBoxs"></div>
+                </blockquote>
+            </div>
+        </div>
+    </form>
+</div>

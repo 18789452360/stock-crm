@@ -1,0 +1,136 @@
+@charset "utf-8";
+/**
+ * 音频播放
+ */
+.jplayer-container-box{
+	width: 100%;
+	height: 70px;
+	background-color: #353c46;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+	color: #ccc;
+	.jplayer-container-wapper{
+		padding: 0 28px;
+		position: relative;
+		.jplayer-container-audio{
+			margin-right: 240px;
+		}
+		.jplayer-container-down{
+			width: 240px;
+			position: absolute;
+			top: 0;
+			right: 28px;
+			font-size: 0;
+			a{
+				display: inline-block;
+				width: 96px;
+				height: 34px;
+				border: 1px solid #666;
+				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				text-align: center;
+				line-height: 34px;
+				font-size: 14px;
+				color: #ccc;
+				margin: 18px 0 0 20px;
+				&:hover{
+					border-color: #ccc;
+					color: #eee;
+				}
+			}
+		}
+	}
+	.closeJplay{
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		color: #fff;
+	}
+}
+/**
+ * 播放器初始状态
+ */
+.jp-audio{
+	padding-top: 12px;
+	.jp-type-single{
+		padding-left: 75px;
+		position: relative;
+		.jp-play-head{
+			overflow: hidden;
+			padding: 3px 0 7px 0;
+			.jp-title-holder{
+				float: left;
+			}
+			.jp-time-holder{
+				float: right;
+				font-size: 0;
+				>div{
+					display: inline-block;
+					font-size: 14px;
+				}
+				.jp-cut-off{
+					padding: 0 3px;
+				}
+			}
+		}
+		.jp-controls{
+			position: absolute;
+			top: 0;
+			left: 0;
+			.jp-play{
+				border: 0 none;
+				-webkit-appearance: none;
+				height: 44px;
+				width: 44px;
+				text-indent: -99999px;
+				cursor: pointer;
+				background: url(../images/jplayer.png) no-repeat 0 0;
+			}
+		}
+		.jp-progress{
+			width: 100%;
+			height: 5px;
+			padding-top: 3px;
+			position: relative;
+			.jp-seek-bar{
+				cursor: pointer;
+				width: 100%;
+				height: 4px;
+				background-color: #484e57;
+				.jp-play-bar{
+					background-color: #6b9de5;
+					height: 4px;
+					position: relative;
+				}
+				// .jp-play-bar:after{
+				// 	content: "";
+				// 	display: block;
+				// 	position: absolute;
+				// 	top: -3px;
+				// 	right: -8px;
+				// 	width: 8px;
+				// 	height: 8px;
+				// 	background-color: #6b9de5;
+				// 	border-radius: 100%;
+				// 	-webkit-border-radius: 100%;
+				// }
+			}
+		}
+	}
+}
+/**
+ * 播放器播放状态
+ */
+.jp-state-playing{
+	.jp-type-single{
+		.jp-controls{
+			.jp-play{
+				background-position: 0 bottom;
+			}
+		}
+	}
+}

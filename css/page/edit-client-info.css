@@ -1,0 +1,504 @@
+@charset "utf-8";
+.client-info-container {
+  /* 档案头部 */
+}
+.client-info-container .file-head {
+  max-width: 1600px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.client-info-container .file-head .head-row {
+  padding: 20px 40px;
+  line-height: 38px;
+  border-bottom: 1px solid #eee;
+}
+.client-info-container .file-head .head-row .file-time span {
+  margin-right: 45px;
+}
+.client-info-container .file-head .head-row .client-icon {
+  transform: translateY(50%);
+}
+.client-info-container .file-head .head-row .client-icon img {
+  width: 61px;
+  height: 61px;
+  border-radius: 50%;
+}
+.client-info-container .file-head .head-row .basic-info .label-list {
+  overflow: hidden;
+  height: 38px;
+}
+.client-info-container .file-head .head-row .basic-info .label-list li {
+  margin-top: 5px;
+  float: left;
+  width: 56px;
+  line-height: 20px;
+  color: #fff;
+  background-color: #ffa800;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-left: 13px;
+  text-align: center;
+}
+.client-info-container .file-head .head-row .basic-info .info-row .layui-col-md1 {
+  min-width: 105px;
+}
+.client-info-container .file-head .head-row .basic-info .phone-row span {
+  margin-right: 60px;
+}
+.client-info-container .file-head .head-row .basic-info .phone-row span i {
+  color: #2883E1;
+  cursor: pointer;
+}
+.client-info-container .border-bottom {
+  border-bottom: 1px solid #eee;
+}
+.client-info-container .layui-table table tr {
+  border: 1px solid #eee;
+  border-bottom: 0;
+}
+.client-info-container .layui-table table tr td {
+  border: 0;
+  text-align: center;
+}
+.client-info-container .layui-table table tr td a {
+  color: #2883E1;
+}
+.client-info-container .layui-table table tr:nth-of-type(2n) {
+  background-color: #f5f5f5;
+}
+.client-info-container .layui-table table tr:last-of-type {
+  border-bottom: 1px solid #eee;
+}
+.client-info-container .layui-collapse {
+  border: 0;
+}
+.client-info-container .form-padding {
+  padding-top: 10px;
+}
+.client-info-container .layui-upload {
+  display: flex;
+  align-items: center;
+}
+.client-info-container .layui-quote-nm {
+  border: 0;
+  display: inline-block;
+  margin-bottom: 0;
+}
+.client-info-container .layui-quote-nm .layui-upload-list a {
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+}
+.client-info-container .layui-quote-nm .layui-upload-list a img {
+  width: 120px;
+  height: 80px;
+}
+.client-info-container .layui-quote-nm .layui-upload-list a i {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+.client-info-container .upload-btn {
+  width: 118px;
+  height: 78px;
+  line-height: 78px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  color: #ccc;
+}
+.client-info-container .upload-btn i {
+  font-size: 50px;
+}
+.client-info-container .row-label {
+  position: relative;
+  width: 15.6%;
+}
+.client-info-container .row-label span {
+  color: #2883E1;
+  position: relative;
+  right: 3px;
+  top: 3px;
+}
+.client-info-container .row-label i {
+  color: #999;
+}
+.client-info-container .input-block-box {
+  margin-left: 0;
+}
+.client-info-container .unit {
+  margin-left: 10px;
+}
+.client-info-container .btn-box {
+  padding: 30px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+.client-info-container .btn-box button {
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+}
+.client-info-container .main {
+  /* 基本样式 */
+  /*  编辑基本信息 */
+  /* 跟进信息 */
+  /* 合作情况 */
+}
+.client-info-container .main .tab-head {
+  text-align: right;
+}
+.client-info-container .main .tab-head a {
+  color: #2883E1;
+  margin-right: 30px;
+}
+.client-info-container .main .tab-content-wrap {
+  padding: 0;
+  background-color: #f5f5f5;
+}
+.client-info-container .main .basic-info .basic-item {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border: 0;
+}
+.client-info-container .main .basic-info .basic-item:last-of-type {
+  margin-bottom: 0;
+}
+.client-info-container .main .basic-info .basic-item h2 {
+  background-color: #fff;
+  font-size: 16px;
+}
+.client-info-container .main .basic-info .basic-item h2 span {
+  font-size: 14px;
+  color: #ccc;
+  margin-left: 20px;
+  font-weight: 500;
+  position: relative;
+}
+.client-info-container .main .basic-info .basic-item h2 span i {
+  position: absolute;
+  left: -10px;
+  top: -9px;
+  color: #2883E1;
+}
+.client-info-container .main .basic-info .basic-item h2 .layui-colla-icon {
+  left: 97%;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content {
+  overflow: hidden;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content .content-row {
+  padding-left: 150px;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content .layui-col-item {
+  line-height: 38px;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content .layui-col-item label {
+  position: relative;
+  margin-right: 20px;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content .layui-col-item label i {
+  position: absolute;
+  left: -10px;
+  top: -7px;
+  color: #2883E1;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content .layui-col-item span {
+  color: #222;
+  margin-right: 15px;
+}
+.client-info-container .main .edit-basic-info .layui-form-checkbox i {
+  border-radius: 50%;
+}
+.client-info-container .main .edit-basic-info .select-wrap {
+  margin-right: 20px;
+}
+.client-info-container .main .edit-basic-info .assets {
+  line-height: 36px;
+  margin-left: 0;
+}
+.client-info-container .main .edit-basic-info .assets .layui-form-checkbox {
+  float: left;
+}
+.client-info-container .main .edit-basic-info .assets .layui-input-block {
+  margin-left: 5px;
+}
+.client-info-container .main .follow-info {
+  /* 默认跟进信息 */
+  /*  编辑跟进信息 */
+}
+.client-info-container .main .follow-info .follow-info-head .first-label {
+  min-width: 60px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 20px;
+}
+.client-info-container .main .follow-info .follow-info-head .layui-row {
+  padding: 20px;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-tabs {
+  border-bottom: 1px solid #eee;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-tabs .layui-btn-primary {
+  color: #2883E1;
+  border-color: #2883E1;
+  background-color: #fff;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-content {
+  margin-top: 23px;
+  overflow: hidden;
+  line-height: 38px;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-content ul {
+  margin-right: 40px;
+  padding: 5px 0;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-content ul li {
+  width: 60px;
+  height: 26px;
+  line-height: 26px;
+  border: 1px solid #eee;
+  text-align: center;
+  float: left;
+  margin-left: 20px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-content ul li:first-of-type {
+  margin-left: 0;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-content ul li.active {
+  color: #2883E1;
+  border-color: #2883E1;
+}
+.client-info-container .main .follow-info .follow-info-head .follow-content .layui-btn {
+  width: 100px;
+  height: 34px;
+  line-height: 34px;
+}
+.client-info-container .main .follow-info .edit-follow {
+  padding-bottom: 30px;
+}
+.client-info-container .main .follow-info .edit-follow .layui-form-checkbox i {
+  border-radius: 50%;
+}
+.client-info-container .main .follow-info .edit-follow .layui-form {
+  background-color: #fff;
+  padding: 20px;
+}
+.client-info-container .main .follow-info .follow-info-content {
+  margin-top: 20px;
+}
+.client-info-container .main .follow-info .follow-info-content ul {
+  overflow: hidden;
+}
+.client-info-container .main .follow-info .follow-info-content ul li {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.client-info-container .main .follow-info .follow-info-content ul li .client-icon img {
+  border-radius: 50%;
+}
+.client-info-container .main .follow-info .follow-info-content ul li .info-item {
+  padding: 5px 0;
+}
+.client-info-container .main .follow-info .follow-info-content ul li .info-item-title {
+  line-height: 30px;
+}
+.client-info-container .main .follow-info .follow-info-content ul li .info-item-title strong {
+  font-size: 16px;
+}
+.client-info-container .main .follow-info .follow-info-content ul li .info-item-title .label-box a {
+  display: inline-block;
+  width: 76px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #eee;
+  color: #999;
+  border-radius: 3px;
+}
+.client-info-container .main .follow-info .follow-info-content ul li .info-item-img a {
+  overflow: hidden;
+  float: left;
+  margin: 0 20px 20px 0;
+}
+.client-info-container .main .follow-info .follow-info-content ul li:last-of-type {
+  margin-bottom: 0;
+}
+.client-info-container .main .follow-info .layui-item-time {
+  text-align: right;
+  color: #666;
+}
+.client-info-container .main .follow-info .layui-item-time a {
+  color: #666;
+}
+.client-info-container .main .follow-info .layui-item-time span {
+  float: left;
+}
+.client-info-container .main .follow-info .follow-laypage {
+  overflow: hidden;
+  padding: 20px;
+}
+.client-info-container .main .follow-info .follow-laypage .site-page {
+  line-height: 55px;
+}
+.client-info-container .main .follow-info .follow-laypage a.active {
+  color: #2883E1;
+}
+.client-info-container .main .cooperation-situation {
+  /* 查看合作情况 */
+  /* 编辑新增合作情况 */
+}
+.client-info-container .main .cooperation-situation .item-unit {
+  line-height: 38px;
+}
+.client-info-container .main .cooperation-situation .row-label span {
+  color: #f2493b;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation {
+  background-color: #fff;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-title {
+  padding: 20px;
+  color: #222;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  font-weight: 500;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-title span {
+  margin-right: 50px;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-title a {
+  float: right;
+  color: #2883E1;
+  font-size: 14px;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table {
+  padding: 30px;
+  overflow: hidden;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul {
+  border: 1px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li {
+  width: 100%;
+  line-height: 50px;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li span {
+  display: inline-block;
+  float: left;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 11%;
+  text-align: center;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li span a {
+  color: #2883E1;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li:nth-of-type(2n) {
+  background-color: #f5f5f5;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li:last-of-type {
+  border: 0;
+}
+.client-info-container .main .cooperation-situation .add-cooperation {
+  /* 销售过程 */
+}
+.client-info-container .main .cooperation-situation .add-cooperation .input-block-box {
+  line-height: 36px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .certificate .layui-input-block {
+  margin-left: 0;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .certificate .layui-input-block a {
+  float: left;
+  overflow: hidden;
+  margin-right: 20px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .certificate .layui-input-block a img {
+  width: 120px;
+  height: 80px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .compliance p i {
+  color: #222;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process {
+  padding: 20px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process h2 {
+  font-size: 16px;
+  line-height: 14px;
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process h2 div {
+  float: right;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process h2 div a {
+  color: #2883E1;
+  font-size: 12px;
+  margin-left: 30px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item {
+  margin-bottom: 18px;
+  border: 1px solid #eee;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .sales-item-content {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .sales-item-content:last-of-type {
+  border-bottom: 0;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .content-title strong {
+  font-size: 16px;
+  color: #222;
+  margin-right: 20px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .content-title a {
+  width: 76px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .content-item {
+  line-height: 2;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .content-item .img-box {
+  float: left;
+  margin-right: 20px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .content-item .img-box img {
+  width: 120px;
+  height: 80px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .info-item .del {
+  float: right;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .textarea-box {
+  margin-left: 0;
+  position: relative;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .textarea-box span {
+  position: absolute;
+  right: 8px;
+  bottom: 2px;
+}
+.client-info-container .main .cooperation-situation .add-cooperation .sales-process .sales-process-item .content-btn-box {
+  padding-top: 10px;
+  text-align: right;
+}

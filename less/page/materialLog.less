@@ -1,0 +1,227 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.layui-container {
+    padding: 20px 0 0 0 !important;
+
+    // 搜索
+    .finance-search {
+        background: #fff;
+        .layui-input-block {
+            margin: 0 0 0 20px;
+            padding: 20px 0 0;
+            width: 343px;
+            display: inline-block;
+            .layui-input {
+                display: inline-block;
+                width: 343px;
+                border-color: #ccc;
+                border-radius: 0;
+                &:focus {
+                    border-color: @blue-color !important;
+                }
+                &:focus + .icon-search {
+                    background: @blue-color !important;
+                }
+            }
+            .inputlight {
+                border-color: @blue-color !important;
+            }
+            .buttonlight {
+                background: @blue-color !important;
+            }
+            .icon-search {
+                position: absolute;
+                top: 21px;
+                right: 1px;
+                width: 34px;
+                min-width: 34px;
+                height: 32px;
+                background-color: #ccc;
+                padding: 0;
+                border-radius: 0;
+                -webkit-border-radius: 0;
+            }
+        }
+        .example-handle {
+            display: inline-block;
+            float: right;
+            margin-right: 24px;
+            margin-top: 20px;
+        }
+        &.finance-all {
+            margin-bottom: 0;
+        }
+        &.layui-form-item {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    // 标签/筛选
+    .finance-tag {
+        margin-bottom: 20px;
+        .tag-title {
+            height: 60px;
+            line-height: 60px;
+            width: inherit;
+        }
+        .examine-tag ul {
+            padding: 5px;
+            margin-left: 75px;
+            li {
+                position: relative;
+                .tag-a.show + .filter-time {
+                    display: block;
+                }
+                .filter-time {
+                    display: none;
+                    line-height: normal;
+                    position: absolute;
+                    z-index: 88;
+                    left: 0px;
+                    top: 44px;
+                    width: 330px;
+                    box-sizing: border-box;
+                    border: 1px solid #ccc;
+                    background-color: #fff;
+                    padding: 15px 9px;
+                    .choose-icon {
+                        a {
+                            font-size: 14px;
+                            margin-bottom: 2px;
+                            margin-right: 4px;
+                            color: #666;
+                            padding: 0 8px;
+                            height: 24px;
+                            display: inline-block;
+                            line-height: 24px;
+                            &:hover, &.active {
+                                background-color: @blue-color;
+                                color: #fff;
+                                border-radius: 2px;
+                            }
+                            // 自定义
+                            &:last-of-type {
+                                &.active ~ .layui-inline {
+                                    display: block;
+                                }
+                            }
+                        }
+                        .choose-wait {
+                            margin-left: 53px;
+                        }
+                        .layui-inline {
+                            display: none;
+                            margin-top: 6px;
+                            color: #666;
+                            height: 23px;
+                            overflow: hidden;
+                            input {
+                                width: 96px;
+                                color: #666;
+                                font-size: 14px;
+                                border: 1px solid #ccc;
+                                height: 22px;
+                                display: inline-block;
+                            }
+                            button {
+                                border: 0;
+                                color: @blue-color;
+                                background-color: transparent;
+                                font-size: 14px;
+                                vertical-align: ~"-webkit-baseline-middle";
+                                margin-left: 10px;
+                                margin-bottom: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+            .choose-title {
+                padding-left: 8px;
+            }
+        }
+    }
+
+    // 表格
+    .common-table {
+        background: @white-color;
+        tr {
+            border-bottom: 1px solid @border-color;
+            //&:nth-child(2n) {
+            //    background: #fcfcfc;
+            //}
+            th {
+                height: 60px;
+                &.t-name {
+                    text-align: left;
+                    padding-left: 60px;
+                }
+            }
+            td {
+                height: 50px;
+                .audit-skip {
+                    color: @blue-color;
+                    &:hover {
+                        color: @font-hover-color;
+                    }
+                }
+                &.t-name {
+                    text-align: left;
+                    .squaredFour {
+                        margin-left: 30px;
+                        margin-right: 15px;
+                    }
+                    > span {
+                        vertical-align: bottom;
+                    }
+                }
+                .open-show {
+                    display: inline-block;
+                    line-height: 50px;
+                }
+                .open-show:hover {
+                    color: #0162c5;
+                }
+            }
+        }
+        .audit-td {
+            position: relative;
+            cursor: pointer;
+            .audit-state {
+                position: absolute;
+                display: none;
+                top: -40px;
+                left: 155px;
+                width: 270px;
+                padding: 30px 15px;
+                background: @white-color;
+                z-index: 999;
+                box-sizing: border-box;
+                box-shadow: 0px 0px 5px #e1e1e1;
+                p {
+                    line-height: 26px;
+                    text-align: left;
+                    color: #777;
+                }
+            }
+            .audit-state-other {
+                left: -260px;
+            }
+        }
+        .audit-td:hover .audit-state {
+            display: block;
+        }
+    }
+
+    // 表格无内容
+    .no-result {
+        > p {
+            position: relative;
+            left: -5px;
+            padding-top: 280px;
+            font-size: 16px;
+            color: #999;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.detai-product-container{
+    .main-row{
+        margin-bottom: 20px;
+        &:last-of-type{
+            margin-bottom: 0;
+        }
+        h1{
+            padding:20px;
+            font-size: 16px;
+            border-bottom: 1px solid @border-color;
+            a{
+                color:@blue-color;
+                font-size: 14px;
+                font-weight: 400;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .product-info{
+            padding:20px 0;
+        }
+        .product-info-item{
+            padding:10px 10px;
+            font-size: 16px;
+            label{
+                color:#666;
+                text-align: right;
+               
+            }
+            p,span{
+                color: #222;
+                padding-left: 20px;
+                line-height: 1.5;
+                color:#222;
+            }
+        }
+        .product-brief{
+            label{
+                width:12.5%;
+                float:left;
+            }
+        }
+        .main-table{
+            margin: 0;
+            color:#666;
+            tr{
+                border-bottom:1px solid @border-color;
+                height:50px;
+                line-height: 50px;
+                color:#222;
+                background-color: @white-color;
+                &:nth-of-type(2n){
+                    background-color:#fcfcfc;
+                }
+                &:hover{
+                    background-color: #eee;
+                }
+                td{
+                    text-align: center;
+                    padding: 15px;
+                    border: 0;
+                }
+            }
+            .first-tr{
+                height:60px;
+                color:#666;
+                padding: 10px 0;
+                background-color: @white-color;
+                &:hover{
+                    background-color: @white-color;
+                }
+            }
+        }
+        .noData{
+            width:100%;
+            height:450px;
+            background: url('../../images/noData.png') no-repeat center center @white-color;
+        }
+    }
+    .layui-row-btn{
+        text-align: center;
+        padding: 10px;
+        background-color: @bg-color!important;
+        button,a{
+            width:140px;
+            height:40px;
+            line-height: 40px;
+            font-size: 16px;
+        }
+    }
+}

@@ -1,0 +1,82 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+/* 权限组公共样式 */
+.layui-container {
+    // 共用表格等样式 
+    .rule-row {
+        position: relative;
+        height: 100%;
+        .jur-head {
+            margin-bottom: 20px;
+        }
+        .structure-row {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            width: 350px;
+            transform:translateX(-50%);
+            box-shadow: 0 0 0 1px #eee;
+            z-index: 999;
+            overflow: auto;
+            border-radius: 5px;
+            .alert-title {
+                height: 50px;
+                line-height: 50px;
+                width: 100%;
+                background: #0a6aa1;
+                text-align: center;
+                color: #fff;
+                font-size: 18px;
+
+            }
+            .example-handle {
+                text-align: center;
+                padding-top: 20px;
+                border-top: 1px solid @border-color;
+            }
+            .tree-main {
+                height: 408px;
+                overflow: auto;
+            }
+        }
+        .paren-canter {
+            float: left;
+            width: 18%;
+            .example-handle {
+                float: left;
+            }
+        }
+        .layui-form {
+            padding: 20px 20px 10px 20px;
+            .rule-list {
+                .layui-form-item {
+                    width: 33%;
+                    float: left;
+                    clear: none;
+                }
+            }
+
+        }
+        .tree-main {
+            padding: 15px 20px;
+        }
+        .form-list {
+            text-align: center;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,288 @@
+@charset "utf-8";
+/* 权限组公共样式 */
+.layui-container .common-row .jur-top {
+  margin-top: 20px;
+}
+.layui-container .common-row .jur-top .juf-form {
+  padding: 0 20px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item {
+  margin-bottom: 20px;
+  float: left;
+  clear: none;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-form-label {
+  width: 75px;
+  box-sizing: border-box;
+  padding: 7px 10px 0 0;
+  text-align: right;
+  color: #999;
+  font-size: 16px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .jur-line {
+  color: #999;
+  padding: 0 6px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .jur-name-label {
+  width: 100px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input,
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-select,
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-textarea {
+  height: 34px;
+  border-color: #ccc!important;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input:focus,
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-select:focus,
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-textarea:focus {
+  border-color: #2883E1 !important;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-form-checkbox[lay-skin=primary] {
+  margin-top: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-form-checkbox {
+  margin-top: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input-inline {
+  width: 156px;
+  margin-right: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-input-block {
+  display: inline-block;
+  min-height: 34px;
+  margin-left: 0;
+  margin-right: 20px;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .layui-inline {
+  vertical-align: middle;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.layui-container .common-row .jur-top .juf-form .layui-form-item .depart-query {
+  margin-left: 0;
+}
+.layui-container .common-row .jur-top .juf-form .example-handle {
+  text-align: center;
+  vertical-align: middle;
+}
+.layui-container .common-row .jur-top .juf-form .example-handle .examine-query {
+  margin-left: 20px;
+  float: left;
+}
+.layui-container .common-row .jur-top .juf-form .handle-add {
+  float: right;
+}
+.layui-container .common-row .jur-top .juf-form .jur-handle {
+  display: inline-block;
+  margin-left: 20px;
+}
+.layui-container .common-row .jur-depart .juf-form .layui-form-item .layui-input-block {
+  width: 118px;
+}
+.layui-container .common-row .jur-depart .juf-form .example-handle {
+  margin-left: 30px;
+}
+.layui-container .common-row .depart-img {
+  width: 30px;
+  height: 30px;
+}
+.layui-container .jur-row {
+  padding: 20px;
+}
+.layui-container .jur-row .layui-form .layui-form-label {
+  display: block;
+  width: 100%;
+  padding: 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+}
+.layui-container .jur-row .layui-form .layui-input-block {
+  margin-left: 0;
+}
+.layui-container .jur-row .examine {
+  text-align: center;
+}
+.layui-container .jur-row .examine .add-jur-save {
+  margin-right: 20px;
+}
+.layui-container .jur-row .custom-label {
+  padding-top: 15px;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.layui-container .jur-row .custom-label .layui-form-label {
+  line-height: 28px;
+}
+.layui-container .h-title {
+  clear: both;
+  padding: 20px 0 10px 0;
+}
+.layui-container .jur-label {
+  color: #e4393c;
+}
+.layui-container .edit-last .jstree-ocl {
+  display: none;
+}
+.layui-container .edit-last .jstree-ocl:first-child {
+  margin-left: 30px;
+}
+.layui-container .edit-last:first-child {
+  margin-left: 50px;
+}
+.layui-container .user-table {
+  margin-top: 20px;
+}
+.layui-container .group-decript {
+  max-width: 300px;
+}
+.layui-container .accounts-row .layui-form .account-item {
+  padding: 20px;
+}
+.layui-container .accounts-row .layui-form .account-item .account-pho {
+  margin-bottom: 0;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .jur-add-photo {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .jur-add-photo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .jur-add-name {
+  font-size: 16px;
+  margin-left: 15px;
+  margin-right: 20px;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .layui-form-label {
+  display: block;
+  width: 100%;
+  padding: 0;
+  font-weight: bold;
+  text-align: left;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .layui-input-block {
+  margin-left: 0;
+  margin-right: 20px;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .layui-input-block .accounts-check {
+  padding-left: 24px;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .examine {
+  text-align: center;
+}
+.layui-container .accounts-row .layui-form .layui-form-item .examine .add-jur-save {
+  margin-right: 20px;
+}
+.layui-container .account-img {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.layui-container .squares label:after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border: 2px solid #999;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0;
+  transform: rotate(-45deg);
+}
+.layui-container .squares input[type=checkbox] {
+  visibility: hidden;
+}
+.layui-container .squares input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+.layui-container .squares input[type=checkbox]:checked + label {
+  border: 1px solid #999;
+  cursor: not-allowed;
+}
+/* 权限设置树形样式 */
+.treeview li {
+  cursor: pointer;
+}
+.treeview li a {
+  color: #fff;
+}
+.treeview .end-li {
+  margin: 3px 0 3px 40px;
+}
+.treeview .hitarea {
+  background: url(../../images/minus.gif) 0 6px no-repeat;
+  height: 16px;
+  width: 16px;
+  margin-left: -16px;
+  float: left;
+  cursor: pointer;
+}
+.treeview .expandable-hitarea {
+  background: url(../../images/plus.gif) 0 6px no-repeat;
+}
+/* 树形样式重置 */
+body,
+html {
+  height: 100%;
+}
+.client-nav {
+  height: 100%;
+  padding: 0 20px 20px 20px;
+  font-size: 16px;
+  background: #fff;
+}
+.client-nav .examine {
+  text-align: center;
+}
+.client-nav .examine .examine-query {
+  margin-right: 20px;
+}
+.client-nav .data-jur h2,
+.client-nav .rule-jur h2 {
+  padding: 20px 0;
+}
+.client-nav .data-jur .account-titles,
+.client-nav .rule-jur .account-titles {
+  margin-right: 20px;
+}
+.jur-label {
+  color: #f2493b;
+}
+.position-input {
+  height: 34px;
+  width: 200px;
+  border: 1px solid #eee;
+  padding-left: 10px;
+}
+.layui-form-select dl {
+  max-height: 180px;
+}
+.jstree-default .jstree-clicked {
+  background: #fff;
+}
+.jstree-default .jstree-disabled.jstree-clicked {
+  background: #fff;
+}
+.last-li {
+  float: left;
+}
+.import-usr-container .import-usr-group {
+  height: auto;
+}
+.import-usr-container .btn {
+  height: 60px;
+  line-height: 60px;
+}
+.break-all {
+  word-break: break-all;
+  padding: 0 40px;
+  height: 210px;
+}

@@ -1,0 +1,226 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.my-client-container{
+	overflow: hidden;
+  	// 侧栏
+  .sidebar-collapse {
+    position: fixed;
+    height: 100%;
+    outline: 1px solid;
+    width: 240px;
+    background: #243443;
+    h3 {
+       padding: 15px 20px 15px 30px;
+       color: #fff;
+       font-size: 18px;
+       font-weight: normal;
+      i {
+        margin-top: 5px;
+        float: right;
+      }
+    }
+    // 树形菜单
+    .sibNav {
+      li {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        a {
+          display: block;
+          color: #97a9bc;
+          font-weight: 500;
+          padding: 17px 15px 17px 10px;
+          margin-left: 20px;
+          border-bottom: 1px solid #1a2836;
+          border-top: 1px solid #2e3d4c;
+          font-size: 16px;
+          i {
+            margin-right: 6px;
+            background: #f2493b;
+            color: #fff;
+            margin:5px 5px;
+            padding:0px 5px 1px;
+            border-radius: 8px 8px;
+            font-size: 10px;
+          }
+        }
+        &:hover{
+          background: #1a2836;
+          a{
+            color: #fff;
+          }
+        }
+        // 激活
+        &.active {
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+          background: #1a2836;
+          border-left: 4px solid @blue-color;
+          a {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    // 树形菜单 end
+  	}
+	.main-wrap{
+		margin-left: 240px;
+    		width: auto;
+    		margin-top: 50px;
+		.layui-row {
+		     padding: 20px;
+		     margin: 0;
+		     background-color: #fff;
+		     border-radius: 3px;
+		     .top-tit {
+		        font-size: 16px;
+		        color: #000;
+		        font-weight: 700;
+		        padding: 5px 0px 0px 20px;
+		     }
+		     .top-but{
+				  text-align: right;
+  				.layui-btn{
+            margin-right: 20px;
+  					width: 90px;
+  					height: 30px;
+  					color: #2883e0;
+  					border: 1px solid #2883e0;
+  					border-radius: 3px;
+  					padding: 0 0;
+  					line-height: 30px;
+  					font-size: 14px;
+  					background: #fff;
+  				}
+          .layui-btn-no{
+            border-color: #999;
+            color: #999;
+          }
+		     }
+		}
+		.main{
+      padding:0px 0px;
+			.layui-tab-card>.layui-tab-title{
+				background: #e8e8e8;
+			}
+			.layui-tab-card{
+        overflow: hidden;
+        margin-top: 30px;
+				.layui-tab-title{
+          overflow: hidden;
+					color: #999;
+					height: 50px;
+          width: 100%;
+					li{
+						width: 95px;
+						line-height: 50px;
+            margin-left: 0px;
+            color: #222;
+					}
+					.layui-this{
+						color: #222;
+            background: #e8e8e8;
+						&:after{
+							height: 50px;
+						}
+					}
+          .sm-active{
+            background: #fff;
+          }
+          .main-num{
+            padding-left: 10px;
+            color: #f2493b;
+          }
+				}
+			}
+			.layui-tab-content{
+				margin-top:-10px;
+				background: #fff;
+        overflow: hidden;
+			}
+			.news-list{
+        padding:10px 10px;
+				li{
+					margin:20px 10px;
+					border:1px solid #f1f1f1;
+					background: #fcfcfc;
+					padding:20px 20px 10px;
+					.list-text{
+						font-size: 16px;
+						line-height: 25px;
+					}
+          a{
+            color: #2883e0;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+				}
+				.list-bot{
+					padding-top:15px;
+					color: #999;
+					font-size: 14px;
+					line-height: 30px;
+					.btn{
+						color: #fff;
+            background: #2883e0;
+						line-height: 20px;
+						margin-left: 20px;
+            border-radius: 3px;
+            padding:0px 5px;
+					}
+					.del-btn{
+						float: right;
+						font-size: 14px;
+						color: #666;
+            &:hover{
+              color: #2883e0;
+              text-decoration: none;
+            }
+					}
+				}
+        .noNewsPc{
+          padding:200px 0;
+          border:0px;
+          background: #fff url(../../images/nonews.png) no-repeat center;
+        }
+			}
+      .bottom-page {
+          overflow: hidden;
+          padding: 20px;
+          .site-page {
+            color: #666;
+              line-height: 55px;
+          }
+          a.active {
+              color: @blue-color;
+          }
+          .recording{
+            color: #666;
+            margin-top:15px;
+            margin-right:20px;
+          }
+          .layui-laypage{
+            a{
+              font-size: 14px;
+              color: #999999;
+              border: 1px solid #d9d9d9;
+              border-radius: 3px;
+              margin:0px 4px;
+            }
+            span{
+                   margin: 0; 
+            }
+            .layui-laypage-curr{
+              .layui-laypage-em{
+                background: #2983e0;
+              }
+            }
+          } 
+      }
+		}
+	}
+
+}

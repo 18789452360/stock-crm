@@ -1,0 +1,97 @@
+@charset "utf-8";
+.main-wrap .layui-container .structure-row {
+  padding: 0 20px 20px 20px;
+  /* 重置tree样式 */
+  /* 标题 */
+}
+.main-wrap .layui-container .structure-row #jstree {
+  width: 100%;
+}
+.main-wrap .layui-container .structure-row .jstree-anchor > .jstree-themeicon {
+  margin-right: 0;
+}
+.main-wrap .layui-container .structure-row .tree-partment {
+  display: inline-block;
+  padding-right: 10px;
+  width: 180px;
+}
+.main-wrap .layui-container .structure-row .tree-drag,
+.main-wrap .layui-container .structure-row .tree-editor,
+.main-wrap .layui-container .structure-row .tree-delete {
+  display: inline-block;
+  padding: 0 10px;
+}
+.main-wrap .layui-container .structure-row .depart-head {
+  text-align: center;
+}
+.main-wrap .layui-container .structure-row .depart-save {
+  margin-left: 0;
+}
+.main-wrap .layui-container .structure-row .sturcture-title {
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 20px;
+  color: #fff;
+  background: #0a6aa1;
+  text-align: center;
+  border-right: 2px solid #fff;
+}
+.main-wrap .layui-container .structure-row .layui-form .layui-input-block {
+  margin-left: 0;
+}
+.main-wrap .layui-container .structure-row .layui-form .example-handle .examine-operate {
+  width: 120px;
+}
+.main-wrap .layui-container .structure-row .jstree-children {
+  margin-left: 20px;
+}
+.main-wrap .layui-container .structure-row .jstree-children li {
+  line-height: 24px;
+}
+.main-wrap .layui-container .structure-row .form-list input:focus {
+  border-color: #2883E1 !important;
+}
+.main-wrap .layui-container .structure-row .form-list .add-contrant-icon {
+  position: relative;
+}
+.main-wrap .layui-container .structure-row .form-list .add-contrant-icon:hover span {
+  display: block;
+}
+.main-wrap .layui-container .structure-row .form-list .add-contrant-icon span {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: #ccc;
+  cursor: pointer;
+}
+.main-wrap .layui-container .structure-row .form-list .add-contrant-icon span:hover {
+  color: #2883E1;
+}
+.main-wrap .layui-container .structure-row .group-arrows {
+  text-align: center;
+  line-height: 450px;
+}
+.main-wrap .layui-container .structure-row .add-client {
+  padding: 0 10px;
+}
+.main-wrap .layui-container .structure-row .depment-tips {
+  color: #aaa;
+  padding: 0 0 10px 25px;
+}
+.main-wrap .layui-container .structure-row .depment-tips .confirm-warn {
+  color: #f2493b;
+  padding-right: 3px;
+}
+.top-parent {
+  width: 100%;
+  height: 34px;
+  padding-left: 10px;
+  border: 1px solid #eee;
+}
+.jstree-edit {
+  margin-top: 20px;
+}
+.depment-tips {
+  color: #ccc;
+}

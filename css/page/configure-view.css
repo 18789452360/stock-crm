@@ -1,0 +1,29 @@
+@charset "utf-8";
+.container .main-wrap .layui-container {
+  padding: 20px 20px;
+  background: #fff;
+  margin: 20px auto;
+}
+.container .main-wrap .layui-container .main-top {
+  font-size: 16px;
+  padding: 20px 0px;
+}
+.container .main-wrap .layui-container .tableBar {
+  text-align: center;
+}
+.container .main-wrap .layui-container .tableBar th {
+  text-align: center;
+}
+.container .main-wrap .layui-container .tableBar .tab-edit {
+  color: #2883E1;
+}
+.container .main-wrap .layui-container .tableBar .titName {
+  width: 120px;
+}
+.container .main-wrap .layui-container .tableBar .titcom {
+  width: 120px;
+}
+#all .layui-form,
+#revise .layui-form {
+  width: 1400px !important;
+}

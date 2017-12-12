@@ -1,0 +1,88 @@
+<!-- 编辑部门 -->
+<div class="confirm-tip">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="confirm-warn">*</span>部门名称：</label>
+            <div class="layui-input-block">
+                <input name="" class="top-parent edit-depart  add-parent" placeholder="请输入部门名称">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级部门：</label>
+            <!--<input name="" class="top-parent select-parent" placeholder="请输入上级部门">-->
+            <div class="layui-input-block">
+                <input name="" class="top-parent select-parent" placeholder="请输入上级部门" readonly>
+                <p class="depment-tips"><span class="confirm-warn">*</span>上级部门为空默认移动到一级部门</p>
+            </div>
+            <div class="edit-parent" style="margin-left: 115px;">
+
+            </div>
+        </div>
+    </form>
+</div>
+<script id="share-usr-left" type="text/html">
+    <!-- class="jstree-open" -->
+    <div id="jstree-edit" class="jstree-edit">
+        <ul class="jstree-ul">
+            {? each data as item index ?}
+            <li  data-id="{? item.id ?}">
+                <span class="tree-partment select-parent" data-id="{? item.id ?}">{? item.name ?}</span>
+                {?if item.child ?}
+                <ul class="jstree-ul">
+                    {? each item.child as list index ?}
+                    <li  data-id="{? list.id ?}">
+                        <span class="tree-partment select-parent" data-id="{? list.id ?}">{? list.name ?}</span>
+                        {?if list.child ?}
+                        <ul class="jstree-ul">
+                            {? each list.child as lastList index ?}
+                            <li data-id="{? lastList.id ?}">
+                                <span class="tree-partment select-parent" data-id="{? lastList.id ?}" >{? lastList.name ?}</span>
+                                {?if lastList.child ?}
+                                <ul class="jstree-ul">
+                                    {? each lastList.child as itemFour index ?}
+                                    <li data-id="{? itemFour.id ?}">
+                                        <span class="tree-partment select-parent" data-id="{? itemFour.id ?}" >{? itemFour.name ?}</span>
+                                        {?if itemFour.child ?}
+                                        <ul class="jstree-ul">
+                                            {? each itemFour.child as itemFive index ?}
+                                            <li data-id="{? itemFive.id ?}">
+                                                <span class="tree-partment select-parent" data-id="{? itemFive.id ?}" >{? itemFive.name ?}</span>
+                                                {?if itemFive.child ?}
+                                                <ul class="jstree-ul">
+                                                    {? each itemFive.child as itemSix index ?}
+                                                    <li data-id="{? itemSix.id ?}">
+                                                        <span class="tree-partment select-parent" data-id="{? itemSix.id ?}" >{? itemSix.name ?}</span>
+                                                        {?if itemSix.child ?}
+                                                        <ul class="jstree-ul">
+                                                            {? each itemSix.child as itemSeven index ?}
+                                                            <li data-id="{? itemSeven.id ?}">
+                                                                <span class="tree-partment select-parent" data-id="{? itemSeven.id ?}" >{? itemSeven.name ?}</span>
+                                                            </li>
+                                                            {? /each ?}
+                                                        </ul>
+                                                        {?/if ?}
+                                                    </li>
+                                                    {? /each ?}
+                                                </ul>
+                                                {?/if ?}
+                                            </li>
+                                            {? /each ?}
+                                        </ul>
+                                        {?/if ?}
+                                    </li>
+                                    {? /each ?}
+                                </ul>
+                                {?/if ?}
+                            </li>
+                            {? /each ?}
+                        </ul>
+                        {?/if ?}
+                    </li>
+                    {? /each ?}
+                </ul>
+                {?/if ?}
+            </li>
+            {? /each ?}
+        </ul>
+    </div>
+</script>

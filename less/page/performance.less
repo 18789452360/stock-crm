@@ -1,0 +1,85 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.container{
+	overflow: hidden;
+	.main-wrap{
+  		width: auto;
+	}
+  .main{
+    padding:20px 20px;
+    .filter{
+      background: #fff;
+      margin:20px 0;
+      .jur-handle{
+        display: inline-block;
+      }
+      .layui-inline{
+        .layui-input-inline{
+          margin:10px 10px;
+        }
+        .layui-form-label{
+          padding:17px 15px;
+        }
+      }
+      .handle-add{
+        .layui-btn{
+          border: 1px solid #f5f5f5;
+          background-color: #ffffff;
+          margin:0 10px;
+          color: #999;
+          &:hover{
+            border: 1px solid #ccc;
+          }
+        }
+        .active{
+            color: #2883e1;
+            border-color: #2883e1;
+          }
+      }
+    }
+    .layui-table{
+      margin:40px 0;
+      .icon{
+        display: inline-block;
+        width: 8px;
+        height: 13px;
+        margin: 0px 10px;
+        background: url(../../images/sort_default.png) no-repeat center;
+      }
+      .sortBg{
+        background: #999;
+      }
+      .asc{
+        i{
+          background: url(../../images/sort_asc.png) no-repeat center;
+        }
+      }
+      .desc{
+        i{
+          background: url(../../images/sort_desc.png) no-repeat center;
+        }
+      }
+      th{
+        text-align: center;
+      }
+      .name{
+        width: 500px;
+      }
+      .noData{
+        height: 400px;
+        background: #f2f2f2;
+        text-align: center;
+        td{
+          border:0px;
+        }
+        .notd{
+          background:#f2f2f2 url(../../images/noData.png) no-repeat center;
+        }
+      }
+    }
+    .noDataBut{
+      background: #e3e3e3;
+    }
+  }
+}

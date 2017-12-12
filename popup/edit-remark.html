@@ -1,0 +1,38 @@
+<!--编辑备注询问框-->
+<!--<div class="confirm-tip">-->
+<!--编辑备注-->
+<!--</div>-->
+<!-- 添加/删除备注询问框 -->
+<div class="add-remark-container">
+    <div class="tag-group"></div>
+    <div class="btn">
+        <p class="clearfix">
+        <span class="pull-left">
+            <a href="javascript:;" class="check-select un-checkall-btn active">取消全选</a>
+            <a href="javascript:;" class="check-select checkall-btn">全选</a>
+        </span>
+            <a class="cancel" href="javascript:;">取消</a>
+            <a class="ok" href="javascript:;">确定</a>
+        </p>
+    </div>
+</div>
+
+<script id="addRemark" type="text/html">
+    <div class="remark-tip">
+        <p class="remark-p">已存在的备注</p>
+        <ul>
+            {? each datas as value i ?}
+            <li class="list-item-exist" data-id="{? value.id ?}">{? value.mark_name ?}<span class="iconfont icon-delete remark-del"></span></li>
+            {? /each ?}
+        </ul>
+    </div>
+    <div>
+        <p class="remark-p">我的备注</p>
+        <ul>
+            {? each data as value i ?}
+            <li class="list-item" data-id="{? value.id ?}">{? value.mark_name ?}</li>
+            {? /each ?}
+        </ul>
+    </div>
+
+</script>

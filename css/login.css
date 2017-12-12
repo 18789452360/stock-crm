@@ -1,0 +1,57 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+.login-container {
+  background: url(../images/loginbg.jpg) no-repeat center;
+  background-size: cover;
+}
+.login-container .layui-row {
+  background: #fff;
+  width: 370px;
+  height: 295px;
+  padding: 20px 40px;
+  margin: 15% auto;
+  border-radius: 3px 3px;
+  position: relative;
+  left: 15%;
+}
+.login-container .layui-row h2 {
+  padding: 20px 0px;
+  font-size: 20px;
+  color: #2883e0;
+  font-weight: 600;
+  text-align: center;
+}
+.login-container .layui-row .layui-form .layui-form-item {
+  text-align: center;
+  margin: 20px 0;
+}
+.login-container .layui-row .layui-form .layui-form-item input {
+  background-color: #fff;
+  height: 45px;
+  width: 366px;
+  line-height: 45px;
+  border: 2px solid #e6e6e6;
+  padding-left: 50px;
+}
+.login-container .layui-row .layui-form .layui-form-item .name {
+  background: url(../images/login_name.png) no-repeat 15px center;
+  background-size: 20px 20px;
+}
+.login-container .layui-row .layui-form .layui-form-item .pass {
+  background: url(../images/login_pass.png) no-repeat 20px center;
+  background-size: 15px 20px;
+}
+.login-container .layui-row .layui-form .layui-form-item button {
+  width: 370px;
+  height: 50px;
+  line-height: 50px;
+  margin-top: 10px;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+.login-container .layui-row .layui-form .layui-form-item a {
+  color: #2883e0;
+}

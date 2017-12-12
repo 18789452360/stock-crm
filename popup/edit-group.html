@@ -1,0 +1,29 @@
+<!-- 编辑分组询问框 -->
+<div class="move-group-container edit-group-container">
+    <div class="move-group">
+        <div class="client-group-list">
+            <span>已存在分组:</span>
+        </div>
+        <div class="select-container clearfix">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">移动至分组</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="group" id="selectOptionBox">
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="btn">
+        <p><a class="cancel" href="javascript:;">取消</a><a class="ok" href="javascript:;">确定</a></p>
+    </div>
+</div>
+
+<script id="selectOptions" type="text/html">
+    <option value="">请选择分组</option>
+    {% each data as value i %}
+    <option value="{% value.id %}">{% value.name %}</option>
+    {% /each %}
+</script>

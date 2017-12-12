@@ -1,0 +1,156 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.main {
+    padding: 20px 0 !important;
+    // 页面公共
+    .layui-row {
+        padding: 0 !important;
+        background-color: @white-color;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 18px;
+        .layui-row-title {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 20px;
+            border-bottom: 1px solid @bg-color;
+            margin-bottom: 20px;
+        }
+        .layui-form {
+            padding: 0 20px;
+            .layui-form-item {
+                .phone-box {
+                    .input-item {
+                        margin-bottom: 14px;
+                        position: relative;
+                        span {
+                            position: absolute;
+                            top: 10px;
+                            right: 12px;
+                            i {
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                margin-left: 20px;
+                                cursor: pointer;
+                                &.add-ico {
+                                    background: url("../../images/add_ico.png") center 0 no-repeat;
+                                }
+                                &.del-ico {
+                                    background: url("../../images/del_ico.png") center no-repeat;
+                                }
+                            }
+                        }
+                    }
+                    .input-item:last-of-type {
+                        margin-bottom: 0;
+                    }
+                }
+                .err-prompt {
+                    color: @red-color;
+                    display: inherit;
+                    margin-top: 10px;
+                }
+                .err {
+                    padding-left: 20px;
+                }
+            }
+            .layui-form-item:last-of-type {
+                border: 0;
+            }
+        }
+
+        // 文档信息
+        &.edit-info {
+            .layui-form-item {
+                .layui-form-label {
+                    > span {
+                        color: @red-color;
+                    }
+                }
+                .keyword-tip {
+                    margin-top: 5px;
+                    color: #999;
+                    font-size: 13px;
+                }
+                .select-usr-wrap {
+                    .select-usr {
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                    }
+                }
+                // 附件板块
+                .file-group {
+                    padding: 5px;
+                    ul {
+                        li {
+                            padding-bottom: 25px;
+                            dd {
+                                float: left;
+                                height: 25px;
+                                line-height: 25px;
+                                > .layui-input {
+                                    height: 25px;
+                                    line-height: 25px;
+                                    display: inline-block;
+                                    width: 200px;
+                                }
+                                &.file-group-btn {
+                                    margin-left: 15px;
+                                    i {
+                                        cursor: pointer;
+                                        &.icon-shanchu {
+                                            margin-right: 5px;
+                                        }
+                                    }
+                                }
+                                // 模拟文件上传
+                                &.upload-file-mock {
+                                    button {
+                                        border-radius: 3px;
+                                        border: 0;
+                                        width: 80px;
+                                        height: 24px;
+                                        background-color: #2883E1;
+                                        color: #fff;
+                                        margin-right: 5px;
+                                        &:hover {
+                                            opacity: .8;
+                                        }
+                                    }
+                                    span {
+                                        margin-right: 90px;
+                                    }
+                                    .upload-file {
+                                        display: none;
+                                    }
+                                }
+                                // 附件标题
+                                &.file-title {
+                                    position: relative;
+                                    .err {
+                                        position: absolute;
+                                        color: red;
+                                        left: 55px;
+                                        font-size: 13px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+    .btn-box {
+        padding: 36px 0;
+        text-align: center;
+        button {
+            height: 40px;
+            width: 140px;
+            font-size: 18px;
+        }
+    }
+}

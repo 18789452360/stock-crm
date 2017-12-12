@@ -1,0 +1,83 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.main {
+    padding: 20px 0 !important;
+    // 页面公共
+    .layui-row {
+        padding: 0 !important;
+        background-color: @white-color;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 18px;
+
+        // 标题
+        .layui-row-title {
+            padding: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid @bg-color;
+            h3 {
+                font-size: 18px;
+                text-align: center;
+            }
+        }
+
+        // 文档属性
+        .detail-info {
+            text-align: center;
+            font-size: 14px;
+            ul {
+                display: inline-block;
+                li {
+                    margin-left: 50px;
+                    float: left;
+                }
+            }
+            dl {
+                font-weight: bold;
+                display: inline-block;
+                dt, dd {
+                    float: left;
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        // 内容
+        .content-wrap {
+            width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+
+            // 附件
+            .accessory {
+                legend {
+                    font-size: 16px;
+                    margin-bottom: 20px;
+                }
+                .file-list {
+                    li {
+                        margin-bottom: 20px;
+                        dl {
+                            dt, dd {
+                                float: left;
+                                height: 35px;
+                                line-height: 35px;
+                                i {
+                                    font-size: 30px;
+                                    vertical-align: middle;
+                                }
+                                a {
+                                    color: @blue-color;
+                                }
+                            }
+                            dd {
+                                margin-left: 50px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

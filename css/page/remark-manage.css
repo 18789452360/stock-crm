@@ -1,0 +1,250 @@
+@charset "utf-8";
+.add-client-container .examine-search .layui-input-inline {
+  width: 340px;
+}
+.add-client-container .examine-search .layui-input-inline .layui-input {
+  padding-right: 34px;
+}
+.add-client-container .examine-search .layui-input-inline .layui-input:focus {
+  border-color: #2883e1!important;
+}
+.add-client-container .examine-search .layui-input-inline .layui-form-danger:focus {
+  border-color: #2883e1!important;
+}
+.add-client-container .examine-search .layui-input-inline .layui-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 36px;
+  min-width: 36px;
+  height: 34px;
+  background-color: #ccc;
+  padding: 0;
+}
+.add-client-container .examine-search .layui-input-inline .layui-btn:hover {
+  background-color: #2883e1;
+  opacity: 1;
+  border-color: #2883e1;
+}
+.add-client-container .examine-search .layui-input-inline .layui-btn.available {
+  background-color: #2883e1;
+}
+.add-client-container .example-handle .layui-inline-custom .layui-form-mid {
+  float: right;
+  margin-left: 10px;
+  color: #f2493b !important;
+}
+.add-client-container .example-handle .layui-input-custom {
+  width: 230px;
+  margin-right: 5px;
+}
+.add-client-container .example-handle .layui-input-custom .layui-input {
+  border-color: #2883e0;
+}
+.add-client-container .example-handle .layui-btn {
+  width: 50px;
+  min-width: 50px;
+  padding: 0;
+}
+.add-client-container .example-handle .layui-btn-primary {
+  margin-left: 0;
+}
+.add-client-container .add-remark-title {
+  background-color: #fff;
+  height: 74px;
+}
+.add-client-container .add-remark-title .layui-inline {
+  text-align: right;
+  float: right;
+}
+.add-client-container .add-remark-title .layui-inline .add-btn {
+  display: inline-block;
+  border: 1px solid #dbdbdb;
+  padding: 5px 8px 5px 5px;
+  border-radius: 4px;
+  color: #999;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.add-client-container .add-remark-title .layui-inline .add-btn i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../../images/add_ico.png") center top no-repeat;
+  vertical-align: bottom;
+}
+.add-client-container .add-remark-title .layui-inline .add-btn:hover {
+  background-color: #e8f3ff;
+  border-color: #2883e0;
+  color: #2883e0;
+}
+.add-client-container .add-remark-title .layui-inline .add-btn:hover i {
+  background-position: center bottom;
+}
+.add-client-container .add-remark-title .layui-inline .tips {
+  color: #999;
+}
+.add-client-container .main .check-btn {
+  margin-bottom: 15px;
+}
+.add-client-container .main .check-btn p {
+  text-align: right;
+}
+.add-client-container .main .check-btn p a {
+  color: #999;
+}
+.add-client-container .main .check-btn p a.cancel {
+  color: #2883E1;
+  margin-right: 15px;
+}
+.add-client-container .main .layui-row {
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  padding: 0 !important;
+}
+.add-client-container .main .layui-row .layui-row-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px;
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 20px;
+}
+.add-client-container .main .layui-row .layui-form {
+  padding: 0 20px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item {
+  border-bottom: 1px dotted #f5f5f5;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item {
+  margin-bottom: 14px;
+  position: relative;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span i.add-ico {
+  background: url("../../images/add_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item span i.del-ico {
+  background: url("../../images/del_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .phone-box .input-item:last-of-type {
+  margin-bottom: 0;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .err-prompt {
+  color: #f2493b;
+  display: inherit;
+  margin-top: 10px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item .err {
+  padding-left: 20px;
+}
+.add-client-container .main .layui-row .layui-form .layui-form-item:last-of-type {
+  border: 0;
+}
+.add-client-container .main .layui-row .remarks-list ul {
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.add-client-container .main .layui-row .remarks-list ul li {
+  border: 1px solid #EDEDED;
+  margin: 10px;
+  border-radius: 2px;
+  padding: 5px 8px 5px 10px;
+  height: 20px;
+  line-height: 20px;
+  transition: all .2s;
+  cursor: default;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item.active {
+  color: #2883E1;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item:hover {
+  color: #777;
+  border: 1px solid #ccc;
+}
+.add-client-container .main .layui-row .remarks-list ul .list-item i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 0;
+  cursor: pointer;
+  background: url("../../images/del_remark_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks {
+  color: #999;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-remarks i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  background: url("../../images/add_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .disabled-add {
+  color: #999;
+}
+.add-client-container .main .layui-row .remarks-list ul .disabled-add i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  background: url("../../images/add_ico.png") center no-repeat;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input {
+  height: 40px;
+  position: relative;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input input {
+  border: 1px solid #2883E1;
+  text-indent: 1em;
+  width: 230px;
+  height: 30px;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input span {
+  display: inline-block;
+  padding: 7px;
+  box-sizing: border-box;
+  width: 64px;
+  border: 1px solid #eee;
+  color: #666;
+  margin-left: 9px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input span.ok {
+  background-color: #2883E1;
+  color: #fff;
+  border: 1px solid #2883E1;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input span:hover {
+  opacity: .8;
+}
+.add-client-container .main .layui-row .remarks-list ul .add-input .err-tip {
+  position: absolute;
+  right: -190px;
+  top: 16px;
+  color: #f2493b;
+}
+.add-client-container .main .layui-row .row-cue {
+  padding: 0 17px 17px;
+  color: #f2493b;
+}

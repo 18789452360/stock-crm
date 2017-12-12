@@ -1,0 +1,125 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.material-wrap {
+    padding: 20px 0 0 0 !important;
+
+    .btn-wrap {
+        margin-bottom: 15px;
+    }
+
+    .layui-collapse {
+        border: none;
+        .layui-colla-item {
+            background-color: @white-color;
+            margin-bottom: 25px;
+            .layui-colla-title {
+                background-color: @white-color;
+                font-size: 16px;
+                padding-left: 20px;
+
+                .layui-colla-icon {
+                    left: 97%;
+                }
+                .icon-shanchu {
+                    float: right;
+                    margin-right: 50px;
+                }
+            }
+            .layui-colla-content {
+                .folder-wrap {
+                    padding: 35px;
+                    > li {
+                        float: left;
+                        padding: 20px 30px 20px 20px;
+                        dl {
+                            position: relative;
+                            cursor: pointer;
+                            > i.icon-shanchu {
+                                display: none;
+                                position: absolute;
+                                top: 9px;
+                                right: 7px;
+                                font-size: 14px;
+                                font-weight: bold;
+                            }
+                            > i.empty {
+                                display: none;
+                                position: absolute;
+                                top: -10px;
+                                right: 0;
+                                height: 16px;
+                                line-height: 16px;
+                                font-size: 10px;
+                                color: #fff;
+                                padding: 0 5px;
+                                text-align: center;
+                                background-color: @blue-color;
+                                border-radius: 16px;
+                            }
+                            &:hover i.icon-shanchu {
+                                display: block;
+                            }
+                            dt {
+                                .icon-folder {
+                                    font-size: 48px;
+                                }
+                            }
+                            dd {
+                                font-weight: bold;
+                            }
+                        }
+                        // 文件夹为空
+                        &.empty {
+                            dl {
+                                > i.empty {
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                        // 新增项
+                        &.new-item {
+                            position: relative;
+                            top: -10px;
+                            margin-left: 20px;
+                            cursor: pointer;
+                            border: 2px dashed #ccc;
+                            padding: 20px;
+                            .dashed {
+                                text-align: center;
+                                font-weight: bold;
+                                font-size: 14px;
+                                .icon-add {
+                                    font-size: 22px;
+                                    color: #ccc;
+                                }
+                                > p {
+                                    color: #999;
+                                }
+                            }
+                        }
+                        // 编辑新增项
+                        &.edit-item {
+                            display: none;
+                            input {
+                                position: absolute;
+                                left: -35px;
+                                width: 120px;
+                                font-weight: normal;
+                                height: 22px;
+                                line-height: 22px;
+                                border: 1px solid #ccc;
+                                border-radius: 3px;
+                                padding-left: 5px;
+                                &:focus {
+                                    border-color: @blue-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

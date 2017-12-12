@@ -1,0 +1,33 @@
+<!-- 添加录音记录 -->
+<div class="add-record-container">
+        <div class="layui-form">
+            <!-- <div class="layui-form-item">
+                <label class="layui-form-label" style="width: 80px;">姓名/电话</label>
+                <div class="layui-input-inline" style="width: 388px">
+                    <input type="text" name="name_and_tel" autocomplete="off" name="password" placeholder="请输入姓名/电话号码" class="layui-input">
+                </div>
+            </div> -->
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width: 80px;">日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" autocomplete="off" name="start_time" id="start_time" placeholder="yyyy-MM-dd" >
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" autocomplete="off" name="end_time" id="end_time" placeholder="yyyy-MM-dd" >
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn" lay-submit lay-filter="searchCallRecordAll">查询</button>
+                    <button type="reset" class="layui-btn layui-btn-primary" id="resetCallRecord">重置</button>
+                </div>
+            </div>
+        </div>
+        <ul class="record-list layui-form" lay-filter="layuiRecord" id="reloadRecordBox" style="height: 224px;overflow: auto;">
+            
+        </ul>
+        <div class="add-footer">
+            <span data-checknum="0">已选0条</span>
+            <div class="record-page pull-right" id="tempPages"></div>
+        </div>
+    </div>

@@ -1,0 +1,109 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.main-wrap {
+    .layui-container {
+        .structure-row {
+            padding: 0 20px 20px 20px;
+            /* 重置tree样式 */
+            #jstree {
+                width: 100%;
+            }
+            .jstree-anchor > .jstree-themeicon {
+                margin-right: 0;
+            }
+            .tree-partment {
+                display: inline-block;
+                padding-right: 10px;
+                width: 180px;
+            }
+            .tree-drag, .tree-editor, .tree-delete {
+                display: inline-block;
+                padding: 0 10px;
+            }
+            .depart-head {
+                text-align: center;
+            }
+            .depart-save {
+                margin-left: 0;
+            }
+            /* 标题 */
+            .sturcture-title {
+                height: 40px;
+                line-height: 40px;
+                margin-bottom: 20px;
+                color: #fff;
+                background: #0a6aa1;
+                text-align: center;
+                border-right: 2px solid #fff
+            }
+            .layui-form {
+                .layui-input-block {
+                    margin-left: 0;
+                }
+                .example-handle {
+                    .examine-operate {
+                        width: 120px;
+                    }
+                }
+            }
+            .jstree-children {
+                margin-left: 20px;
+                li {
+                    line-height: 24px;
+                }
+            }
+            .form-list {
+                input:focus {
+                    border-color: @blue-color!important;
+                }
+                .add-contrant-icon {
+                    position: relative;
+                    &:hover span {
+                        display: block;
+                    }
+                    span {
+                        display: none;
+                        position: absolute;
+                        top: 8px;
+                        right: 10px;
+                        color: #ccc;
+                        cursor: pointer;
+                        &:hover {
+                            color: @blue-color;
+                        }
+                    }
+                }
+            }
+            .group-arrows {
+                text-align: center;
+                line-height: 450px;
+            }
+            .add-client {
+                padding: 0 10px;
+            }
+            .depment-tips {
+                color: #aaa;
+                padding: 0 0 10px 25px;
+                .confirm-warn {
+                    color: #f2493b;
+                    padding-right: 3px;
+                }
+            }
+        }
+    }
+}
+
+.top-parent {
+    width: 100%;
+    height: 34px;
+    padding-left: 10px;
+    border: 1px solid @border-color;
+}
+
+.jstree-edit {
+    margin-top: 20px;
+}
+.depment-tips {
+    color: #ccc;
+}
