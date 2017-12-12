@@ -20,24 +20,24 @@ define(['layui'], function (layui) {
             if (!args.content) {
                 throw new Error('弹出组件缺少参数');
             }
-            var _THIS_ = new Object(), that = this;
+            var _THIS_ = new Object(),
+                that = this;
             $.extend(_THIS_, {
-                type: 1,
-                title: '提示',
-                closeBtn: 1,
+                type      : 1,
+                title     : '提示',
+                closeBtn  : 1,
                 shadeClose: false,
-                id: 'stopID',
-                area: ['700px', '350px'],
-                content: null,
-                btn: ['取消', '确定'],
-                resize: false,
-                skin: 'layer-gxscrm-open', //自定义样式 设置弹出层的UI样式
-                success: function (layero, index) {
-                },
-                yes: function (index, layero) { // btn 0 取消
+                id        : 'stopID',
+                area      : ['700px', '350px'],
+                content   : null,
+                btn       : ['取消', '确定'],
+                resize    : false,
+                skin      : 'layer-gxscrm-open', //自定义样式 设置弹出层的UI样式
+                success: function (layero, index) {},
+                yes    : function (index, layero) { // btn 0 取消
                     that.closed(index);
                 },
-                btn2: function (index, layero) { // btn 1  确定回调
+                btn2   : function (index, layero) { // btn 1  确定回调
                     return false;
                 }
             }, args);
@@ -60,19 +60,20 @@ define(['layui'], function (layui) {
             if (!args.content) {
                 throw new Error('弹出组件缺少参数');
             }
-            var _THIS_ = new Object(), that = this;
+            var _THIS_ = new Object(),
+                that = this;
             $.extend(_THIS_, {
-                type: 1,
-                title: '提示',
-                closeBtn: 1,
-                id: 'stopIDOther',
+                type      : 1,
+                title     : '提示',
+                closeBtn  : 1,
+                id        : 'stopIDOther',
                 shadeClose: false,
-                area: ['402px', '254px'],
-                content: null,
-                btn: ['取消', '确定'],
-                resize: false,
-                skin: 'layer-gxscrm-confirm', //自定义样式 设置弹出层的UI样式
-                yes: function (index, layero) { // btn 0 取消
+                area      : ['402px', '254px'],
+                content   : null,
+                btn       : ['取消', '确定'],
+                resize    : false,
+                skin      : 'layer-gxscrm-confirm', //自定义样式 设置弹出层的UI样式
+                yes : function (index, layero) { // btn 0 取消
                     that.closed(index);
                 },
                 btn2: function (index, layero) { // btn 1  确定回调
@@ -127,7 +128,9 @@ define(['layui'], function (layui) {
             if (!msg) {
                 throw new Error('toast缺少msg对象！')
             }
-            var defaults = $.extend(true, {time: 2000}, options);
+            var defaults = $.extend(true, {
+                time: 2000
+            }, options);
             layui.use('layer', function () {
                 var layer = layui.layer;
                 //依赖layer资源加载完，不然页面一打开就要执行弹层时，当宽度小于360px的会默认设置360px的宽度
@@ -146,7 +149,9 @@ define(['layui'], function (layui) {
                 var layer = layui.layer;
                 //依赖layer资源加载完，不然页面一打开就要执行弹层时，当宽度小于360px的会默认设置360px的宽度
                 layer.ready(function () {
-                    var indexs = layer.load(0, {time: 10 * 1000}); //最长等待10S
+                    var indexs = layer.load(0, {
+                        time: 10 * 1000
+                    }); //最长等待10S
                     typeof callback === 'function' && callback.call(this, indexs);
                 })
             });
