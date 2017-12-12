@@ -2,7 +2,7 @@
 
 ### 项目结构
 
-```bash
+```
 ├── css
 ├── fonts
 ├── images
