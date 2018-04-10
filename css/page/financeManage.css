@@ -473,14 +473,16 @@
   color: #0162c5;
 }
 .common-table .audit-td {
-  position: relative;
   cursor: pointer;
 }
-.common-table .audit-td .audit-state {
+.common-table .audit-td a {
+  position: relative;
+}
+.common-table .audit-td a .audit-state {
   position: absolute;
   display: none;
   top: -40px;
-  left: 155px;
+  left: 100px;
   width: 270px;
   padding: 30px 15px;
   background: #fff;
@@ -488,13 +490,13 @@
   box-sizing: border-box;
   box-shadow: 0px 0px 5px #e1e1e1;
 }
-.common-table .audit-td .audit-state p {
+.common-table .audit-td a .audit-state p {
   line-height: 26px;
   text-align: left;
   color: #777;
 }
-.common-table .audit-td .audit-state-other {
-  left: -260px;
+.common-table .audit-td a .audit-state-other {
+  left: -290px;
 }
 .common-table .audit-td:hover .audit-state {
   display: block;

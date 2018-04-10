@@ -1,4 +1,4 @@
-require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page'], function (layui, common, layers, tool, ajaxurl, page) {
+require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, common, layers, tool, ajaxurl) {
     var main = {
         /**
          * 获取产品信息
@@ -30,12 +30,15 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page'], function (lay
                     }else{
                         layers.toast(data.message);
                     }
-                    layers.closed(loading);
                 },
                 error:function(){
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             })
         },
     };

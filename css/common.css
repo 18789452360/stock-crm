@@ -956,10 +956,8 @@ body {
 }
 .container .main-wrap {
   width: 100%;
-  height: 100%;
   overflow-y: auto;
-  margin-top: 51px;
-  height: calc(95vh);
+  height: 100%;
 }
 .container .main-wrap .main,
 .container .main-wrap .layui-container {
@@ -1571,6 +1569,9 @@ body .layer-gxscrm-confirm .layui-layer-btn .layui-layer-btn1:active {
   height: 330px;
   background: url("../images/noData.png") center no-repeat;
 }
+.import-usr-container {
+  overflow-y: hidden !important;
+}
 .import-usr-container .import-usr-group {
   box-sizing: border-box;
   height: 307px;
@@ -1678,6 +1679,9 @@ body .layer-gxscrm-confirm .layui-layer-btn .layui-layer-btn1:active {
 .import-usr-container .import-usr-group .select-container .layui-form-select dl {
   top: 33px;
 }
+.import-usr-container .import-usr-group .select-container.group .layui-form-selected dl {
+  max-height: 145px;
+}
 .import-usr-container .import-usr-group .select-container .layui-form-selected dl {
   max-height: 192px;
 }
@@ -1731,6 +1735,7 @@ body .layer-gxscrm-confirm .layui-layer-btn .layui-layer-btn1:active {
 .side-menu-fixed .side-nav {
   position: relative;
   float: left;
+  left: 10px;
   z-index: 99;
   margin-right: 28px;
 }
@@ -1885,7 +1890,7 @@ body .layer-gxscrm-confirm .layui-layer-btn .layui-layer-btn1:active {
 }
 .side-menu-fixed .tel-window {
   position: absolute;
-  left: 90px;
+  left: 94px;
   background-color: #fff;
   margin-top: -200px;
   margin-right: 20px;
@@ -3360,6 +3365,8 @@ body .confirm-tips {
 .main-wrap .no-result p {
   padding-top: 300px;
   text-align: center;
+  color: #999;
+  text-indent: -10px;
 }
 .fixed-wrap {
   display: none;

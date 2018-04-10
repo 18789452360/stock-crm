@@ -2,22 +2,6 @@ require(['common', 'tools', 'ajaxurl', 'layers', 'text!/assets/popup/change-pass
 
     var main = {
         /**
-         * [select description] 点击空白地方 关闭下拉
-         * @return {[type]} [description]
-         */
-        select: function () {
-            $('.nav').hide();// 隐藏面包屑导航
-            var $optMenu = $('.examine-filter');
-            $(document).click(function (e) {
-                e.stopPropagation();
-                if (!$optMenu.is(e.target) && $optMenu.has(e.target).length === 0) {
-                    if (vm.menubar) {
-                        vm.menubar = false;
-                    }
-                }
-            })
-        },
-        /**
          * [admin description] 获取用户信息
          * @return {[type]} [description]
          */
@@ -81,15 +65,27 @@ require(['common', 'tools', 'ajaxurl', 'layers', 'text!/assets/popup/change-pass
             });
         },
         /**
-         * [clearTab description] 返回首页  应该清除所有的tab选项
+         * [newsNum description]消息条数
          * @return {[type]} [description]
          */
-        clearTab: function () {
-            if (tool.hasStorage('tabIndex')) {
-                tool.removeStorage('tabIndex');
-            }
+        newsView: function () {
+            tool.ajax({
+                url: ajaxurl.sms.List,
+                type: 'get',
+                data: {
+                    employee_id: vm.userinfo.id,
+                    pagesize: 5
+                },
+                success: function (result) {
+                    if (result.code == 1) {
+                        vm.newsView = result.data;
+                    } else {
+                        layers.toast(result.message, {icon: 2, anim: 6});
+                    }
+                }
+            });
         },
-         /**
+          /**
          * [newsNum description]验证原始密码
          * @return {[type]} [description]
          */
@@ -135,27 +131,6 @@ require(['common', 'tools', 'ajaxurl', 'layers', 'text!/assets/popup/change-pass
             });
         },
         /**
-         * [newsNum description]消息条数
-         * @return {[type]} [description]
-         */
-        newsView: function () {
-            tool.ajax({
-                url: ajaxurl.sms.List,
-                type: 'get',
-                data: {
-                    employee_id: vm.userinfo.id,
-                    pagesize: 5
-                },
-                success: function (result) {
-                    if (result.code == 1) {
-                        vm.newsView = result.data;
-                    } else {
-                        layers.toast(result.message, {icon: 2, anim: 6});
-                    }
-                }
-            });
-        },
-        /**
          * [newsNum description]未读条数和今日未读条数
          * @return {[type]} [description]
          */
@@ -191,10 +166,40 @@ require(['common', 'tools', 'ajaxurl', 'layers', 'text!/assets/popup/change-pass
                     }
                 }
             });
+        },
+        /**
+         * 初始化点击事件
+         */
+        initEvent:function () {
+            $('.page-tabs-content').on('click','.first-item',function(){//点击去首页
+                common.isTabShow(true);
+            });
+            $('.page-tabs-content').on('click','.J_menuTab',function (e) {//单击切换
+                common.activeTab(this,e);
+            });
+            $('.page-tabs-content').on('dblclick','.J_menuTab',function () {//双击该tab刷新该tab
+                common.refreshTab(this);
+            });
+            $('.page-tabs-content').on('click', '.J_menuTab i',function(){//点击删除
+                common.delCurTab(this);
+            });
+            $('.operate-list').on('click','.J_tabCloseAll',function(){//点击删除全部tab
+                common.closeAllTab();
+            });
+            $('.operate-list').on('click','.refresh-tab',function(){//点击右上角刷新按钮，刷新当前tab
+                if($('.page-tabs-content .first-item').hasClass('active')){
+                    main.newsView();
+                    main.allView();
+                    main.CustomerTote();
+                }else{
+                    common.refreshTab($('.page-tabs-content .J_menuTab.active'));
+                }
+            });
+            $('.page-tabs-content .first-item').on('dblclick',function(){
+                $('.operate-list .refresh-tab').click();
+            })
         }
     };
-
-
     /**
      * 实例化 ViewModel
      */
@@ -224,7 +229,7 @@ require(['common', 'tools', 'ajaxurl', 'layers', 'text!/assets/popup/change-pass
             cPassword: function () {//修改密码询问框
                 main.cPassword();
                 this.menubar = false;
-            }
+            },
         }
     });
 
@@ -234,13 +239,19 @@ require(['common', 'tools', 'ajaxurl', 'layers', 'text!/assets/popup/change-pass
      * @private
      */
     var _init = function () {
-        main.select();
+        //初始化全局函数--start
+        common.sideBarPhone();
+        common.globaladmin();
+        common.getCallRecordDelay();
+        common.newPolling();//消息轮询
+        //初始化全局函数---end
+
         main.admin();
-        main.clearTab();
         main.newsView();
         main.allView();
         main.CustomerTote();
         common.getTabLink();
+        main.initEvent();
     };
     _init();
 });

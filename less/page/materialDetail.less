@@ -9,7 +9,7 @@
         background-color: @white-color;
         border-radius: 3px;
         overflow: hidden;
-        margin-bottom: 18px;
+        margin: 18px 0 25px;
 
         // 标题
         .layui-row-title {
@@ -48,7 +48,29 @@
             width: 1400px;
             margin: 0 auto;
             padding: 20px;
-
+            .content {
+                font-size: 16px;
+                em {
+                    font-weight: normal;
+                    font-style: italic;
+                }
+                p {
+                    line-height: 30px;
+                }
+                a {
+                    color: @blue-color;
+                }
+                img {
+                    display: inline-block;
+                    max-width: 500px;
+                }
+                i {
+                    font-style: italic !important;
+                }
+                u {
+                    text-decoration: underline !important;
+                }
+            }
             // 附件
             .accessory {
                 legend {
@@ -57,8 +79,10 @@
                 }
                 .file-list {
                     li {
-                        margin-bottom: 20px;
                         dl {
+                            .attach-name {
+                                width: 200px;
+                            }
                             dt, dd {
                                 float: left;
                                 height: 35px;
@@ -72,12 +96,23 @@
                                 }
                             }
                             dd {
-                                margin-left: 50px;
+                                margin-left: 20px;
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    // 返回
+    .btn-box {
+        text-align: center;
+        a {
+            height: 40px;
+            line-height: 40px;
+            width: 140px;
+            font-size: 16px;
         }
     }
 }

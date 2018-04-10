@@ -184,6 +184,9 @@
                 .layui-colla-title {
                     background-color: @white-color;
                     font-size: 16px;
+                    padding-right: 0;
+                    width: 91%;
+                    display: inline-block;
                     span {
                         font-size: 14px;
                         color: #ccc;
@@ -198,7 +201,23 @@
                         }
                     }
                     .layui-colla-icon {
-                        left: 97%;
+                        right: 0;
+                    }
+                }
+                .inner-check-btn {
+                    display: inline-block;
+                    line-height: 40px;
+                    position: relative;
+                    left: -11px;
+                    a {
+                        color: #999;
+                        &:hover {
+                            color: @blue-color;
+                        }
+                        &.cancel {
+                            margin-right: 6px;
+                            color: @blue-color;
+                        }
                     }
                 }
                 .layui-colla-content {
@@ -249,6 +268,12 @@
             button {
                 width: 140px;
                 height: 40px;
+                font-size: 18px;
+            }
+            a {
+                width: 140px;
+                height: 40px;
+                line-height: 40px;
                 font-size: 18px;
             }
         }

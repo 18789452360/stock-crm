@@ -3,6 +3,11 @@
 
 .layui-container {
     padding: 10px 0 0 0 !important;
+    .layui-tab-title {
+        li {
+            font-size: 16px;
+        }
+    }
 
     // 搜索/按钮
     .finance-search {
@@ -153,9 +158,9 @@
         background: @white-color;
         tr {
             border-bottom: 1px solid @border-color;
-            //&:nth-child(2n) {
-            //    background: #fcfcfc;
-            //}
+            &:hover {
+                background-color: #FCFCFC !important;
+            }
             th {
                 height: 60px;
                 &.t-name {
@@ -166,11 +171,20 @@
                     width: 15%;
                 }
                 &.accessory-title {
-                    width: 25%;
+                    //width: 25%;
+                    text-align: left;
+                    padding-left: 80px;
+                    width: 400px;
+                }
+                &.doc-list-title {
+                    width: 300px;
+                    text-align: left;
+                    padding-left: 80px;
                 }
             }
             td {
                 height: 50px;
+                cursor: pointer;
                 .audit-skip {
                     color: @blue-color;
                     &:hover {
@@ -195,6 +209,7 @@
                     }
                 }
                 &.btns {
+                    cursor: default;
                     a {
                         margin-left: 15px;
                         i {
@@ -214,12 +229,25 @@
                     }
                 }
                 &.doc-name {
+                    text-align: left;
+                    padding-left: 80px;
+                    width: 400px;
                     > i {
                         font-size: 30px;
                         vertical-align: sub;
                         margin-right: 5px;
                     }
                 }
+                &.doc-list-title {
+                    text-align: left;
+                    padding-left: 80px;
+                }
+            }
+        }
+
+        &.attach-list {
+            td {
+                cursor: default;
             }
         }
     }
@@ -232,6 +260,74 @@
             padding-top: 280px;
             font-size: 16px;
             color: #999;
+        }
+    }
+
+    // 分页
+    .page {
+        margin: 20px 0 0 !important;
+    }
+
+    // 返回
+    .btn-box {
+        text-align: center;
+        a {
+            height: 40px;
+            line-height: 40px;
+            width: 140px;
+            font-size: 16px;
+        }
+    }
+}
+
+// 文档附件弹出层
+.doc-list-wrap {
+    .tab-wrap {
+        height: 260px;
+        overflow: hidden;
+        .doc-list {
+            .operate {
+                padding-right: 25px;
+            }
+            thead tr th {
+                height: 45px;
+            }
+            tbody tr td {
+                height: 50px;
+                &.attach-name {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    width: 85%;
+                    display: inline-block;
+                    line-height: 50px;
+                }
+            }
+            .icon-export {
+                font-size: 22px;
+                cursor: pointer
+            }
+        }
+    }
+    .close-btn {
+        text-align: center;
+        line-height: 60px;
+        height: 60px;
+        > a {
+            display: inline-block;
+            width: 90px;
+            height: 34px;
+            padding: 0;
+            text-align: center;
+            line-height: 34px;
+            font-size: 14px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: #666;
+            border: 1px solid #C9C9C9;
+            &:hover {
+                opacity: .7;
+            }
         }
     }
 }

@@ -33,8 +33,7 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers',"tools","ajaxurl", 'tex
                 success: function (result) {
                     if (result.code == 1) {
                         // 渲染到vue数据层
-                        console.log('qqq')
-                        typeof callback === 'function' && callback.call(this); 
+                        typeof callback === 'function' && callback.call(this);
                     }
                 }
             });

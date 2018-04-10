@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../js/libs/jsTree/css/style.min.css"/>
+    <link rel="stylesheet" href="../../css/page/add-group.css">
+    <script src="../../js/libs/jquery/jquery.min.js"></script>
+    <script src="../../js/libs/vue/vue.js"></script>
+    <title>新建群组</title>
+</head>
+
+<body>
+    <div class="container add-group-container" id="app">
+        <div class="header">
+            <div class="nav">
+                <div class="arrow left-arrow">
+                    <i class="iconfont icon-left-arrow"></i>
+                </div>
+                <ul class="tabs">
+                    <li><a href="/">首页</a></li>
+                    <li class="tabs-item" v-for="item in tabs">
+                        <a :href="item.url" v-text="item.name"></a>
+                        <i class="iconfont icon-delete"></i>
+                    </li>
+                </ul>
+                <div class="arrow right-arrow">
+                    <a href="javascript:;"><i class="iconfont icon-right-arrow"></i></a>
+                    <a href="javascript:;">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                    <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-wrap">
+            <div class="main">
+                <div class="layui-row">
+                    <div class="layui-row-title">
+                        <a href="javascript:;">新建群组</a>
+                    </div>
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span>*</span>群组名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" placeholder="请输入群组名称" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span>*</span>管理员</label>
+                            <div class="layui-input-block">
+                                <button class="layui-btn"><i class="iconfont icon-add"></i>新增</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">人员数量(2)</label>
+                            <div class="layui-input-block">
+                                <ul>
+                                    <li>张三 <i class="iconfont icon-delete"></i></li>
+                                    <li>李四 <i class="iconfont icon-delete"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span>*</span>群组成员</label>
+                            <div class="layui-input-block">
+                                <button class="layui-btn"><i class="iconfont icon-add"></i>新增</button>
+                                <button class="layui-btn">增加现有群组</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">人员数量(7)</label>
+                            <div class="layui-input-block">
+                                <ul>
+                                    <li class="active">张三 <i class="iconfont icon-delete"></i></li>
+                                    <li>李四 <i class="iconfont icon-delete"></i></li>
+                                    <li>张三 <i class="iconfont icon-delete"></i></li>
+                                    <li>李四 <i class="iconfont icon-delete"></i></li>
+                                    <li>张三 <i class="iconfont icon-delete"></i></li>
+                                    <li>李四 <i class="iconfont icon-delete"></i></li>
+                                    <li>张三 <i class="iconfont icon-delete"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="layui-form-item btn-wrap">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">保存</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md2 group-list">
+                        <div class="group-search"><input type="text" placeholder="请输入"><span class="iconfont icon-search"></span></div>
+                        <div id="jstree">
+                            <ul class="jstree-ul">
+                                <li class="jstree-open">
+                                    <span class="tree-partment" data-id="1">市场部</span>
+                                    <span class="iconfont icon-add"></span>
+                                    <ul>
+                                        <li class="jstree-open">
+                                            <span class="tree-partment" data-id="11">市场一部</span>
+                                            <span class="iconfont icon-add"></span>
+                                            <ul>
+                                                <li>
+                                                    <span class="tree-partment" data-id="111">市场一部一组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="112">市场一部二组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="113">市场一部三组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="jstree-open">
+                                            <span class="tree-partment" data-id="12">市场二部</span>
+                                            <span class="iconfont icon-add"></span>
+                                            <ul>
+                                                <li>
+                                                    <span class="tree-partment" data-id="121">市场二部一组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="122">市场二部二组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="123">市场二部三组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="jstree-open">
+                                    <span class="tree-partment" data-id="2">销售部</span>
+                                    <span class="iconfont icon-add"></span>
+                                    <ul>
+                                        <li class="jstree-open">
+                                            <span class="tree-partment" data-id="21">市场一部</span>
+                                            <span class="iconfont icon-add"></span>
+                                            <ul>
+                                                <li>
+                                                    <span class="tree-partment" data-id="211">市场一部一组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="212">市场一部二组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="213">市场一部三组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="jstree-open">
+                                            <span class="tree-partment" data-id="22">市场二部</span>
+                                            <span class="iconfont icon-add"></span>
+                                            <ul>
+                                                <li>
+                                                    <span class="tree-partment" data-id="221">市场二部一组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="222">市场二部二组</span>
+                                                    <span class="iconfont icon-add"></span>
+                                                </li>
+                                                <li>
+                                                    <span class="tree-partment" data-id="223">市场二部三组</span>
+                                                    <span class="iconfont icon-add"></span>
+
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="layui-col-md1 group-arrows" style="line-height: 450px;">
+                        <span class="iconfont icon-right"></span>
+                    </div>
+                    <div class="layui-col-md2 group-list">
+                        <form class="layui-form group-add" action="">
+                            <h3 class="group-total">已添加<span>5</span>人</h3>
+                            <div class="form-item">
+                                <ul>
+                                    <li>风决定要走<span class="iconfont icon-cha"></span></li>
+                                    <li>云怎么挽留<span class="iconfont icon-cha"></span></li>
+                                    <li>风决定要走<span class="iconfont icon-cha"></span></li>
+                                    <li>云怎么挽留<span class="iconfont icon-cha"></span></li>
+                                    <li>风决定要走<span class="iconfont icon-cha"></span></li>
+                                    <li>云怎么挽留<span class="iconfont icon-cha"></span></li>
+                                    <li>风决定要走<span class="iconfont icon-cha"></span></li>
+                                    <li>云怎么挽留<span class="iconfont icon-cha"></span></li>
+                                    <li>风决定要走<span class="iconfont icon-cha"></span></li>
+                                    <li>云怎么挽留<span class="iconfont icon-cha"></span></li>
+                                </ul>
+                            </div>
+                            <div class="example-handle">
+                                <a class="examine-operate save-name">确定</a>
+                                <a class="examine-operate add-client">取消</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/libs/require/require.min.js"></script>
+    <script src="../../js/require.config.js"></script>
+    <script src="../../js/app/addGroup.js"></script>
+</body>
+
+</html>

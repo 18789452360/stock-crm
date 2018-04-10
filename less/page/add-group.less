@@ -4,6 +4,7 @@
     position: relative;
     .main-group {
         position: relative;
+        overflow: hidden;
         h2 {
             padding: 20px;
             background-color: @white-color;
@@ -74,6 +75,7 @@
             color: @red-color;
         }
         .group-list {
+            min-height: 500px;
             /* 重置tree样式 */
             background-color: @white-color;
             .jstree-default .jstree-themeicon:empty {
@@ -192,13 +194,17 @@
         }
     }
     .group-title {
-        padding: 20px 0;
+        padding-top: 20px;
         .group-list {
-            min-height: 700px;
+            //min-height: 700px;
         }
     }
     .group-admin {
         max-width: 260px;
+    }
+    .examine-follow {
+        text-align: center;
+        margin-top: 30px;
     }
     // 共享客户弹出层
     .organize-framework {
@@ -446,7 +452,7 @@
     }
     .organize-framework {
         //display: none;
-        top: 100px;
+        top: 0;
         left: 50%;
         width: 600px;
         height: 474px;

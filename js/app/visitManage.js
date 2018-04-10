@@ -8,6 +8,10 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
          * 加载页面显示tab
          */
         initTab:function() {
+            layui.use(['form', 'element'],function() {
+                var form = layui.form,
+                    element = layui.element;
+            });
             var tabInit = $(".init-tab").find("li"),
                 contentInit = $(".init-content").find(".content-list");
             for(var i = 0; i < tabInit.length; i ++) {
@@ -60,6 +64,7 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
                     if(result.code == 1){
                         // 渲染到vue数据层
                         vm.tableDataAll = result.data.list;
+                        vm.tableDataAllPower = result.data.power;
                         // 获取总条数
                         vm.getWaitListTotal = result.data.all_num;
                         // 调用分页
@@ -67,12 +72,15 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
                     }else{
                         layers.toast(result.message);
                     }
-                    layers.closed(loading);
                 },
                 error: function(){
                     layers.toast("网络异常!");
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             });
         },
         /**
@@ -114,6 +122,7 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
                     if(result.code == 1){
                         // 渲染到vue数据层
                         vm.tableDataWait = result.data.list;
+                        vm.tableDataAllPower = result.data.power;
                         // 获取总条数
                         vm.getAllListTotal = result.data.all_num;
                         // 调用分页
@@ -121,12 +130,15 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
                     }else{
                         layers.toast(result.message);
                     }
-                    layers.closed(loading);
                 },
                 error: function(){
                     layers.toast("网络异常!");
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             });
         },
         /**
@@ -326,6 +338,7 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
             markList: [], //备注列表
             checkedMarkList: [], //已选备注 id
             tableDataAll: [], //待审核合同列表
+            tableDataAllPower: '',
             tableDataWait: [], //全部处理记录
             tableDataWaitTotalNum: '', //全部处理记录总条数
             tableDataWaitPagesize: 10, //全部处理记录总页数
@@ -626,7 +639,6 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/asset
         main.getWaitList();
         main.getAllList(main.setPage2);
         main.getMarkList();
-        // main.getTagMark();
     };
     _init();
 });

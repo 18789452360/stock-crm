@@ -2,6 +2,12 @@
 .my-client-container {
   overflow: hidden;
 }
+.my-client-container .sms {
+  height: 100%;
+}
+.my-client-container .header-top {
+  min-width: 1600px;
+}
 .my-client-container .sidebar-collapse {
   position: fixed;
   height: 100%;
@@ -61,7 +67,6 @@
 .my-client-container .main-wrap {
   margin-left: 240px;
   width: auto;
-  margin-top: 50px;
 }
 .my-client-container .main-wrap .layui-row {
   padding: 20px;

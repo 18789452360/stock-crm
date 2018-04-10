@@ -68,6 +68,10 @@ require(['vue', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/assets/p
                     }
                     var action = $(".finance-select").find(".layui-this").attr("lay-value"),
                         reason = $(".finance-textarea").val();
+                    if(action === undefined) {
+                        layers.toast("请选择审核结果");
+                        return;
+                    }
                     tool.ajax({
                         url: ajaxurl.examine.examine_post,
                         type: 'post',
@@ -265,11 +269,11 @@ require(['vue', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/assets/p
             },
             // 拨打电话
             cellPhone: function(mobile) {
-                common.callTellFn(mobile, this.show)
+                window.top.callTellFn(mobile, true)
             },
             // 播放录音
             playSound: function(url, title, time) {
-                common.jplayer(url, title, time);
+                window.top.jplayer(url, title, time);
             }
         },
         /**

@@ -1,4 +1,4 @@
-require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/popup/clear-news.html'], function (layui, common, layers, tool, ajaxurl, page, tips) {
+require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, common, layers, tool, ajaxurl) {
     var main = {
         form: '',
         /**
@@ -11,45 +11,105 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
                 main.form = layui.form;
                 form.render();
                 //初始化时间并绑定到Vue上
-                laydate.render({
+                laydate.render({//产品创建开始时间
                     elem: '#product_create_time_start',
                     type: 'datetime',
-                    done: function (value, date) {
+                    done: function (value) {
+                        if(vm.filterData.product_create_time_end){
+                            if(value > vm.filterData.product_create_time_end){
+                                layers.toast('开始时间不能大于结束时间');
+                                vm.filterData.product_create_time_start = '';
+                                setTimeout(function(){
+                                    $('#product_create_time_start').val('');
+                                },200);
+                                return false;
+                            }
+                        }
                         vm.filterData.product_create_time_start = value;
                     }
                 });
-                laydate.render({
+                laydate.render({//产品创建结束时间
                     elem: '#product_create_time_end',
                     type: 'datetime',
-                    done: function (value, date) {
+                    done: function (value) {
+                        if(vm.filterData.product_create_time_start){
+                            if(vm.filterData.product_create_time_start > value){
+                                layers.toast('结束时间不能小于开始时间');
+                                vm.filterData.product_create_time_end = '';
+                                setTimeout(function(){
+                                    $('#product_create_time_end').val('');
+                                },200);
+                                return false;
+                            }
+                        }
                         vm.filterData.product_create_time_end = value;
                     }
                 });
-                laydate.render({
+                laydate.render({//产品开始的开始时间
                     elem: '#product_start_time_start',
                     type: 'datetime',
-                    done: function (value, date) {
+                    done: function (value) {
+                        if(vm.filterData.product_start_time_end){
+                            if(value > vm.filterData.product_start_time_end){
+                                layers.toast('开始时间不能大于结束时间');
+                                vm.filterData.product_start_time_start = '';
+                                setTimeout(function(){
+                                    $('#product_start_time_start').val('');
+                                },200);
+                                return false;
+                            }
+                        }
                         vm.filterData.product_start_time_start = value;
                     }
                 });
-                laydate.render({
+                laydate.render({//产品开始的结束时间
                     elem: '#product_start_time_end',
                     type: 'datetime',
-                    done: function (value, date) {
+                    done: function (value) {
+                        if(vm.filterData.product_start_time_start){
+                            if(vm.filterData.product_start_time_start > value){
+                                layers.toast('结束时间不能小于开始时间');
+                                vm.filterData.product_start_time_end = '';
+                                setTimeout(function(){
+                                    $('#product_start_time_end').val('');
+                                },200);
+                                return false;
+                            }
+                        }
                         vm.filterData.product_start_time_end = value;
                     }
                 });
-                laydate.render({
+                laydate.render({//产品结束的开始时间
                     elem: '#product_end_time_start',
                     type: 'datetime',
-                    done: function (value, date) {
+                    done: function (value) {
+                        if(vm.filterData.product_end_time_end){
+                            if(value > vm.filterData.product_end_time_end){
+                                layers.toast('开始时间不能大于结束时间');
+                                vm.filterData.product_end_time_start = '';
+                                setTimeout(function(){
+                                    $('#product_end_time_start').val('');
+                                },200);
+                                return false;
+                            }
+                        }
                         vm.filterData.product_end_time_start = value;
                     }
                 });
-                laydate.render({
+                laydate.render({//产品结束的结束时间
                     elem: '#product_end_time_end',
                     type: 'datetime',
-                    done: function (value, date) {
+                    done: function (value) {
+                        if(vm.filterData.product_end_time_start){
+                            if(vm.filterData.product_end_time_start > value){
+                                layers.toast('结束时间不能小于开始时间');
+                                vm.filterData.product_end_time_end = '';
+                                setTimeout(function(){
+                                    $('#product_end_time_end').val('');
+                                },200);
+                                return false;
+                            }
+                        }
                         vm.filterData.product_end_time_end = value;
                     }
                 });
@@ -62,7 +122,7 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
         /**
          * 获取产品列表
          */
-        getProductList: function () {
+        getProductList: function (flag) {
             var loading = '';
             tool.ajax({
                 url: ajaxurl.product.index,
@@ -76,35 +136,38 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
                 success: function (data) {
                     if (data.code == 1) {
                         vm.productsData = data.data;
-                        main.productListPage(vm.productsData.total_num);
+                        !flag && main.productListPage();
                     } else {
                         layers.toast(data.message, {
                             icon: 2,
                             anim: 6
                         });
                     }
-                    layers.closed(loading);
                 },
                 error: function () {
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },50)
+                },
             })
         },
         /**
          * 产品列表分页器
          */
-        productListPage: function (num) {
+        productListPage: function () {
             layui.use('laypage', function () {
                 var laypage = layui.laypage;
                 laypage.render({
                     elem: 'product-page', //注意，这里的 test1 是 ID，不用加 # 号
-                    count: num, //数据总数，从服务端得到
+                    count: vm.productsData.total_num, //数据总数，从服务端得到
                     curr: vm.filterData.curpage,
                     jump: function (obj, first) {
                         if (!first) {
                             vm.filterData.curpage = obj.curr;
-                            main.getProductList();
+                            main.getProductList(true);
                         }
                     }
                 });
@@ -116,76 +179,42 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
         formVerify: function () {
             var flag = false;
             if (vm.filterData.product_create_time_start && !vm.filterData.product_create_time_end) {
-                layers.toast('请选择产品创建结束时间', {
+                layers.toast('请选择产品创建的结束时间', {
                     icon: 2,
                     anim: 6
                 });
                 return false;
             }
             if (!vm.filterData.product_create_time_start && vm.filterData.product_create_time_end) {
-                layers.toast('请选择产品创建开始时间', {
+                layers.toast('请选择产品创建的开始时间', {
                     icon: 2,
                     anim: 6
                 });
                 return false;
             }
-            if (vm.filterData.product_create_time_start && vm.filterData.product_create_time_end) {
-                if (vm.filterData.product_create_time_start > vm.filterData.product_create_time_end) {
-                    layers.toast('产品创建结束时间不能小于产品创建开始时间', {
-                        icon: 2,
-                        anim: 6
-                    });
-                    return false;
-                }
-            }
             if (vm.filterData.product_start_time_start && !vm.filterData.product_start_time_end) {
-                layers.toast('请选择产品开始结束时间', {
+                layers.toast('请选择产品开始的结束时间', {
                     icon: 2,
                     anim: 6
                 });
                 return false;
             }
             if (!vm.filterData.product_start_time_start && vm.filterData.product_start_time_end) {
-                layers.toast('请选择产品开始开始时间', {
+                layers.toast('请选择产品开始的开始时间', {
                     icon: 2,
                     anim: 6
                 });
                 return false;
             }
-            if (vm.filterData.product_start_time_start && vm.filterData.product_start_time_end) {
-                if (vm.filterData.product_start_time_start > vm.filterData.product_start_time_end) {
-                    layers.toast('产品开始结束时间不能小于产品开始开始时间', {
-                        icon: 2,
-                        anim: 6
-                    });
-                    return false;
-                }
-            }
             if (vm.filterData.product_end_time_start && !vm.filterData.product_end_time_end) {
-                layers.toast('请选择产品结束结束时间', {
+                layers.toast('请选择产品结束的结束时间', {
                     icon: 2,
                     anim: 6
                 });
                 return false;
             }
             if (!vm.filterData.product_end_time_start && vm.filterData.product_end_time_end) {
-                layers.toast('请选择产品结束开始时间', {
-                    icon: 2,
-                    anim: 6
-                });
-                return false;
-            }
-            if (vm.filterData.product_end_time_start && vm.filterData.product_end_time_end) {
-                if (vm.filterData.product_end_time_start > vm.filterData.product_end_time_end) {
-                    layers.toast('产品结束结束时间不能小于产品结束开始时间', {
-                        icon: 2,
-                        anim: 6
-                    });
-                    return false;
-                }
-            }
-            if (!vm.filterData.product_name && !vm.filterData.product_person_leader && !vm.filterData.product_create_time_start && !vm.filterData.product_create_time_end && !vm.filterData.product_start_time_start && !vm.filterData.product_start_time_end && !vm.filterData.product_end_time_start && !vm.filterData.product_end_time_end && !vm.filterData.product_status) {
-                layers.toast('请输入或选择筛选条件', {
+                layers.toast('请选择产品结束的开始时间', {
                     icon: 2,
                     anim: 6
                 });
@@ -200,6 +229,7 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
         inquire: function () {
             var flag = main.formVerify();
             if (flag) {
+                vm.filterData.curpage = 1;
                 main.getProductList();
             }
         },
@@ -237,22 +267,23 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
         sort: function (e,name) {
             var $i = $(e.currentTarget).find('i'),
                 type = $i.attr('data-type');
-                $(e.currentTarget).siblings('.icon-td').find('i')
+            $(e.currentTarget).siblings('.icon-td').find('i')
                     .removeClass('bottom')
                     .removeClass('top')
                     .attr('data-type',0);
                 vm.filterData.name = name;
             if (type == 0) {
-                $i.removeClass('bottom');
-                $i.addClass('top');
-                $i.attr('data-type', 1);
+                $i.removeClass('bottom')
+                    .addClass('top')
+                    .attr('data-type', 1);
                 vm.filterData.type = 'asc';
             } else {
-                $i.removeClass('top');
-                $i.addClass('bottom');
-                $i.attr('data-type', 0);
+                $i.removeClass('top')
+                    .addClass('bottom')
+                    .attr('data-type', 0);
                 vm.filterData.type = 'desc';
             };
+            vm.filterData.curpage = 1;
             main.getProductList();
         },
         /**
@@ -268,11 +299,7 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
             }
             layers.confirm({
                 title:'提示',
-                content:tips,
-                success:function(obj){
-                    $elem = $(obj);
-                    $elem.find('p').text('删除操作不可逆，确认删除？');
-                },
+                content:'<div class="confirm-tips"><p>删除操作不可逆，确认删除？</p></div>',
                 btn2:function(){
                     var loading = '';
                     tool.ajax({
@@ -298,11 +325,14 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
                                     anim: 6
                                 });
                             }
-                            layers.closed(loading);
                         },
                         error:function(){
                             layers.toast('网络异常!');
-                            layers.closed(loading);
+                        },
+                        complete:function(){
+                            setTimeout(function(){
+                                layers.closed(loading);
+                            },200)
                         }
                     })
                     layers.closedAll();
@@ -322,11 +352,7 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
             }else{
                 layers.confirm({
                     title:'提示',
-                    content:tips,
-                    success:function(obj){
-                        $elem = $(obj);
-                        $elem.find('p').text('出局后产品内容不可在进行更改，确认出局？');
-                    },
+                    content:'<div class="confirm-tips"><p>出局后产品内容不可再进行更改，确认出局？</p></div>',
                     btn2:function(){
                         var loading = '';
                         tool.ajax({
@@ -352,11 +378,14 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
                                         anim: 6
                                     });
                                 }
-                                layers.closed(loading);
                             },
                             error:function(){
                                 layers.toast('网络异常!');
-                                layers.closed(loading);
+                            },
+                            complete:function(){
+                                setTimeout(function(){
+                                    layers.closed(loading);
+                                },50)
                             }
                         })
                     }

@@ -1,4 +1,4 @@
-require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/popup/clear-news.html'], function (layui, common, layers, tool, ajaxurl, page, tips) {
+require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page'], function (layui, common, layers, tool, ajaxurl ) {
     var main = {
         form: '',
         /**
@@ -29,7 +29,7 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
         /**
          * 获取操作日志数据
          */
-        getProductLog:function(){
+        getProductLog:function(flag){
             var urls = vm.getUrls;
             if(urls.has){
                 if(!urls.data.product_id){
@@ -54,35 +54,39 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
                 success:function(data){
                     if(data.code == 1){
                         vm.logData = data.data;
-                        main.productLogPage(data.data.total_num);
+                        vm.total_num = data.data.total_num;
+                        !flag && main.productLogPage();
                     }else{
                         layers.toast(data.message, {
                             icon: 2,
                             anim: 6
                         });
                     }
-                    layers.closed(loading);
                 },
                 error:function(){
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             })
         },
         /**
          * 操作日志分页器
          */
-        productLogPage:function(num){
+        productLogPage:function(){
             layui.use('laypage', function () {
                 var laypage = layui.laypage;
                 laypage.render({
                     elem: 'product-page', //注意，这里的 test1 是 ID，不用加 # 号
-                    count: num, //数据总数，从服务端得到
+                    count: vm.total_num, //数据总数，从服务端得到
                     curr: vm.getLogData.curpage,
                     jump: function (obj, first) {
                         if (!first) {
                             vm.getLogData.curpage = obj.curr;
-                            main.getProductLog();
+                            main.getProductLog(true);
                         }
                     }
                 });
@@ -133,6 +137,7 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl', 'page', 'text!/assets/
                 content:'',//操作内容
                 curpage: 1, //当前页码,默认为1
             },
+            total_num:'',//数据总条数
             logData:{},//获取到的操作日志内容
         },
         methods: {

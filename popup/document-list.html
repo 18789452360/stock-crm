@@ -1,0 +1,31 @@
+<!--资料库附件列表-->
+<div class="doc-list-wrap">
+    <div class="tab-wrap">
+        <table class="common-table doc-list" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+            <thead>
+            <tr align="center">
+                <th>附件名称</th>
+                <th>上传人</th>
+                <th>上传时间</th>
+                <th class="operate">操作</th>
+            </tr>
+            </thead>
+            <tbody id="docListWrap"></tbody>
+        </table>
+    </div>
+    <div class="close-btn">
+        <a class="cls-btn" href="javascript:;">关闭</a>
+    </div>
+</div>
+
+
+<script id="docListItem" type="text/html">
+    {? each data as value key ?}
+    <tr align="center">
+        <td class="attach-name">{? value.attach_name ?}</td>
+        <td>{? value.operate_real_name ?}</td>
+        <td>{? value.create_time ?}</td>
+        <td class="operate"><i class="iconfont icon-export" title="下载" data-id="{? value.id ?}"></i></td>
+    </tr>
+    {? /each ?}
+</script>

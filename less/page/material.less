@@ -2,10 +2,21 @@
 @import "../public/_variate.less";
 
 .material-wrap {
-    padding: 20px 0 0 0 !important;
+    padding: 10px 0 0 0 !important;
 
+    // 操作区域
     .btn-wrap {
         margin-bottom: 15px;
+        .layui-inline-custom {
+            display: none;
+            .layui-btn {
+                width: 92px;
+                text-align: center;
+            }
+        }
+        .showNewMate {
+            display: inline-block;
+        }
     }
 
     .layui-collapse {
@@ -17,7 +28,6 @@
                 background-color: @white-color;
                 font-size: 16px;
                 padding-left: 20px;
-
                 .layui-colla-icon {
                     left: 97%;
                 }
@@ -25,21 +35,37 @@
                     float: right;
                     margin-right: 50px;
                 }
+                user-select: none;
+                > input {
+                    text-indent: .3em;
+                    background: transparent;
+                    border-radius: 4px;
+                    border: none;
+                    box-shadow: none;
+                    line-height: 26px;
+                    height: 26px;
+                    cursor: pointer;
+                    width: 170px;
+                    &.show {
+                        border: 1px solid #ccc;
+                    }
+                }
             }
             .layui-colla-content {
                 .folder-wrap {
-                    padding: 35px;
+                    padding: 25px;
                     > li {
                         float: left;
-                        padding: 20px 30px 20px 20px;
+                        padding: 20px 30px 10px 20px;
+                        margin-right: 34px;
                         dl {
                             position: relative;
                             cursor: pointer;
                             > i.icon-shanchu {
                                 display: none;
                                 position: absolute;
-                                top: 9px;
-                                right: 7px;
+                                top: 14px;
+                                left: 40px;
                                 font-size: 14px;
                                 font-weight: bold;
                             }
@@ -47,7 +73,7 @@
                                 display: none;
                                 position: absolute;
                                 top: -10px;
-                                right: 0;
+                                left: 45px;
                                 height: 16px;
                                 line-height: 16px;
                                 font-size: 10px;
@@ -62,11 +88,30 @@
                             }
                             dt {
                                 .icon-folder {
-                                    font-size: 48px;
+                                    font-size: 68px;
                                 }
                             }
                             dd {
                                 font-weight: bold;
+                                text-indent: .4em;
+                                position: relative;
+                                .colla-item-title {
+                                    position: absolute;
+                                    left: -45px;
+                                    line-height: 26px;
+                                    height: 26px;
+                                    background: transparent;
+                                    border-radius: 4px;
+                                    border: none;
+                                    box-shadow: none;
+                                    cursor: pointer;
+                                    text-align: center;
+                                    //outline: 1px solid;
+                                    max-width: 150px;
+                                    &.show {
+                                        border: 1px solid #ccc;
+                                    }
+                                }
                             }
                         }
                         // 文件夹为空
@@ -85,6 +130,7 @@
                             cursor: pointer;
                             border: 2px dashed #ccc;
                             padding: 20px;
+                            opacity: .7;
                             .dashed {
                                 text-align: center;
                                 font-weight: bold;
@@ -97,13 +143,17 @@
                                     color: #999;
                                 }
                             }
+                            &:hover {
+                                opacity: 1;
+                            }
                         }
                         // 编辑新增项
                         &.edit-item {
-                            display: none;
+                            //display: none;
                             input {
                                 position: absolute;
-                                left: -35px;
+                                left: -30px;
+                                top: 1px;
                                 width: 120px;
                                 font-weight: normal;
                                 height: 22px;
@@ -120,6 +170,14 @@
                 }
             }
         }
+    }
+}
 
+.no-result {
+    height: 90vh !important;
+    p {
+        padding-top: 51vh !important;
+        font-size: 16px;
+        padding-top: 280px;
     }
 }

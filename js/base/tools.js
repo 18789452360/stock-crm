@@ -124,19 +124,51 @@ define(['store', 'jquery.cookie'], function (store) {
             return this.getCookie('member_info');
         },
         /**
+         * 获取当前操作用户的员工id
+         * @returns {string}
+         */
+        getUserID:function(){
+            var employee_id = '',
+                userinfo = this.getCookie('admin');
+            if(userinfo){//获取员工id
+                if (typeof userinfo == 'string') {
+                    userinfo =  $.parseJSON(userinfo);
+                }
+                employee_id = userinfo.id;
+            }
+            return employee_id;
+        },
+        crmcrmid : $('input[name="visithidden"]').val(),
+        random : $('input[name="crmrandom"]').val(),
+        employee_id : '',
+        /**
          * [ajax description]  ajax异步请求
          * @param  {[type]} args               [ {url: '' , type : '' dataType : ''data : {} } 集合]
          */
         ajax: function (args) {
+            var that = this;
             if (!args.url || args.url == undefined) {
                 throw new Error('ajax参数错误！');
             }
+            if(!that.employee_id || that.employee_id ==''){
+                that.employee_id = that.getUserID();
+            }
+            var obj = {
+                crmcrmid : that.crmcrmid,
+                crmcrmrandom : that.random,
+                employee_id : that.employee_id
+            };
+            if(!args.data){
+                args.data = {};
+            }
+            $.extend(args.data, obj, args.data);
             var _THIS_ = new Object();
             $.extend(_THIS_, {
                 url: null,
                 type: 'get',
                 dataType: 'json',
                 data: null,
+                timeout : 15000,
                 beforeSend: function () {},
                 complete: function () {},
                 success: function (result) {},

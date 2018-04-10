@@ -4,6 +4,7 @@
 }
 .add-group-container .main-group {
   position: relative;
+  overflow: hidden;
 }
 .add-group-container .main-group h2 {
   padding: 20px;
@@ -71,6 +72,7 @@
   color: #f2493b;
 }
 .add-group-container .main-group .group-list {
+  min-height: 500px;
   /* 重置tree样式 */
   background-color: #fff;
   /* 重置按钮样式 */
@@ -186,13 +188,14 @@
   margin-top: 20px;
 }
 .add-group-container .group-title {
-  padding: 20px 0;
-}
-.add-group-container .group-title .group-list {
-  min-height: 700px;
+  padding-top: 20px;
 }
 .add-group-container .group-admin {
   max-width: 260px;
+}
+.add-group-container .examine-follow {
+  text-align: center;
+  margin-top: 30px;
 }
 .add-group-container .organize-framework {
   width: 600px;
@@ -410,7 +413,7 @@
   border-color: #999 transparent transparent transparent;
 }
 .add-group-container .organize-framework {
-  top: 100px;
+  top: 0;
   left: 50%;
   width: 600px;
   height: 474px;

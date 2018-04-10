@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>客户信息</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/page/client-info.css">
+    <script src="../../js/libs/jquery/jquery.min.js"></script>
+    <script src="../../js/libs/vue/vue.js"></script>
+</head>
+
+<body>
+    <div class="container client-info-container" id="app" v-cloak>
+        <div class="header">
+            <div class="nav">
+                <div class="arrow left-arrow" @click="moveLeft"><i class="iconfont icon-left-arrow"></i></div>
+                <ul class="tabs">
+                    <li><a href="/">首页</a></li>
+                    <li v-for="(item, index) in tabs" :class="['tabs-item', item.active && 'tabs-item-active']">
+                        <a :href="item.url" @click="switchTabs">{{item.name}}</a>
+                        <i class="iconfont icon-delete" @click.stop="closeCurTab(index)">&nbsp;</i>
+                    </li>
+                </ul>
+                <div class="arrow right-arrow">
+                    <a href="javascript:;" @click="moveRight"><i class="iconfont icon-right-arrow"></i></a>
+                    <a href="javascript:;" @click="closeOtherTab">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                    <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-wrap">
+            <!-- 档案头部 -->
+            <div class="file-head">
+                <div class="layui-row">
+                    <div class="file-time pull-left">
+                        <span>档案编号：JJTG000000000000000001</span>
+                        <span>创建时间：2016年1月12日  12:12:12</span>
+                    </div>
+                    <a class="layui-btn pull-right" data-type="tab">操作日志</a>
+                </div>
+                <div class="layui-row">
+                    <div class="client-icon layui-col-md1">
+                        <img src="http://iph.href.lu/61x61?text=客户头像" alt="客户头像">
+                    </div>
+                    <div class="basic-info layui-col-md11">
+                        <div class="layui-col-md12 clearfix">
+                            <span class="pull-left">张三（男）</span>
+                            <ul class='label-list pull-left'>
+                                <li>签单中</li>
+                                <li>涨停风云</li>
+                                <li>签单中</li>
+                                <li>涨停风云</li>
+                                <li>签单中</li>
+                                <li>涨停风云</li>
+                            </ul>
+                        </div>
+                        <div class="layui-col-md12 info-row">
+                            <div class="layui-col-md1">
+                                <label>来源:</label>
+                                <span>微信推广</span>
+                            </div>
+                            <div class="layui-col-md1">
+                                <label>QQ:</label>
+                                <span>123456</span>
+                            </div>
+                            <div class="layui-col-md2">
+                                <label> 微信号:</label>
+                                <span>xxxxxx微信号</span>
+                            </div>
+                            <div class="layui-col-md3">
+                                <label>身份证:</label>
+                                <span>510000000000000000</span>
+                            </div>
+                            <div class="layui-col-md2">
+                                <label>职业:</label>
+                                <span>江湖术士</span>
+                            </div>
+                            <div class="layui-col-md3">
+                                <label>地址:</label>
+                                <span>四川省成都市高新区交子大道</span>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12 phone-row">
+                            <label>电话:</label>
+                            <span>13000000000 <i class='iconfont icon-phone'></i></span>
+                            <span>13000000000 <i class='iconfont icon-phone'></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 档案主题tab -->
+            <div class="main">
+                <div class="tab-head" style="display:none">
+                    <a href="javascript:;" data-type="tab">编辑</a>
+                </div>
+                <div class="layui-tab layui-tab-card">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this"><a href="javascript:;">基本信息</a></li>
+                        <li><a href="javascript:;">跟进信息</a></li>
+                        <li><a href="javascript:;">合作情况</a></li>
+                        <li><a href="javascript:;">服务信息</a></li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <!-- 基本信息 -->
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-collapse">
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">基本信息<span><i>*</i>新增合作信息必输</span> </h2>
+                                    <div class="layui-colla-content ">
+                                        <div class="layui-col-md12">
+                                            <div class="layui-col-md2 layui-col-item">
+                                                <label><i>*</i> 姓名</label>
+                                                <span>张三</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label><i>*</i> 身份证</label>
+                                                <span>511111124256335889</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>性别</label>
+                                                <span>男</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md12 ">
+                                            <div class="layui-col-md2 layui-col-item">
+                                                <label>年龄</label>
+                                                <span>20</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>职业</label>
+                                                <span>--</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>来源</label>
+                                                <span>微信推广</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">联系方式<span><i>*</i>新增合作信息必输</span> </h2>
+                                    <div class="layui-colla-content ">
+                                        <div class="layui-col-md12">
+                                            <div class="layui-col-md2 layui-col-item">
+                                                <label><i>*</i> 电话</label>
+                                                <span>1300000000</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>QQ</label>
+                                                <span>51111112</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>微信号</label>
+                                                <span>--</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md12 ">
+                                            <div class="layui-col-md2 layui-col-item">
+                                                <label>省份</label>
+                                                <span>--</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>市</label>
+                                                <span>--</span>
+                                            </div>
+                                            <div class="layui-col-md3 layui-col-item">
+                                                <label>区/县</label>
+                                                <span>--</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md12 ">
+                                            <div class="layui-col-item">
+                                                <label>详细地址</label>
+                                                <span>--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">财务投资经验</h2>
+                                    <div class="layui-colla-content layui-show">
+                                        <div class="layui-col-md12 ">
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>收入来源</label>
+                                                <span>薪资</span><span>对外投资</span><span>其他</span><span>外卖</span>
+                                            </div>
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>最近三年平均收入</label>
+                                                <span>--</span>
+                                            </div>
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>有无债务</label>
+                                                <span>无</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md12 ">
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>金融资产</label>
+                                                <span>存款 2888.00元</span><span>股票 2888.00元</span>
+                                            </div>
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>开通创业板</label>
+                                                <span>否</span>
+                                            </div>
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>开通ST</label>
+                                                <span>--</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md12 border-bottom">
+                                            <div class="layui-col-item">
+                                                <label>当前仓位</label>
+                                                <span>--</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md12 ">
+                                            <div class="layui-col-md4 layui-col-item">
+                                                <label>证券投资</label>
+                                                <span>股票 3年</span><span>债券 3年</span>
+                                            </div>
+                                            <div class="layui-col-md4 layui-col-item ">
+                                                <label>金融投资学习工作经历</label>
+                                                <span>无</span>
+                                            </div>
+                                            <div class="layui-col-md4 layui-col-item ">
+                                                <label>金融行业职业资格证书</label>
+                                                <span>无</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 跟进信息 -->
+                        <div class="layui-tab-item follow-info">
+                            <div class="follow-info-head">
+                                <div class="layui-row follow-tabs">
+                                    <button class="layui-btn">销售信息</button>
+                                    <button class="layui-btn layui-btn-primary">服务信息</button>
+                                    <button class="layui-btn layui-btn-primary">回访信息</button>
+                                    <button class="layui-btn layui-btn-primary">投诉信息</button>
+                                </div>
+                                <div class="layui-row">
+                                    <div class="layui-col-md12">
+                                        <div class="layui-col-md2 layui-inline">
+                                            <label>操作人</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md2 layui-inline">
+                                            <label>产品名称</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md5 layui-inline">
+                                            <label class="layui-form-label">跟进时间</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="6">
+                                            </div>
+                                            -
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="6">
+                                            </div>
+                                        </div>
+                                        <a href="javascript:;" class="layui-btn pull-right">新增跟进信息</a>
+                                    </div>
+                                    <div class="layui-col-md12">
+                                        <div class="follow-content">
+                                            <label class="pull-left">跟进内容</label>
+                                            <ul class="pull-left">
+                                                <li class="active">文字</li>
+                                                <li>图片</li>
+                                                <li>语音</li>
+                                            </ul>
+                                            <button class="layui-btn">查询</button>
+                                            <button class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="follow-info-content clearfix">
+                                <ul>
+                                    <li v-for="item in 3">
+                                        <div class="info-content-item clearfix">
+                                            <div class="layui-col-md1 client-icon">
+                                                <img src="http://iph.href.lu/71x71?text=客户头像" alt="客户头像">
+                                            </div>
+                                            <div class="layui-col-md11">
+                                                <div class="info-item info-item-title layui-col-md12">
+                                                    <strong class="layui-col-md1">股客张三</strong>
+                                                    <div class="layui-col-md11 label-box">
+                                                        <a href="javascript:;">涨停风云</a>
+                                                        <a href="javascript:;">主升传奇</a>
+                                                    </div>
+                                                </div>
+                                                <div class="info-item layui-col-md12">
+                                                    通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作。
+                                                </div>
+                                                <div class="info-item info-item-img layui-col-md12">
+                                                    <a  href="javascript:;" v-for="i in 8">
+                                                        <img src="http://iph.href.lu/120x80" alt="" >
+                                                    </a>
+                                                </div>
+                                                <div class="info-item layui-table layui-col-md12">
+                                                    <table class="layui-col-md12">
+                                                        <tbody class="layui-col-md12">
+                                                            <tr class="layui-col-md12">
+                                                                <td class="layui-col-md2">姓名</td>
+                                                                <td class="layui-col-md2">电话</td>
+                                                                <td class="layui-col-md2">通话时长</td>
+                                                                <td class="layui-col-md2">通话时间</td>
+                                                                <td class="layui-col-md2">通话类型</td>
+                                                                <td class="layui-col-md2">操作</td>
+                                                            </tr>
+                                                            <tr class="layui-col-md12" v-for="i in followTable">
+                                                                <td class="layui-col-md2" v-text="i.name"></td>
+                                                                <td class="layui-col-md2" v-text="i.phoneNum"></td>
+                                                                <td class="layui-col-md2" v-text="i.timelen"></td>
+                                                                <td class="layui-col-md2" v-text="i.time"></td>
+                                                                <td class="layui-col-md2" v-text="i.type"></td>
+                                                                <td class="layui-col-md2">
+                                                                    <a href="javascript:;">播放录音</a>
+                                                                    <a href="javascript:;">下载录音</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="info-item layui-item-time layui-col-md12">
+                                                    <span>2017-09-27 13:36</span>
+                                                    <a href="javascript:;">编辑</a>
+                                                    <a href="javascript:;">删除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="follow-laypage">
+                                <div class="site-page pull-left">
+                                    <label>每页展示客户</label>
+                                    <a href="javascript:;" class="active">1000</a>
+                                    <a href="javascript:;">500</a>
+                                    <a href="javascript:;">300</a>
+                                </div>
+                                <div class="Show-page pull-right" id="follow-test"></div>
+                            </div>
+                        </div>
+                        <!-- 合作情况 -->
+                        <div class="layui-tab-item cooperation-situation">
+                            <div class="cooperation-title">
+                                购买数量: <span>123</span> 购买金额: <span>123.00元</span>
+                                <a href="javascript:;" data-type="tab">新增合作情况</a>
+                            </div>
+                            <div class="cooperation-table">
+                                <div class="layui-table layui-col-md12">
+                                    <ul>
+                                        <li>
+                                            <span>产品名称</span>
+                                            <span>购买电话</span>
+                                            <span>购买时间</span>
+                                            <span>购买数量</span>
+                                            <span>付费金额（元）</span>
+                                            <span>销售人员</span>
+                                            <span>服务开始时间</span>
+                                            <span>服务结束时间</span>
+                                            <span>操作</span>
+                                        </li>
+                                        <li v-for="i in cooperationTable">
+                                            <span v-text="i.name">产品名称</span>
+                                            <span v-text="i.phoneNum">购买电话</span>
+                                            <span v-text="i.payTime">购买时间</span>
+                                            <span v-text="i.payNum">购买数量</span>
+                                            <span v-text="i.price">付费金额（元）</span>
+                                            <span v-text="i.salesperson">销售人员</span>
+                                            <span v-text="i.service_stat_time">服务开始时间</span>
+                                            <span v-text="i.service_over_time">服务结束时间</span>
+                                            <span><a href="javascript:;">更改服务期限</a></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 服务信息 -->
+                        <div class="layui-tab-item follow-info service-info">
+                            <div class="follow-info-head">
+                                <div class="layui-row follow-tabs">
+                                    <button class="layui-btn">销售信息</button>
+                                    <button class="layui-btn layui-btn-primary">服务信息</button>
+                                    <button class="layui-btn layui-btn-primary">回访信息</button>
+                                    <button class="layui-btn layui-btn-primary">投诉信息</button>
+                                </div>
+                                <div class="layui-row">
+                                    <div class="layui-col-md12">
+                                        <div class="layui-col-md2 layui-inline">
+                                            <label>操作人</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md2 layui-inline">
+                                            <label>产品名称</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md5 layui-inline">
+                                            <label class="layui-form-label">跟进时间</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="6">
+                                            </div>
+                                            -
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="6">
+                                            </div>
+                                        </div>
+                                        <a href="javascript:;" class="layui-btn pull-right">新增跟进信息</a>
+                                    </div>
+                                    <div class="layui-col-md12">
+                                        <div class="follow-content">
+                                            <label class="pull-left">跟进内容</label>
+                                            <ul class="pull-left">
+                                                <li class="active">文字</li>
+                                                <li>图片</li>
+                                                <li>语音</li>
+                                            </ul>
+                                            <button class="layui-btn">查询</button>
+                                            <button class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="follow-info-content clearfix">
+                                <ul>
+                                    <li v-for="item in 3">
+                                        <div class="info-content-item clearfix">
+                                            <div class="layui-col-md1 client-icon">
+                                                <img src="http://iph.href.lu/71x71?text=客户头像" alt="客户头像">
+                                            </div>
+                                            <div class="layui-col-md11">
+                                                <div class="info-item info-item-title layui-col-md12">
+                                                    <strong class="layui-col-md1">股客张三</strong>
+                                                    <div class="layui-col-md11 label-box">
+                                                        <a href="javascript:;">涨停风云</a>
+                                                        <a href="javascript:;">主升传奇</a>
+                                                    </div>
+                                                </div>
+                                                <div class="info-item layui-col-md12">
+                                                    通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作。
+                                                </div>
+                                                <div class="info-item info-item-img layui-col-md12">
+                                                    <a href="javascript:;" v-for="i in 8">
+                                                        <img src="http://iph.href.lu/120x80" >
+                                                    </a>
+                                                    
+                                                </div>
+                                                <div class="info-item layui-table layui-col-md12">
+                                                    <table class="layui-col-md12">
+                                                        <tbody class="layui-col-md12">
+                                                            <tr class="layui-col-md12">
+                                                                <td class="layui-col-md2">姓名</td>
+                                                                <td class="layui-col-md2">电话</td>
+                                                                <td class="layui-col-md2">通话时长</td>
+                                                                <td class="layui-col-md2">通话时间</td>
+                                                                <td class="layui-col-md2">通话类型</td>
+                                                                <td class="layui-col-md2">操作</td>
+                                                            </tr>
+                                                            <tr class="layui-col-md12" v-for="i in followTable">
+                                                                <td class="layui-col-md2" v-text="i.name"></td>
+                                                                <td class="layui-col-md2" v-text="i.phoneNum"></td>
+                                                                <td class="layui-col-md2" v-text="i.timelen"></td>
+                                                                <td class="layui-col-md2" v-text="i.time"></td>
+                                                                <td class="layui-col-md2" v-text="i.type"></td>
+                                                                <td class="layui-col-md2">
+                                                                    <a href="javascript:;">播放录音</a>
+                                                                    <a href="javascript:;">下载录音</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="info-item layui-item-time layui-col-md12">
+                                                    <span>2017-09-27 13:36</span>
+                                                    <a href="javascript:;">编辑</a>
+                                                    <a href="javascript:;">删除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="follow-laypage">
+                                <div class="site-page pull-left">
+                                    <label>每页展示客户</label>
+                                    <a href="javascript:;" class="active">1000</a>
+                                    <a href="javascript:;">500</a>
+                                    <a href="javascript:;">300</a>
+                                </div>
+                                <div class="Show-page pull-right" id="follow-test"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <button class="layui-btn">返回</button>
+                </div>
+            </div>
+            <div class="audio-box" >
+                <div class="audio-wrap">
+                    <div class='audio layui-col-md10'>
+                        这是音频
+                    </div>
+                    <div class="layui-col-md2">
+                        <button>创建客户</button>
+                        <button>下载录音</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/libs/require/require.min.js"></script>
+    <script src="../../js/require.config.js"></script>
+    <script src='../../js/app/clientInfo.js'></script>
+</body>
+
+</html>

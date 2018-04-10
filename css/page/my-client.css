@@ -75,9 +75,13 @@
 .my-client-container .header-tabs .nav .tabs .tabs-item-active i {
   color: #fff;
 }
+.my-client-container #app {
+  height: 100%;
+}
 .my-client-container .sidebar-collapse {
   position: fixed;
-  height: calc(100% - 51px);
+  /*height: ~"calc(100% - 47px)";*/
+  height: 100%;
   outline: 1px solid;
   width: 240px;
   background: #243443;
@@ -387,7 +391,6 @@
 .my-client-container .main-wrap {
   width: auto;
   margin-left: 240px;
-  margin-top: 51px;
 }
 .my-client-container .main-wrap .search-btn-container {
   min-width: 1600px;
@@ -415,7 +418,7 @@
 }
 .my-client-container .main-wrap .main .condition .table-box .t-header.fixedTop {
   position: fixed;
-  top: 41px;
+  top: -10px;
   width: 1560px;
   z-index: 1;
 }
@@ -464,14 +467,19 @@
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th {
   font-size: 16px;
   text-align: center;
-}
-.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.usr-name {
-  text-align: left;
-  padding-left: 80px;
-  width: 240px;
-  box-sizing: border-box;
+  width: auto !important;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th a {
+  color: #777;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.usr-name {
+  width: 240px;
+  text-align: left;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.usr-name > span {
+  padding-right: 20px;
   color: #777;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-contact,
@@ -501,6 +509,10 @@
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.recent-news a.desc i {
   background: url("../../images/sort_desc.png") center no-repeat;
 }
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table thead tr th.call {
+  width: 140px !important;
+  padding-right: 20px;
+}
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr {
   border-bottom: 1px solid #eee;
 }
@@ -515,28 +527,29 @@
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td {
   text-align: center;
+  width: auto !important;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a {
   display: inline-block;
   vertical-align: inherit;
   height: 70px;
+  width: 100% !important;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a dl {
   margin-top: 14px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a dl span {
+  width: 220px;
   text-overflow: ellipsis;
   overflow: hidden;
-  /* outline: 1px solid; */
   white-space: nowrap;
-  width: 220px;
   display: inline-block;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td > a.empty {
   line-height: 70px;
-  width: 100%;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name {
+  position: relative;
   padding-left: 20px;
   width: 220px;
   text-align: left;
@@ -564,27 +577,33 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.usr-name .squaredFour {
+  position: absolute;
+  top: 25px;
+}
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.from-channel {
-  width: 125px;
+  width: 150px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.from-channel a {
   width: inherit;
   line-height: 70px;
+  max-width: 130px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.contact {
   width: 240px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.recent-buy {
-  width: 300px;
+  width: 200px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.product {
-  width: 300px;
+  width: 220px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.product span {
-  width: 300px;
+  width: inherit;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it {
   position: relative;
+  padding-right: 20px;
 }
 .my-client-container .main-wrap .main .condition .table-box .table-container .m-table tbody tr td.call-it.has-more .more-tells-boxs {
   display: block;

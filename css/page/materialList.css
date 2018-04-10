@@ -1,0 +1,300 @@
+@charset "utf-8";
+.layui-container {
+  padding: 10px 0 0 0 !important;
+}
+.layui-container .layui-tab-title li {
+  font-size: 16px;
+}
+.layui-container .finance-search {
+  background-color: #fff;
+}
+.layui-container .finance-search .layui-input-block {
+  margin: 0 0 0 20px;
+  padding: 20px 0 0;
+  width: 343px;
+  display: inline-block;
+}
+.layui-container .finance-search .layui-input-block .layui-input {
+  display: inline-block;
+  width: 343px;
+  border-color: #ccc;
+  border-radius: 0;
+}
+.layui-container .finance-search .layui-input-block .layui-input:focus {
+  border-color: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .layui-input:focus + .icon-search {
+  background: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .inputlight {
+  border-color: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .buttonlight {
+  background: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .icon-search {
+  position: absolute;
+  top: 21px;
+  right: 1px;
+  width: 34px;
+  min-width: 34px;
+  height: 32px;
+  background-color: #ccc;
+  padding: 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+}
+.layui-container .finance-search .example-handle {
+  display: inline-block;
+  float: right;
+  margin-right: 24px;
+  margin-top: 20px;
+}
+.layui-container .finance-search.finance-all {
+  margin-bottom: 0;
+}
+.layui-container .finance-search.layui-form-item {
+  margin-bottom: 0 !important;
+}
+.layui-container .finance-search .btns {
+  background-color: #fff;
+  padding: 20px 20px 0 20px;
+}
+.layui-container .finance-tag {
+  margin-bottom: 20px;
+}
+.layui-container .finance-tag .tag-title {
+  height: 60px;
+  line-height: 60px;
+  width: inherit;
+}
+.layui-container .finance-tag .examine-tag ul {
+  padding: 5px;
+  margin-left: 75px;
+}
+.layui-container .finance-tag .examine-tag ul li {
+  position: relative;
+}
+.layui-container .finance-tag .examine-tag ul li .tag-a.show + .filter-time {
+  display: block;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time {
+  display: none;
+  line-height: normal;
+  position: absolute;
+  z-index: 88;
+  left: 0px;
+  top: 44px;
+  width: 330px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 15px 9px;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon a {
+  font-size: 14px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  color: #666;
+  padding: 0 8px;
+  height: 24px;
+  display: inline-block;
+  line-height: 24px;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon a:hover,
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon a.active {
+  background-color: #2883E1;
+  color: #fff;
+  border-radius: 2px;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon a:last-of-type.active ~ .layui-inline {
+  display: block;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon .choose-wait {
+  margin-left: 53px;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon .layui-inline {
+  display: none;
+  margin-top: 6px;
+  color: #666;
+  height: 23px;
+  overflow: hidden;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon .layui-inline input {
+  width: 96px;
+  color: #666;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  height: 22px;
+  display: inline-block;
+}
+.layui-container .finance-tag .examine-tag ul li .filter-time .choose-icon .layui-inline button {
+  border: 0;
+  color: #2883E1;
+  background-color: transparent;
+  font-size: 14px;
+  vertical-align: -webkit-baseline-middle;
+  margin-left: 10px;
+  margin-bottom: 12px;
+}
+.layui-container .finance-tag .examine-tag ul .choose-title {
+  padding-left: 8px;
+}
+.layui-container .common-table {
+  background: #fff;
+}
+.layui-container .common-table tr {
+  border-bottom: 1px solid #eee;
+}
+.layui-container .common-table tr:hover {
+  background-color: #FCFCFC !important;
+}
+.layui-container .common-table tr th {
+  height: 60px;
+}
+.layui-container .common-table tr th.t-name {
+  text-align: left;
+  padding-left: 60px;
+}
+.layui-container .common-table tr th.create-time {
+  width: 15%;
+}
+.layui-container .common-table tr th.accessory-title {
+  text-align: left;
+  padding-left: 80px;
+  width: 400px;
+}
+.layui-container .common-table tr th.doc-list-title {
+  width: 300px;
+  text-align: left;
+  padding-left: 80px;
+}
+.layui-container .common-table tr td {
+  height: 50px;
+  cursor: pointer;
+}
+.layui-container .common-table tr td .audit-skip {
+  color: #2883E1;
+}
+.layui-container .common-table tr td .audit-skip:hover {
+  color: #0162c5;
+}
+.layui-container .common-table tr td .open-show {
+  display: inline-block;
+  line-height: 50px;
+}
+.layui-container .common-table tr td .open-show:hover {
+  color: #0162c5;
+}
+.layui-container .common-table tr td.t-name {
+  text-align: left;
+}
+.layui-container .common-table tr td.t-name .squaredFour {
+  margin-left: 30px;
+  margin-right: 15px;
+}
+.layui-container .common-table tr td.t-name > span {
+  vertical-align: bottom;
+}
+.layui-container .common-table tr td.btns {
+  cursor: default;
+}
+.layui-container .common-table tr td.btns a {
+  margin-left: 15px;
+}
+.layui-container .common-table tr td.btns a i {
+  font-size: 16px;
+}
+.layui-container .common-table tr td.btns a i.icon-accessory {
+  font-size: 22px;
+  position: relative;
+  top: 2px;
+  left: -6px;
+}
+.layui-container .common-table tr td.btns a i.icon-export {
+  font-size: 22px;
+  position: relative;
+  left: -5px;
+}
+.layui-container .common-table tr td.doc-name {
+  text-align: left;
+  padding-left: 80px;
+  width: 400px;
+}
+.layui-container .common-table tr td.doc-name > i {
+  font-size: 30px;
+  vertical-align: sub;
+  margin-right: 5px;
+}
+.layui-container .common-table tr td.doc-list-title {
+  text-align: left;
+  padding-left: 80px;
+}
+.layui-container .common-table.attach-list td {
+  cursor: default;
+}
+.layui-container .no-result > p {
+  position: relative;
+  left: -5px;
+  padding-top: 280px;
+  font-size: 16px;
+  color: #999;
+}
+.layui-container .page {
+  margin: 20px 0 0 !important;
+}
+.layui-container .btn-box {
+  text-align: center;
+}
+.layui-container .btn-box a {
+  height: 40px;
+  line-height: 40px;
+  width: 140px;
+  font-size: 16px;
+}
+.doc-list-wrap .tab-wrap {
+  height: 260px;
+  overflow: hidden;
+}
+.doc-list-wrap .tab-wrap .doc-list .operate {
+  padding-right: 25px;
+}
+.doc-list-wrap .tab-wrap .doc-list thead tr th {
+  height: 45px;
+}
+.doc-list-wrap .tab-wrap .doc-list tbody tr td {
+  height: 50px;
+}
+.doc-list-wrap .tab-wrap .doc-list tbody tr td.attach-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 85%;
+  display: inline-block;
+  line-height: 50px;
+}
+.doc-list-wrap .tab-wrap .doc-list .icon-export {
+  font-size: 22px;
+  cursor: pointer;
+}
+.doc-list-wrap .close-btn {
+  text-align: center;
+  line-height: 60px;
+  height: 60px;
+}
+.doc-list-wrap .close-btn > a {
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+  padding: 0;
+  text-align: center;
+  line-height: 34px;
+  font-size: 14px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #666;
+  border: 1px solid #C9C9C9;
+}
+.doc-list-wrap .close-btn > a:hover {
+  opacity: .7;
+}

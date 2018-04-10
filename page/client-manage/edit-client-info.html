@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增合作信息</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/page/edit-client-info.css">
+    <script src="../../js/libs/jquery/jquery.min.js"></script>
+    <script src="../../js/libs/vue/vue.js"></script>
+</head>
+
+<body>
+    <div class="container edit-client-info-container" id="app" v-cloak>
+        <div class="header">
+            <div class="nav">
+                <div class="arrow left-arrow" @click="moveLeft"><i class="iconfont icon-left-arrow"></i></div>
+                <ul class="tabs">
+                    <li><a href="/">首页</a></li>
+                    <li v-for="(item, index) in tabs" :class="['tabs-item', item.active && 'tabs-item-active']">
+                        <a :href="item.url" @click="switchTabs">{{item.name}}</a>
+                        <i class="iconfont icon-delete" @click.stop="closeCurTab(index)">&nbsp;</i>
+                    </li>
+                </ul>
+                <div class="arrow right-arrow">
+                    <a href="javascript:;" @click="moveRight"><i class="iconfont icon-right-arrow"></i></a>
+                    <a href="javascript:;" @click="closeOtherTab">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                    <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-wrap">
+            <!-- 档案头部 -->
+            <div class="file-head">
+                <div class="layui-row">
+                    <div class="file-time pull-left">
+                        <span>档案编号：JJTG000000000000000001</span>
+                        <span>创建时间：2016年1月12日  12:12:12</span>
+                    </div>
+                    <a class="layui-btn pull-right" data-type="tab">操作日志</a>
+                </div>
+                <div class="layui-row">
+                    <div class="client-icon layui-col-md1">
+                        <img src="http://iph.href.lu/61x61?text=客户头像" alt="客户头像">
+                    </div>
+                    <div class="basic-info layui-col-md11">
+                        <div class="layui-col-md12 clearfix">
+                            <span class="pull-left">张三（男）</span>
+                            <ul class='label-list pull-left'>
+                                <li>签单中</li>
+                                <li>涨停风云</li>
+                                <li>签单中</li>
+                                <li>涨停风云</li>
+                                <li>签单中</li>
+                                <li>涨停风云</li>
+                            </ul>
+                        </div>
+                        <div class="layui-col-md12 info-row">
+                            <div class="layui-col-md1">
+                                <label>来源:</label>
+                                <span>微信推广</span>
+                            </div>
+                            <div class="layui-col-md1">
+                                <label>QQ:</label>
+                                <span>123456</span>
+                            </div>
+                            <div class="layui-col-md2">
+                                <label> 微信号:</label>
+                                <span>xxxxxx微信号</span>
+                            </div>
+                            <div class="layui-col-md3">
+                                <label>身份证:</label>
+                                <span>510000000000000000</span>
+                            </div>
+                            <div class="layui-col-md2">
+                                <label>职业:</label>
+                                <span>江湖术士</span>
+                            </div>
+                            <div class="layui-col-md3">
+                                <label>地址:</label>
+                                <span>四川省成都市高新区交子大道</span>
+                            </div>
+                        </div>
+                        <div class="layui-col-md12 phone-row">
+                            <label>电话:</label>
+                            <span>13000000000 <i class='iconfont icon-phone'></i></span>
+                            <span>13000000000 <i class='iconfont icon-phone'></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="layui-tab layui-tab-card">
+                    <ul class="layui-tab-title">
+                        <li><a href="javascript:;">基本信息</a></li>
+                        <li><a href="javascript:;">跟进信息</a></li>
+                        <li class="layui-this"><a href="javascript:;">合作情况</a></li>
+                        <li><a href="javascript:;">服务信息</a></li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <!-- 编辑基本信息 -->
+                        <div class="layui-tab-item ">
+                            <div class="layui-collapse">
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">基本信息<span><i>*</i>新增合作信息必输</span> </h2>
+                                    <div class="layui-colla-content">
+                                        <div class="layui-form">
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"><span>*</span>姓名</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入姓名" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"><span>*</span>身份证</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入身份证" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label">性别</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="sex" value="男" title="男" checked>
+                                                    <input type="radio" name="sex" value="女" title="女">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">年龄</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入年龄" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">职业</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入职业" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">来源</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入来源" class="layui-input">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">联系方式<span><i>*</i>新增合作信息必输</span> </h2>
+                                    <div class="layui-colla-content ">
+                                        <div class="layui-form clearfix">
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"><span>*</span>电话</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入电话号码" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入电话号码" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">QQ</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入QQ号码" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">微信</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入微信号码" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">所在地区</label>
+                                                <div class="layui-input-block layui-col-md2 select-wrap">
+                                                    <select name="city" lay-verify="required">
+                                                        <option value=""></option>
+                                                        <option value="0">北京</option>
+                                                        <option value="1">上海</option>
+                                                        <option value="2">广州</option>
+                                                        <option value="3">深圳</option>
+                                                        <option value="4">杭州</option>
+                                                    </select>
+                                                </div>
+                                                <div class="layui-input-block layui-col-md2 select-wrap">
+                                                    <select name="city" lay-verify="required">
+                                                        <option value=""></option>
+                                                        <option value="0">北京</option>
+                                                        <option value="1">上海</option>
+                                                        <option value="2">广州</option>
+                                                        <option value="3">深圳</option>
+                                                        <option value="4">杭州</option>
+                                                    </select>
+                                                </div>
+                                                <div class="layui-input-block layui-col-md2 select-wrap">
+                                                    <select name="city" lay-verify="required">
+                                                        <option value=""></option>
+                                                        <option value="0">北京</option>
+                                                        <option value="1">上海</option>
+                                                        <option value="2">广州</option>
+                                                        <option value="3">深圳</option>
+                                                        <option value="4">杭州</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">详细地址</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <textarea name="desc" placeholder="请输入详细地址" class="layui-textarea"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">财务投资经验</h2>
+                                    <div class="layui-colla-content layui-show">
+                                        <div class="layui-form clearfix border-bottom">
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label">收入来源</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="薪资" checked="">
+                                                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="对外投资">
+                                                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="企业经营">
+                                                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="其他">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入其他来源" class="layui-input ">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">最近三年平均收入</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入金额" class="layui-input ">
+                                                </div>
+                                                <span class="unit">元</span>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">有误债券</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="bond" value="无" title="无">
+                                                    <input type="radio" name="bond" value="有" title="有" checked="">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入债券金额" class="layui-input ">
+                                                </div>
+                                                <span class="unit">元</span>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label">金融资产</label>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="存款" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入存款金额" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">元</span>
+                                                </div>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="股票" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入股票金额" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">元</span>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="基金" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入基金金额" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">元</span>
+                                                </div>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="其他" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入其他金额" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">元</span>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">是否开通创业板</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="gem" value="否" title="否">
+                                                    <input type="radio" name="gem" value="是" title="是" checked="">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">开通ST</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="st" value="否" title="否">
+                                                    <input type="radio" name="st" value="是" title="是" checked="">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">当前仓位</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入当前仓位" class="layui-input ">
+                                                </div>
+                                                <span class="unit">成</span>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form clearfix">
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label">证券投资</label>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="股票" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入年限" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">年</span>
+                                                </div>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="债券" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入债券" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">年</span>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="基金" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入年限" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">年</span>
+                                                </div>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="期货" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入年限" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">年</span>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md3 assets">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="其他" checked="">
+                                                    <div class="layui-input-block layui-col-md6">
+                                                        <input type="text" placeholder="请输入年限" class="layui-input ">
+                                                    </div>
+                                                    <span class="unit">年</span>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">金融投资学习工作经历</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="experience" value="无" title="无">
+                                                    <input type="radio" name="experience" value="有" title="有" checked="">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入年限" class="layui-input ">
+                                                </div>
+                                                <span class="unit">年</span>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">金融行业职业资格证书</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="certificate" value="无" title="无">
+                                                    <input type="radio" name="certificate" value="有" title="有" checked="">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入证书名称" class="layui-input ">
+                                                </div>
+                                                <span class="unit">资格证</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 编辑跟进信息 -->
+                        <div class="layui-tab-item follow-info ">
+                            <div class='layui-form'>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">跟进产品</label>
+                                    <div class="layui-input-block layui-col-md4">
+                                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="涨停风云" checked="">
+                                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="主升传奇">
+                                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="凤鸣一号">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><span>*</span>跟进类型</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="info" value="销售信息" title="销售信息" checked>
+                                        <input type="radio" name="info" value="服务信息女" title="服务信息">
+                                        <input type="radio" name="info" value="回访信息" title="回访信息">
+                                        <input type="radio" name="info" value="投诉信息" title="投诉信息">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-col-md12">
+                                    <label class="layui-form-label">说明</label>
+                                    <div class="layui-input-block layui-col-md4">
+                                        <textarea name="desc" placeholder="请输入说明内容，不超过500字" class="layui-textarea" maxlength="500"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-col-md12">
+                                    <label class="layui-form-label">上传图片</label>
+                                    <div class="layui-upload layui-col-md10">
+                                        <blockquote class="layui-elem-quote layui-quote-nm">
+                                            <div class="layui-upload-list" id="img-box"></div>
+                                        </blockquote>
+                                        <button type="button" class="layui-btn upload-btn" id="upload"><i class="iconfont icon-add"></i></button>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-col-md12">
+                                    <label class="layui-form-label">添加录音记录</label>
+                                    <div class="layui-input-block layui-col-md4">
+                                        <button class="layui-btn" id='addRecord'>添加录音记录</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 编辑合作情况 -->
+                        <div class="layui-tab-item cooperation-situation layui-show">
+                            <div class="layui-collapse">
+                                <!-- 合作产品 -->
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">合作产品</h2>
+                                    <div class="layui-colla-content ">
+                                        <div class='layui-form'>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>产品名称</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="info" value="线上投顾计划" title="线上投顾计划" checked>
+                                                    <input type="radio" name="info" value="线下投顾计划" title="线下投顾计划">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block">
+                                                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="涨停风云" checked="">
+                                                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="主升传奇">
+                                                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="凤鸣一号">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>支付方式</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="payMethod" value="线上" title="线上" checked>
+                                                    <input type="radio" name="payMethod" value="线下" title="线下">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>购买电话</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="payIphone" value="13500000000" title="13500000000" checked>
+                                                    <input type="radio" name="payIphone" value="13500000000" title="13500000000">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"><span>*</span>购买数量</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" class="layui-input" placeholder="请输入购买数量">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>服务期限</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="dayType" value="交易日" title="交易日" checked>
+                                                    <input type="radio" name="dayType" value="自然日" title="自然日">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" class="layui-input" placeholder="请输入服务期限">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label"><span>*</span>商品价格</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入购买价格" class="layui-input ">
+                                                </div>
+                                                <span class="unit">元</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 财务信息 -->
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">财务信息</h2>
+                                    <div class="layui-colla-content">
+                                        <div class="layui-form">
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>付费金额</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入交费金额" class="layui-input ">
+                                                </div>
+                                                <span class="unit">元</span>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>付费日期</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入交费日期" class="layui-input ">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>付费人</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入付费人" class="layui-input ">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>付费方式</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="pay" value="银行转账" title="银行转账" checked>
+                                                    <input type="radio" name="pay" value="支付宝" title="支付宝">
+                                                    <input type="radio" name="pay" value="微信" title="微信">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>付费银行</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入付费银行" class="layui-input ">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>付费账号</label>
+                                                <div class="layui-input-block layui-col-md4">
+                                                    <input type="text" placeholder="请输入付费账号" class="layui-input ">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>收款账号</label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="account" value="湖南巨景证券投资顾问有限公司天府新区分公司" title="湖南巨景证券投资顾问有限公司天府新区分公司" checked>
+                                                    <input type="radio" name="account" value="支付宝" title="支付宝">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"></label>
+                                                <div class="layui-input-block">
+                                                    <input type="radio" name="receiptAccount" value="128907601310701" title="128907601310701" checked>
+                                                    <input type="radio" name="receiptAccount" value="128907601310701" title="128907601310701">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item layui-col-md12">
+                                                <label class="layui-form-label">上传图片<br><i>(最多上传9张)</i></label>
+                                                <div class="layui-upload layui-col-md10">
+                                                    <blockquote class="layui-elem-quote layui-quote-nm">
+                                                        <div class="layui-upload-list" id="img-box"></div>
+                                                    </blockquote>
+                                                    <button type="button" class="layui-btn upload-btn" id="upload"><i class="iconfont icon-add"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 合规信息 -->
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">合规信息</h2>
+                                    <div class="layui-colla-content ">
+                                        <div class="layui-form">
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label"><span>*</span>合规类型</label>
+                                                <div class="layui-input-block layui-col-md2">
+                                                    <input type="radio" name="pay" value="银行转账" title="线上合规" checked>
+                                                    <input type="radio" name="pay" value="支付宝" title="线下合规">
+                                                </div>
+                                                <div class="layui-input-block compliance layui-col-md7">
+                                                    <label class="layui-form-label">
+                                                        合规状态 <i>已合规</i>
+                                                    </label>
+                                                    <label class="layui-form-label">
+                                                        风险评测 <i>稳健性</i>
+                                                    </label>
+                                                    <label class="layui-form-label">
+                                                        适当性评测 <i>普通投资者</i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label">合同类型</label>
+                                                <div class="layui-input-block compliance layui-col-md2">
+                                                    <i>纸质合同</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 销售过程 -->
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">销售过程</h2>
+                                    <div class="layui-colla-content sales-process layui-show">
+                                        <div class="layui-row layui-col-md12">
+                                            <h2>首次沟通
+                                                <div><a href="javascript:;">新增销售过程</a><a href="javascript:;">关联跟进信息</a></div>
+                                            </h2>
+                                            <div class="layui-row-content" v-for="(i,index) in 2">
+                                                <div class="content-item content-title layui-col-md12">
+                                                    <strong>股客张三</strong> <a href="javascript:;">主升传奇</a>
+                                                </div>
+                                                <div class="layui-col-md12 content-item">
+                                                    通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作
+                                                </div>
+                                                <div class="layui-col-md12 content-item">
+                                                    <a class="img-box" href="javascript:;" v-for="item in 9">
+                                                        <img src="http://iph.href.lu/120x80" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="info-item layui-table layui-col-md12">
+                                                    <table class="layui-col-md12">
+                                                        <tbody class="layui-col-md12">
+                                                            <tr class="layui-col-md12">
+                                                                <td class="layui-col-md2">姓名</td>
+                                                                <td class="layui-col-md2">电话</td>
+                                                                <td class="layui-col-md2">通话时长</td>
+                                                                <td class="layui-col-md2">通话时间</td>
+                                                                <td class="layui-col-md2">通话类型</td>
+                                                                <td class="layui-col-md2">操作</td>
+                                                            </tr>
+                                                            <tr class="layui-col-md12" v-for="i in followTable">
+                                                                <td class="layui-col-md2" v-text="i.name"></td>
+                                                                <td class="layui-col-md2" v-text="i.phoneNum"></td>
+                                                                <td class="layui-col-md2" v-text="i.timelen"></td>
+                                                                <td class="layui-col-md2" v-text="i.time"></td>
+                                                                <td class="layui-col-md2" v-text="i.type"></td>
+                                                                <td class="layui-col-md2">
+                                                                    <a href="javascript:;">播放录音</a>
+                                                                    <a href="javascript:;">下载录音</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="info-item layui-item-time layui-col-md12">
+                                                    <span>2017-09-27 13:36</span>
+                                                    <a  href="javascript:;">删除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-row layui-col-md12">
+                                            <h2>公司实力简介</h2>
+                                            <div class="layui-row-content">
+                                                <div class="content-item content-title layui-col-md12">
+                                                    <strong>股客张三</strong> <a href="javascript:;">主升传奇</a>
+                                                </div>
+                                                <div class="layui-col-md12 content-item">
+                                                    通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作通知建仓海特高新，微操作
+                                                </div>
+                                                <div class="layui-col-md12 content-item">
+                                                    <a class="img-box" href="javascript:;" v-for="item in 9">
+                                                            <img src="http://iph.href.lu/120x80" alt="">
+                                                        </a>
+                                                </div>
+                                                <div class="info-item layui-item-time layui-col-md12">
+                                                    <span>2017-09-27 13:36</span>
+                                                    <a href="javascript:;">删除</a>
+                                                </div>
+                                            </div>
+                                            <div class="layui-row-content">
+                                                <div class="layui-form-item layui-col-md12">
+                                                    <div class="layui-input-block layui-col-md12 textarea-box">
+                                                        <textarea name="desc" placeholder="请输入说明内容，不超过500字" class="layui-textarea" maxlength="500"></textarea>
+                                                        <span>0/500</span>
+                                                    </div>
+                                                </div>
+                                                <div class="layui-form layui-col-md12">
+                                                    <div class="layui-form-item layui-col-md12">
+                                                        <div class="layui-upload layui-col-md12">
+                                                            <blockquote class="layui-elem-quote layui-quote-nm">
+                                                                <div class="layui-upload-list" id="img-box"></div>
+                                                            </blockquote>
+                                                            <button type="button" class="layui-btn upload-btn" id="upload"><i class="iconfont icon-add"></i></button>
+                                                        </div>
+                                                        <div class="content-item layui-col-md12">
+                                                            <span>0/9</span> 每张图片请小于2M
+                                                        </div>
+                                                        <div class="content-item layui-col-md12 content-btn-box">
+                                                            <button class="layui-btn layui-btn-primary">取消</button>
+                                                            <button class="layui-btn">确认</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="layui-row layui-col-md12">
+                                            <h2>感情沟通
+                                                <div><a href="javascript:;">新增销售过程</a><a href="javascript:;">关联跟进信息</a></div>
+                                            </h2>
+                                        </div>
+                                        <div class="layui-row layui-col-md12">
+                                            <h2>适当性评估
+                                                <div><a href="javascript:;">新增销售过程</a><a href="javascript:;">关联跟进信息</a></div>
+                                            </h2>
+                                        </div>
+                                        <div class="layui-row layui-col-md12">
+                                            <h2>其他
+                                                <div><a href="javascript:;">新增销售过程</a><a href="javascript:;">关联跟进信息</a></div>
+                                            </h2>
+                                        </div>
+                                        <div class="layui-row layui-col-md12">
+                                            <h2>备注
+                                                <div><a href="javascript:;">新增销售过程</a><a href="javascript:;">关联跟进信息</a></div>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 编辑服务信息 -->
+                        <div class="layui-tab-item follow-info service-info">
+                            服务信息
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <button class="layui-btn layui-btn-primary">取消</button>
+                    <button class="layui-btn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <script src="../../js/libs/require/require.min.js"></script>
+    <script src="../../js/require.config.js"></script>
+    <script src='../../js/app/editClientInfo.js'></script>
+</body>
+
+</html>

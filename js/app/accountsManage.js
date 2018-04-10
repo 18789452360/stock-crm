@@ -58,12 +58,15 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
                     }else{
                         layers.toast(result.message);
                     }
-                    layers.closed(loading);
                 },
                 error: function(){
                     layers.toast("网络异常!");
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             });
         },
         /**
@@ -140,9 +143,6 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
                         success: function(result){
                             if(result.code == 1){
                                 layers.toast(result.message);
-                                setTimeout(function(){
-                                    window.location.reload();
-                                },1000);
                             }else{
                                 layers.toast(result.message);
                             }
@@ -235,7 +235,7 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
          */
         addSelect: function() {
             tool.ajax({
-                url: ajaxurl.position.index,
+                url: ajaxurl.position.indexPosition,
                 type: 'post',
                 success: function(result){
                     if(result.code == 1){
@@ -257,7 +257,7 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
                 }
             });
             tool.ajax({
-                url: ajaxurl.grade.index,
+                url: ajaxurl.grade.indexGrade,
                 type: 'post',
                 success: function(result){
                     if(result.code == 1){
@@ -321,7 +321,6 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
                         $('.file-btn span').text('修改');
                         $('.file-container').addClass('uploaded');
                     });
-                    //$layero.find('.selectOptionWrap').html(template('selectOption', {data: vm.generalList}));
                     layui.use(['form'], function () {
                         var form = layui.form;
                         form.on('select(group)', function (data) {
@@ -333,7 +332,7 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
                     upload.init({
                         elem: '#fileUp',
                         url: ajaxurl.user.import,
-                        field: 'import_csv',
+                        field: 'import_csv', // 文件类型
                         accept: 'file',
                         exts: 'csv',
                         auto: false, // 关闭自动上传
@@ -396,7 +395,7 @@ require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'text!/asset
         common.getTabLink();
         home.getAllList();
         home.addSelect();
-        home.accuntQuery()
+        home.accuntQuery();
     };
     /**
      * 实例化vue

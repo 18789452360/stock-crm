@@ -29,12 +29,15 @@ require(['layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/assets/popup/ad
                     }else{
                         layers.toast(result.message)
                     }
-                    layers.closed(loading);
                 },
                 error: function(){
                     console.log("网络异常!");
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             });
         },
         /**

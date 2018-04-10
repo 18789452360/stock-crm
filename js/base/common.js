@@ -16,170 +16,183 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
             return -1;
         },
         /**
-         * [closeTab description] 关闭当前页面 返回到上一页
-         * @param  {[type]} isprve [description] 是否切换到最近的一个tab
-         * @return {[type]}        [description]
+         * 判断当前窗口是否是最顶层
          */
-        closeTab: function (isprve) {
-            var tabIndexs = tools.getStorage('tabIndex'),
-                jumpUrl = '', //跳转的URL
-                curUrl = window.location.href.replace(ajaxurl.BaseUrl, ''); //获取当前页面的路径
-            if (tabIndexs) {
-                var lens = tabIndexs.length;
-                for (var i = 0; i < lens; i++) {
-                    if (tabIndexs[i].active && i != 0) {
-                        if (curUrl === tabIndexs[i].url) {
-                            if (isprve) {
-                                tabIndexs.splice(i, 1);
-                                tabIndexs[i - 1].active = true;
-                                jumpUrl = tabIndexs[i - 1].url;
-                            } else {
-                                tabIndexs.splice(i, 1);
-                                window.history.go(-1);
+        isIframe: function () {
+            var flag = '';
+            window.self != window.top ? flag = true : flag = false;
+            return flag;
+        },
+        /**
+         * [getDocument description]获取当前的document
+         * @return {[type]} [description]
+         */
+        getDocument: function () {
+            var $elem;
+            window.self != window.top ? $elem = $("body", parent.document) : $elem = $(document);
+            return $elem;
+        },
+        /**
+         * 返回上一页
+         * @param boole true返回上一页刷新，false 返回上一页不刷新
+         * @returns {boolean}
+         */
+        closeTab: function (boole) {
+            var $document = common.getDocument(),
+                $J_menuTab = $document.find('.page-tabs-content .J_menuTab.active'),
+                url = $J_menuTab.data('backurl'),
+                name = $J_menuTab.data('backname') || '提示';
+            if (url == '/') {
+                common.isTabShow(true);
+                return false;
+            }
+            //默认为false不刷新页面
+            boole ? common.setTab(url, name, '', '', true) : common.setTab(url, name, '', '', false);
+            common.delCurTab($J_menuTab.find('i'), true);
+            return false;
+        },
+        /**
+         * @param n iframe显示与隐藏
+         * @returns {boolean}
+         */
+        isTabShow: function (n) {
+            var $document = common.getDocument();
+            if (n) {
+                $document.find('.first-item').addClass('active');
+                $document.find('.J_menuTab').removeClass('active');
+                $document.find('.index').removeClass('layui-hide');
+                $document.find('.iframe-wrap').addClass('layui-hide');
+                $document.find('.J_mainContent').addClass();
+                return false;
+            }
+            $document.find('.iframe-wrap').removeClass('layui-hide');
+            $document.find('.first-item').removeClass('active');
+            $document.find('.index').addClass('layui-hide');
+        },
+        /**
+         * 根据参数设置tab
+         * @param url  地址
+         * @param name title名字
+         * @param backUrl 来路页的地址
+         * @param refresh 是否刷新该页面 该值在tab存在时才生效
+         * @returns {boolean}
+         */
+        setTab: function (url, name, backUrl, backName, refresh) {
+            var flag = true, $tabs = '', $J_mainContent = '',
+                $document = common.getDocument();
+            $tabs = $document.find('.page-tabs-content');
+            $J_mainContent = $document.find('.J_mainContent');
+            var $J_menuTab = $tabs.find('.J_menuTab');
+            //遍历所有的J_menuTab，看是否存在该tab 选项卡存在情况
+            $J_menuTab.each(function () {
+                if ($(this).data('id') == url) {
+                    if (!$(this).hasClass('active')) {
+                        $J_menuTab.removeClass('active');
+                        $(this).addClass('active');
+                        // 显示tab对应的内容区
+                        $J_mainContent.find('.J_iframe').each(function () {
+                            if ($(this).data('id') == url) {
+                                $(this).show().siblings('.J_iframe').hide();
+                                return false;
                             }
-                            break;
-                        }
-                    } else if (tabIndexs[i].active && i == 0) {
-                        window.location.href = '/admin/index/index';
-                        return;
+                        });
                     }
+                    if (refresh) {
+                        common.refreshTab(this);
+                    }
+                    flag = false;
+                    return false;
                 }
-                tools.setStorage('tabIndex', tabIndexs);
-                if (isprve) {
-                    window.location.href = jumpUrl;
+            });
+            // 选项卡菜单不存在
+            if (flag) {
+                var str = '<li  class="layui-elip tab-item active J_menuTab" data-backName="' + backName + '" data-backUrl = "' + backUrl + '" data-id="' + url + '"><a href="javascript:;" class="layui-elip">' + name + '</a><i class="iconfont icon-cha">&nbsp;</i></li>';
+                $J_menuTab.removeClass('active');
+                // 添加选项卡对应的iframe
+                var str1 = '<iframe class="J_iframe"  width="100%" height="100%" src="' + url + '" frameborder="0" data-id="' + url + '" seamless></iframe>';
+                //当iframe盒子中有iframe 先让其他隐藏，新增的显示，如果没有iframe，直接添加进去
+                if ($J_mainContent.find('iframe.J_iframe').length == 0) {
+                    $J_mainContent.append(str1);
+                } else {
+                    $J_mainContent.find('iframe.J_iframe').hide();
+                    $J_mainContent.append(str1);
                 }
+                // 添加选项卡
+                $tabs.append(str);
+            }
+            //处于首页时
+            if ($('.first-item').hasClass('active')) {
+                common.isTabShow(false);
             }
         },
         /**
-         * [jumpCloseTab description] 跳转到指定的页面 替换当前页面
-         * @param  {[type]} url   [description]  必须 '/admin/index/index'
-         * @param  {[type]} title [description]  必须
-         * @return {[type]}       [description]
+         * tab刷新该iframe
          */
-        jumpCloseTab: function (url, title) {
-            if (!url) {
-                throw new Error('缺少url参数！');
-            }
-            title = title || '提示';
-            var tabIndex = tools.getStorage('tabIndex'),
-                curUrl = window.location.href.replace(ajaxurl.BaseUrl, ''); //获取当前页面的路径
-            if (url === curUrl) {//如果跳转的Ulr和path相等 刷新当前页面
-                window.location.reload();
-                return;
-            }
-            if (tabIndex) {
-                var lens = tabIndex.length;
-                for (var i = 0; i < lens; i++) {
-                    if (tabIndex[i].active && tabIndex[i].url != url) {
-                        tabIndex[i].url = url;
-                        tabIndex[i].name = title;
-                    } else if (tabIndex[i].url == url && !tabIndex[i].active) {
-                        tabIndex[i].url = url;
-                        tabIndex[i].active = true;
-                    } else {
-                        tabIndex[i].active = false;
-                    }
-                }
-                tools.setStorage('tabIndex', tabIndex);
-            } else {
-                var temp = [{name: title, url: url, active: true}];
-                tools.setStorage('tabIndex', temp);
-            }
-            window.location.href = url;
+        refreshTab: function (that) {
+            var $document = common.getDocument(),
+                $J_iframe = $document.find('.J_mainContent');
+            var target = $J_iframe.find('.J_iframe[data-id="' + $(that).data('id') + '"]');
+            var url = target.attr('src');
+            target.attr('src', url).load();
         },
         /**
          * 新增 Tab 标签页
-         * 劫持带有 data-type="tab" 的 a 标签写入 SessionStorage
+         * 劫持带有 data-type="tab" 的 a 标签写入;
          */
         getTabLink: function () {
-            var _this = this;
-            $(document).on('click', 'a[data-type="tab"]', function (event) {
-                // 获取标识数据
-                var dataUrl = $(this).prop('href').replace(ajaxurl.BaseUrl, ''), //将href中的  http://www.xxxx.cn 去掉
-                    menuName = $.trim($(this).data('title')) ? $.trim($(this).data('title')) : $.trim($(this).prop('title'));//获取a标签的title作为tab的标题
-                if (dataUrl === undefined || $.trim(dataUrl).length === 0) return false;
-                var tabItem = {
-                    name: menuName || '提示',
-                    url: dataUrl,
-                    active: true
-                };
-                var tabIndexsArr = [];
-                tabIndexsArr.push(tabItem);
-                if (tools.hasStorage('tabIndex')) {
-                    var tmpArr = tools.getStorage('tabIndex');
-                    // tabIndex 中无当前 url 时则追加新项
-                    if (_this.findElem(tmpArr, 'url', tabItem.url) === -1) {
-                        // 新增前将所有 active 置为 false
-                        for (var i = 0, len = tmpArr.length; i < len; i++) {
-                            tmpArr[i].active = false;
-                        }
-                        tmpArr.push(tabItem);
-                        tools.setStorage('tabIndex', tmpArr);
-                    }
-                } else {
-                    // 无 tabIndex 时则新建项
-                    tools.setStorage('tabIndex', tabIndexsArr);
+            // 如果直接访问子页面则跳转至首页
+            /*var url = window.location.href;
+            if (window.location.pathname !== '/admin/index/index') {
+                if(url.indexOf('debug') === -1){
+                    window === top && (window.location.href = '/admin/index/index');
                 }
-                //增加临时缓存 url name 地址  主要是针对浏览器的前进后退出处理
-                if (tools.hasStorage('tempTabIndex')) { //如果存在
-                    var tmpTabArr = tools.getStorage('tempTabIndex');
-                    if (_this.findElem(tmpTabArr, 'url', tabItem.url) === -1) { //如果当前url不在缓存中
-                        for (var i = 0, len = tmpTabArr.length; i < len; i++) {
-                            tmpTabArr[i].active = false;
-                        }
-                        tmpTabArr.push(tabItem);
-                        tools.setStorage('tempTabIndex', tmpTabArr); //缓存tab 不清除
-                    }
-                } else {
-                    tools.setStorage('tempTabIndex', tabIndexsArr); //缓存tab 不清除
-                }
+            }*/
+            var $document = common.getDocument();
+            Vue.nextTick(function () {
+                $(document).on('click', 'a[data-type="tab"]', function (e) {
+                    var backUrl = $document.find('.page-tabs-content li.active').data('id');
+                    var dataUrl = $(this).prop('href').replace(ajaxurl.BaseUrl, ''),//获取a标签的href值
+                        menuName = $(this).attr('data-title') || $(this).attr('title') || '提示';//获取a标签的title作为tab的标题
+                    var backName = $document.find('.page-tabs-content li.active a').text() || "提示";
+                    common.setTab(dataUrl, menuName, backUrl, backName,true);
+                    return false;
+                });
             });
         },
         /**
-         * JS 写入面包屑导航
-         * @param item 传入格式 {name: '名字', url: '需要跳转的链接'}
+         * JS 写入全局tab
+         * @param item 传入格式 {name: '名字', url: '需要跳转的链接',close:'是否关闭当前页面',updated:'是否刷新跳转过去的页面'},
          */
         getTabLinkWithJS: function (item) {
-            var _this = this;
             if (!$.isEmptyObject(item)) {
-                var tabItem = {
-                    name: item.name,
-                    url: item.url,
-                    active: true
-                };
-                var tabIndexsArr = [];
-                tabIndexsArr.push(tabItem);
-                if (tools.hasStorage('tabIndex')) {
-                    var tmpArr = tools.getStorage('tabIndex');
-                    // tabIndex 中无当前 url 时则追加新项
-                    if (_this.findElem(tmpArr, 'url', tabItem.url) === -1) {
-                        // 新增前将所有 active 置为 false
-                        for (var i = 0, len = tmpArr.length; i < len; i++) {
-                            tmpArr[i].active = false;
-                        }
-                        tmpArr.push(tabItem);
-                        tools.setStorage('tabIndex', tmpArr);
-                    }
-                } else {
-                    // 无 tabIndex 时则新建项
-                    tools.setStorage('tabIndex', tabIndexsArr);
+                if (!item.url) {
+                    layers.toast('缺少跳转链接');
+                    return;
                 }
-                //增加临时缓存 url name 地址  主要是针对浏览器的前进后退出处理
-                if (tools.hasStorage('tempTabIndex')) { //如果存在
-                    var tmpTabArr = tools.getStorage('tempTabIndex');
-                    if (_this.findElem(tmpTabArr, 'url', tabItem.url) === -1) { //如果当前url不在缓存中
-                        for (var i = 0, len = tmpTabArr.length; i < len; i++) {
-                            tmpTabArr[i].active = false;
-                        }
-                        tmpTabArr.push(tabItem);
-                        tools.setStorage('tempTabIndex', tmpTabArr); //缓存tab 不清除
-                    }
-                } else {
-                    tools.setStorage('tempTabIndex', tabIndexsArr); //缓存tab 不清除
+                if (!item.url) {
+                    layers.toast('缺少name');
+                    return;
                 }
-                setTimeout(function () {
-                    window.location.href = tabItem.url;
-                }, 0);
+                var flag = false;//默认跳转过去的页面不自动刷新
+                if (item.updated) {
+                    flag = true;
+                }
+                var $elem,
+                    backurl = '',
+                    backname = '',
+                    boole = common.isIframe();
+                if (boole) {
+                    $elem = $("body", parent.document).find('.page-tabs-content .J_menuTab.active i');
+                    backurl = $elem.parents('.J_menuTab').data('id');//用于跳转新tab后返回该页面时需要
+                    backname = $elem.parents('.J_menuTab').find('a').text();
+                } else {
+                    backurl = '/';
+                }
+                //根据需要处理新tab
+                common.setTab(item.url, item.name, backurl, backname, flag);
+                if (item.close && boole) {//执行关闭当前tab操作
+                    common.delCurTab($elem, true);
+                }
             } else {
                 throw Error('传入参数有误, item 对象不存在!');
             }
@@ -233,122 +246,142 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
             }
         },
         /**
-         * Tab 标签页切换 active
-         * 设置 SessionStorage 中的当前项为 active 项
-         * @param url 待设置的项
+         * 删除指定tab
+         * @param that 操作的的DOM
+         * @param n 是否直接删除该tab，不切换前后tab
+         * @returns {boolean}
          */
-        setActive: function (url) {
-            if (tools.hasStorage('tabIndex')) {
-                var tmpArr = tools.getStorage('tabIndex');
-                // 查找当前项在的位置
-                var actIndex = this.findElem(tmpArr, 'url', url);
-                if (actIndex >= 0) {
-                    // 新增前将所有 active 置为 false
-                    for (var i = 0, len = tmpArr.length; i < len; i++) {
-                        tmpArr[i].active = false;
+        delCurTab: function (that, n) {
+            var closeTabId = $(that).parents('.J_menuTab').data('id');
+            if (n) {
+                // 移除tab对应的内容区
+                $(that).parents('body').find('.J_mainContent .J_iframe').each(function () {
+                    if ($(this).data('id') == closeTabId) {
+                        $(this).remove();
+                        return false;
                     }
-                    // 当前项设置为 true
-                    tmpArr[actIndex].active = true;
-                    tools.setStorage('tabIndex', tmpArr);
-                } else {
-                    throw new Error('tabIndex 中未找到该 URL: ' + url);
+                });
+                //  移除当前选项卡
+                $(that).parents('.J_menuTab').remove();
+                return false;
+            }
+            //当所有tab没有激活，处于首页状态
+            if ($('.iframe-wrap').hasClass('layui-hide')) {
+                //  移除当前选项卡
+                $(that).parents('.J_menuTab').remove();
+                // 移除tab对应的内容区
+                $('.J_mainContent .J_iframe').each(function () {
+                    if ($(this).data('id') == closeTabId) {
+                        $(this).remove();
+                        return false;
+                    }
+                });
+                return false;
+            }
+            // 当前元素处于活动状态
+            if ($(that).parents('.J_menuTab').hasClass('active')) {
+                //当页面tab只有一个的时候，点击移除该tab，展示首页内容，隐藏iframe-wrap
+                if ($(that).parents('.page-tabs-content').find('.J_menuTab').length == 1) {
+                    //  移除当前选项卡
+                    $(that).parents('.J_menuTab').remove();
+                    // 移除tab对应的内容区
+                    $('.J_mainContent .J_iframe').each(function () {
+                        if ($(this).data('id') == closeTabId) {
+                            $(this).remove();
+                            return false;
+                        }
+                    });
+                    common.isTabShow(true);
                 }
+                // 当前元素后面有同辈元素，使后面的一个元素处于活动状态
+                if ($(that).parents('.J_menuTab').next('.J_menuTab').size()) {
+                    var activeId = $(that).parents('.J_menuTab').next('.J_menuTab:eq(0)').data('id');
+                    $(that).parents('.J_menuTab').next('.J_menuTab:eq(0)').addClass('active');
+                    $('.J_mainContent .J_iframe').each(function () {
+                        if ($(this).data('id') == activeId) {
+                            $(this).show().siblings('.J_iframe').hide();
+                            return false;
+                        }
+                    });
+                    //  移除当前选项卡
+                    $(that).parents('.J_menuTab').remove();
+                    // 移除tab对应的内容区
+                    $('.J_mainContent .J_iframe').each(function () {
+                        if ($(this).data('id') == closeTabId) {
+                            $(this).remove();
+                            return false;
+                        }
+                    });
+                }
+                // 当前元素后面没有同辈元素，使当前元素的上一个元素处于活动状态
+                if ($(that).parents('.J_menuTab').prev('.J_menuTab').size()) {
+                    var activeId = $(that).parents('.J_menuTab').prev('.J_menuTab:last').data('id');
+                    $(that).parents('.J_menuTab').prev('.J_menuTab:last').addClass('active');
+                    $('.J_mainContent .J_iframe').each(function () {
+                        if ($(this).data('id') == activeId) {
+                            $(this).show().siblings('.J_iframe').hide();
+                            return false;
+                        }
+                    });
+                    //  移除当前选项卡
+                    $(that).parents('.J_menuTab').remove();
+                    // 移除tab对应的内容区
+                    $('.J_mainContent .J_iframe').each(function () {
+                        if ($(this).data('id') == closeTabId) {
+                            $(this).remove();
+                            return false;
+                        }
+                    });
+                }
+            }
+            // 当前元素不处于活动状态
+            else {
+                //  移除当前选项卡
+                $(that).parents('.J_menuTab').remove();
+                // 移除相应tab对应的内容区
+                $('.J_mainContent .J_iframe').each(function () {
+                    if ($(this).data('id') == closeTabId) {
+                        $(this).remove();
+                        return false;
+                    }
+                });
+            }
+            return false;
+        },
+        /**
+         * 点击切换选项卡
+         */
+        activeTab: function (that, e) {
+            //点击的是删除按钮时，不执行
+            if (e.target.className == 'iconfont icon-cha') {
+                return false;
+            }
+            if (!$(that).hasClass('active')) {
+                var currentId = $(that).data('id');
+                // 显示tab对应的内容区
+                $('.J_mainContent .J_iframe').each(function () {
+                    if ($(this).data('id') == currentId) {
+                        $(this).show().siblings('.J_iframe').hide();
+                        return false;
+                    }
+                });
+                //当前处于首页状态
+                if ($('.iframe-wrap').hasClass('layui-hide')) {
+                    common.isTabShow(false);
+                }
+                $(that).addClass('active').siblings('.J_menuTab').removeClass('active');
             }
         },
         /**
-         * 删除指定 Tab 标签页
-         * @param willDelIndex  待删除项的索引
+         * 关闭所有tab
          */
-        delCurTab: function (willDelIndex) {
-            if (tools.hasStorage('tabIndex')) {
-                var objArr = tools.getStorage('tabIndex');
-                var tmpArr = [];
-                var curIsActive = objArr[willDelIndex].active;
-                // 如果待删除的项已经是 active 状态, 并且不是第一项
-                // 那么将它的前一项设置为 active 状态
-                if (willDelIndex !== 0 && curIsActive) {
-                    objArr[willDelIndex - 1].active = true;
-                    window.location.href = objArr[willDelIndex - 1].url;
-                } else if (willDelIndex === 0 && curIsActive) { //删除第一项 而是选中状态
-                    if (objArr.length > 1) {
-                        objArr[willDelIndex + 1].active = true;
-                        window.location.href = objArr[willDelIndex + 1].url;
-                    }
-                }
-                for (var i = 0, len = objArr.length; i < len; i++) {
-                    if (i !== willDelIndex) {
-                        tmpArr.push(objArr[i]);
-                    }
-                }
-                tools.setStorage('tabIndex', tmpArr);
-                return tmpArr;
-            }
-        },
-        /**
-         * 删除所有 Tab 标签页
-         * 清空 tabIndex
-         */
-        delAllTab: function () {
-            if (tools.hasStorage('tabIndex')) {
-                var tmpArr = [];
-                tools.setStorage('tabIndex', tmpArr);
-            }
-        },
-        /**
-         * 删除其它 Tab 标签页
-         * 当前 active 除外
-         */
-        delOtherTab: function () {
-            if (tools.hasStorage('tabIndex')) {
-                var objArr = tools.getStorage('tabIndex');
-                var tmpArr = [];
-                for (var i = 0, len = objArr.length; i < len; i++) {
-                    // 如果当前项是 active 那么放入 tabIndex 并结束循环
-                    if (objArr[i].active) {
-                        tmpArr.push(objArr[i]);
-                        tools.setStorage('tabIndex', tmpArr);
-                        break;
-                    }
-                }
-            }
-        },
-        /**
-         * 左移一个 Tab
-         * @return {string} url 返回前一项的链接, 用于跳转
-         */
-        moveLeftTab: function () {
-            if (tools.hasStorage('tabIndex')) {
-                var tmpArr = tools.getStorage('tabIndex');
-                var curActIndex = this.findElem(tmpArr, 'active', true);
-                // 若果已经是第一项了,那么什么也不做
-                if (curActIndex > 0) {
-                    for (var i = 0, len = tmpArr.length; i < len; i++) {
-                        tmpArr[i].active = false;
-                    }
-                    tmpArr[curActIndex - 1].active = true;
-                    tools.setStorage('tabIndex', tmpArr);
-                    return tmpArr[curActIndex - 1].url;
-                }
-            }
-        },
-        /**
-         * 右移一个 Tab
-         * @return {string} url 返回后一项的链接, 用于跳转
-         */
-        moveRightTab: function () {
-            if (tools.hasStorage('tabIndex')) {
-                var tmpArr = tools.getStorage('tabIndex');
-                var curActIndex = this.findElem(tmpArr, 'active', true);
-                // 可移动范围: [0, arr.Length -1)
-                if (curActIndex >= 0 && curActIndex < tmpArr.length - 1) {
-                    for (var i = 0, len = tmpArr.length; i < len; i++) {
-                        tmpArr[i].active = false;
-                    }
-                    tmpArr[curActIndex + 1].active = true;
-                    tools.setStorage('tabIndex', tmpArr);
-                    return tmpArr[curActIndex + 1].url;
-                }
-            }
+        closeAllTab: function () {
+            $('.page-tabs-content').children("[data-id]").each(function () {
+                $('.J_iframe[data-id="' + $(this).data('id') + '"]').remove();
+                if ($(this).data('id') == '/') return;
+                $(this).remove();
+            });
+            common.isTabShow(true);
         },
         /**
          * [getUserInfo description] 全局获取用户登录信息
@@ -371,7 +404,6 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
          * @return {[type]}            [description]
          */
         logout: function (callback) {
-            var that = this;
             tools.ajax({
                 url: ajaxurl.login.logout,
                 data: {},
@@ -449,7 +481,7 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
                                         })
                                     }
                                 }
-                                vm.callDatahas = result.data.hasName; //有名字的电话列表 
+                                vm.callDatahas = result.data.hasName; //有名字的电话列表
                             }
                         }
                     } else {
@@ -550,40 +582,41 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
                 return;
             }
             call_type = call_type || 'know';
-            var that = this;
-            if (this.flag) {
+            if (common.flag) {
                 //调用拨打电话接口
                 tools.ajax({
                     url: ajaxurl.ivr.call,
                     data: {contact_id: contact, call_type: call_type},
                     type: 'post',
                     beforeSend: function () {
-                        that.flag = false;
+                        common.flag = false;
                     },
                     success: function (result) {
-                        // 最小间隔1秒拨打
-                        setTimeout(function () {
-                            that.flag = true;
-                        }, 1000);
                         if (result.code == 1) {
                             var tell = result.data.contact_way;
                             var a = tell.substring(0, 3);
                             var b = tell.substring(3, 7);
                             var c = tell.substring(7, 11);
                             vm.callInfo = {
-                                image: that.callUserImg.replace('{index}', result.data.head_type),
+                                image: common.callUserImg.replace('{index}', result.data.head_type),
                                 phone_num: a + ' ' + b + ' ' + c,
                                 real_name: result.data.real_name || '未知用户'
-                            }
+                            };
                             vm.connect = true;
                             //控制侧边栏是否展开
                             if (show) {
                                 vm.sideBarPhoneShow = true; //展开侧边栏
                             }
-                            that.sideBarPhone(2);
+                            common.sideBarPhone(2);
                         } else {
                             layers.toast(result.message);
                         }
+                    },
+                    complete: function () {
+                        // 最小间隔1秒拨打
+                        setTimeout(function () {
+                            common.flag = true;
+                        }, 1000);
                     }
                 })
             }
@@ -606,8 +639,9 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
         globalData: function (page, ispage) {
             page = page || 1;
             tools.ajax({
-                url: ajaxurl.sms.all,
+                url: window.APIURL + '?c=sms&a=getall_one',
                 type: 'get',
+                dataType:'jsonp',
                 data: {
                     employee_id: vm.userinfo.id,
                     page: page,
@@ -625,13 +659,14 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
                                 vm.globalNewsCount = result.data[0].count;
                             }
                             if (!ispage) {
-                                vm.closeGlobalMsgShow = !vm.closeGlobalMsgShow
+                                vm.closeGlobalMsgShow = true;
                             }
                             if (page == 1) {
                                 common.setglobalPag();
                             }
                         } else {
                             vm.globalNewsCount = '0';
+                            vm.closeGlobalMsgShow = false;
                         }
                     } else {
                         layers.toast(result.message);
@@ -650,7 +685,7 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
                     layout: ['prev', 'next'],
                     jump: function (obj, first) {
                         if (!first) {
-                            common.globalData(obj.curr, true);           // 发送请求
+                            common.globalData(obj.curr, true);// 发送请求
                         }
                     }
                 });
@@ -661,33 +696,61 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
          * @return {[type]} [description]
          */
         getallNum: function (callback) {
-            setInterval(function () {
-                tools.ajax({
-                    url: ajaxurl.sms.allview,
-                    type: 'get',
-                    data: {
-                        employee_id: vm.userinfo.id,
-                    },
-                    success: function (result) {
-                        if (result.code == 1) {
-                            // 渲染到vue数据层
-                            vm.globalNewsNum = result.data.all;
-                            //配置右侧悬浮栏
-                            if (document.getElementById('header')) {
-                                if (result.data.all > 99) {
-                                    vm.globalNum = '99+';
-                                } else {
-                                    vm.globalNum = result.data.all;
-                                }
+            tools.ajax({
+                url: window.APIURL + '?c=sms&a=getnoread',
+                type: 'get',
+                dataType:'jsonp',
+                data: {
+                    employee_id: vm.userinfo.id,
+                },
+                success: function (result) {
+                    if (result.code == 1) {
+                        // 渲染到vue数据层
+                        vm.globalNewsNum = result.data.all;
+                        //配置右侧悬浮栏
+                        if (document.getElementById('header')) {
+                            var all = '';
+                            if (result.data.all > 99) {
+                                vm.globalNum = '99+';
+                                all = '99+';
+                            } else {
+                                vm.globalNum = result.data.all;
+                                all = result.data.all;
                             }
-                            typeof callback === 'function' && callback.call(this);
-                        } else {
-                            layers.toast(result.message);
+                            //渲染到顶部tab
+                            if (all > 0) {
+                                $('.icon-email').html($('<span class="layui-badge">' + all + '</span>'));
+                            } else {
+                                $('.icon-email').html("");
+                            }
                         }
+                        typeof callback === 'function' && callback.call(this);
+                    } else {
+                        layers.toast(result.message);
                     }
-                })
-            }, 5000)
+                }
+            });
         },
+        /**
+         * 消息轮询
+         */
+        newPolling: function () {
+            var num = 5000;
+            window.SMSAJAX ? num = (window.SMSAJAX - 0) * 1000 : num = 5000;
+            common.getallNum();
+            common.globalData();
+            setTimeout(function () {
+                common.newPolling();
+            }, num);
+        },
+        /**
+         * 延迟获取电话助手列表数据 [仅一次]
+         */
+        getCallRecordDelay: function () {
+            $('.nav-tel').one('click', function () {
+                common.getCallRecord();
+            });
+        }
     };
 
     /**
@@ -846,6 +909,10 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
         });
     }
 
+    // 由于iframe里面不能直接访问最外层上的vm。故把所需方法挂载在最外层的window上面，需要的子页面 直接调用 window.top.+该方法名字
+    window.callTellFn = common.callTellFn;
+    window.jplayer = common.jplayer;
+
     /**
      * 初始化全局方法
      * @private
@@ -854,13 +921,11 @@ define(['tools', 'ajaxurl', 'layers', 'layui', 'player', 'text!/assets/popup/shi
         if (document.getElementById('header')) {
             common.sideBarPhone();
             common.globaladmin();
-            common.globalData();
-            common.getCallRecord();
-            common.getallNum();
+            common.newPolling();//消息轮询
+            common.getCallRecordDelay();
         }
-
     };
-    _init();
+    //_init();注释掉以前的全局调用，改为index.js调用
 
     // 返回需要单独调用的方法
     return common;

@@ -28,6 +28,7 @@ h2 {
                 position: relative;
                 top: 2px;
                 left: -4px;
+                color:@red-color;
             }
         }
         .input-block {
@@ -37,12 +38,29 @@ h2 {
                 border-color: #ccc;
             }
             textarea {
-                height: 200px;
+                min-height: 200px;
+            }
+            .edit-start-time{
+                display: inline-block;
+                width:100%;
+                border:1px solid #ccc;
+                text-indent: 8px;
+                height:32px;
+                line-height: 32px;
             }
         }
         .prompt {
             color: @red-color;
             margin-left: 20px;
+        }
+        .textarea-box{
+            position: relative;
+            span{
+                position: absolute;
+                bottom:0;
+                right:5px;
+                font-size: 12px;
+            }
         }
     }
     .btn-box {
@@ -68,8 +86,8 @@ h2 {
 
 .organize-framework {
     position: absolute;
-    top: -100px;
-    left: 355px;
+    top: 280px;
+    left: 600px;
     height: 484px;
     //margin: 5px 0 0 120px;
     border-radius: 3px;
@@ -96,6 +114,11 @@ h2 {
             right: 19px;
             top: 20px;
             z-index: 3;
+        }
+        i{
+            float:right;
+            color:#999;
+            cursor: pointer;
         }
     }
     .organize-content {

@@ -10,6 +10,10 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
          * 加载页面显示tab
          */
         initTab:function() {
+            layui.use(['form', 'element'],function() {
+                var form = layui.form,
+                    element = layui.element;
+            });
             // 获取路由参数sms_type的值
             var urls = tools.getUrlArgs(), smsType = '';
             if(urls.has){
@@ -59,6 +63,7 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
                 success: function (result) {
                     if (result.code == 1) {
                         vm.tableDataMe = result.data.list;
+                        vm.tableDataAllPower = result.data.power;
                         // 获取总条数
                         vm.getMeListTotal = result.data.all_num;
                         // 调用分页
@@ -66,12 +71,15 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
                     } else {
                         layers.toast(result.message);
                     }
-                    layers.closed(loading);
                 },
                 error: function(){
                     layers.toast("网络异常!");
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             })
         },
         /**
@@ -101,6 +109,7 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
                 success: function (result) {
                     if (result.code == 1) {
                         vm.tableDataAll = result.data.list;
+                        vm.tableDataAllPower = result.data.power;
                         // 获取总条数
                         vm.getAllListTotal = result.data.all_num;
                         // 调用分页
@@ -133,6 +142,7 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
                 success: function (result) {
                     if (result.code == 1) {
                         vm.tableDataWait = result.data.list;
+                        vm.tableDataAllPower = result.data.power;
                         // 获取总条数
                         vm.getWaitListTotal = result.data.all_num;
                         // 调用分页
@@ -244,6 +254,8 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
                         if (!first) {
                             vm.contractConditon.pagesize = obj.limit;    // 获取每页显示条数
                             vm.contractConditon.curpage = obj.curr;      // 获取当前页
+                            $("input[name='check']").prop('checked', false);
+                            $("input[name='checks']").prop('checked', false);
                             //main.getAllList();           // 发送请求
                         }
                     }
@@ -489,13 +501,14 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
     var vm = new Vue({
         el: '#app',
         data: {
-            tableDataMe: [],
             getMeListTotal: '',
 
             userinfo: common.getUserInfo(), //获取用户信息
             markList: [], //备注列表
             checkedMarkList: [], //已选备注 id
+            tableDataMe: [],
             tableDataAll: [], //待审核合同列表
+            tableDataAllPower: '',
             tableDataWait: [], //全部处理记录
             tableDataWaitTotalNum: '', //全部处理记录总条数
             tableDataWaitPagesize: 10, //全部处理记录总页数
@@ -536,10 +549,10 @@ require(['moment', 'layui', 'layers', 'common', 'tools', 'ajaxurl'], function (m
             pageNum: ''
         },
         methods: {
-            // 删除客户
-            //deleteName: function () {
-            //    main.deleteName();
-            //},
+            //删除客户
+            deleteName: function () {
+               main.deleteName();
+            },
             pageNumMe: function (event, index) {
                 this.active = index;
                 main.pageNumMe(event);

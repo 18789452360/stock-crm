@@ -148,18 +148,26 @@
         background: @white-color;
         tr {
             border-bottom: 1px solid @border-color;
-            //&:nth-child(2n) {
-            //    background: #fcfcfc;
-            //}
+
             th {
                 height: 60px;
                 &.t-name {
                     text-align: left;
                     padding-left: 60px;
                 }
+                &:first-of-type {
+                    text-align: left;
+                    padding-left: 70px;
+                    max-width: 60px;
+                }
             }
             td {
                 height: 50px;
+                &:first-of-type {
+                    text-align: left;
+                    padding-left: 70px;
+                    max-width: 60px;
+                }
                 .audit-skip {
                     color: @blue-color;
                     &:hover {
@@ -222,6 +230,22 @@
             padding-top: 280px;
             font-size: 16px;
             color: #999;
+        }
+    }
+
+    // 分页
+    .page {
+        margin: 20px 0 0 !important;
+    }
+
+    // 返回
+    .btn-box {
+        text-align: center;
+        a {
+            height: 40px;
+            line-height: 40px;
+            width: 140px;
+            font-size: 16px;
         }
     }
 }

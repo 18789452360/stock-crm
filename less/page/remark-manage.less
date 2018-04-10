@@ -2,6 +2,11 @@
 @import "../public/_variate.less";
 
 .add-client-container {
+    .layui-container {
+        background-color: #fff;
+        padding-left:20px !important;
+        padding-right: 20px !important;
+    }
     .examine-search {
         .layui-input-inline {
             width: 340px;
@@ -61,7 +66,6 @@
         }
     }
     .add-remark-title {
-        background-color: @white-color;
         height: 74px;
         .layui-inline {
             text-align: right;
@@ -96,6 +100,8 @@
         }
     }
     .main {
+        padding-left:0 !important;
+        padding-right:0 !important;
         .check-btn {
             margin-bottom: 15px;
             p {
@@ -113,7 +119,6 @@
             background-color: @white-color;
             border-radius: 3px;
             overflow: hidden;
-            margin-bottom: 18px;
             padding: 0 !important;
             .layui-row-title {
                 font-size: 16px;
@@ -264,6 +269,17 @@
             .row-cue {
                 padding: 0 17px 17px;
                 color: @red-color;
+            }
+        }
+        // 返回按钮
+        .btn-box {
+            padding: 36px 0;
+            text-align: center;
+            a {
+                height: 40px;
+                line-height: 40px;
+                width: 140px;
+                font-size: 18px;
             }
         }
     }

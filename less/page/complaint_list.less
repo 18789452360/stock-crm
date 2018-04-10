@@ -1,0 +1,595 @@
+@charset "utf-8";
+@import "../public/_variate.less";
+
+.container {
+    .main-wrap {
+        /* 投诉管理(及共用) */
+        .maked_but{
+            margin-right: 20px;
+        }
+        .finance-container {
+            padding-top: 10px;
+            .example-handle {
+                text-align: right;
+                margin-bottom: 20px;
+                .examine-other {
+                    background: #ccc;
+                }
+            }
+            .finance-row {
+                margin-bottom: 20px;
+                .sign-header {
+                    margin-bottom: 30px;
+                }
+                .sign-list {
+                    padding: 20px 0;
+                    .sign-item {
+                        width: 40%;
+                        float: left;
+                        line-height: 34px;
+                        box-sizing: border-box;
+                        .sign-name {
+                            float: left;
+                            display: inline-block;
+                            width: 125px;
+                            margin-right: 12px;
+                            text-align: right;
+                            color: #777;
+                        }
+                        .sign-span {
+                            display: block;
+                            margin-left: 135px;
+                        }
+                        .finance-sign {
+                            margin-left: 140px;
+                        }
+                        .vis-phone {
+                            display: block;
+                            margin-left: 135px;
+                            .sign-span {
+                                margin-left: 0;
+                                margin-right: 20px;
+                                float: left;
+                            }
+                        }
+                        .sign-imgs{
+                            a{
+                                display: inline-block;
+                                font-size: 0;
+                                width: 120px;
+                                height: 80px;
+                                overflow: hidden;
+                                margin-right: 5px;
+                                margin-top: 10px;
+                                .finance-img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                        .finance-reject {
+                            color: #f2493b;
+                        }
+                        .contract-input {
+                            padding-left: 10px;
+                            height: 26px;
+                            width: 186px;
+                            line-height: 26px;
+                            background: @white-color;
+                            border: 0;
+                        }
+                        .contract-input-active {
+                            border: 1px solid @blue-color
+                        }
+                        .icon-phone {
+                            color: @blue-color;
+                            cursor: pointer;
+                            vertical-align: middle;
+                            margin-left: 15px;
+                            &:hover {
+                              color: #0162c5;
+                            }
+                        }
+                        .mobile-left {
+                            padding-right: 40px;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+                // 质检页面
+                .examine-list {
+                    font-size: 0;
+                    .sign-item {
+                        clear: both;
+                        width: 40%;
+                        font-size: 14px;
+                        .examine-explain {
+                            line-height: 25px;
+                        }
+                        .sign-name {
+                            float: left;
+                            width: 125px;
+                        }
+                        .sign-span {
+                            display: block;
+                            margin-left: 135px;
+                        }
+                        .first-communication {
+                            width: 85%;
+                            margin-left: 135px;
+                            border: 1px solid @border-color;
+                            margin-bottom: 10px;
+                            margin-right: 20px;
+                            .examine-img-cont {
+                                .examine-img {
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    width: 50px;
+                                    height: 50px;
+                                    margin-top: 10px;
+                                    margin-right: 10px;
+                                }
+                            }
+                            .examine-me {
+                                font-size: 16px;
+                                font-weight: bold;
+                            }
+                            .examine-li {
+                                margin-right: 10px;
+                            }
+
+                        }
+                        .examine-img-cont {
+                            .examine-img {
+                                display: inline-block;
+                                vertical-align: top;
+                                width: 50px;
+                                height: 50px;
+                                margin-top: 10px;
+                                margin-right: 10px;
+
+                            }
+                        }
+                    }
+                    .sign-examines {
+                        width: 100%;
+                        .examine-distance {
+                            padding: 0 20px;
+                        }
+                    }
+                }
+                .remark-list {
+                    padding-bottom: 20px;
+                    .sign-name {
+                        float: left;
+                        display: inline-block;
+                        width: 125px;
+                        padding-right: 10px;
+                        line-height: 19px;
+                        text-align: right;
+                        color: #777;
+                    }
+                    p {
+                        margin-left: 135px;
+                        padding-right: 80px;
+                        color: #333;
+                    }
+                }
+            }
+        }
+        .layui-container {
+            // 搜索等
+            .finance-search {
+                background: #fff;
+                margin-bottom: 20px;
+                .layui-input-block {
+                    margin: 0 0 0 20px;
+                    padding: 20px 0;
+                    width: 443px;
+                    display: inline-block;
+                    .layui-input {
+                        display: inline-block;
+                        width: 443px;
+                        border-color: #ccc;
+                        border-radius: 0;
+                        &:focus {
+                            border-color: @blue-color!important;
+                        }
+                        &:focus +.icon-search {
+                            background: @blue-color!important;
+                        }
+                    }
+                    .inputlight {
+                        border-color: @blue-color!important;
+                    }
+                    .buttonlight {
+                        background: @blue-color!important;
+                    }
+                    .icon-search {
+                        position: absolute;
+                        top: 21px;
+                        right: 1px;
+                        width: 34px;
+                        min-width: 34px;
+                        height: 32px;
+                        background-color: #ccc;
+                        padding: 0;
+                        border-radius: 0;
+                        -webkit-border-radius: 0;
+                    }
+                }
+                .example-handle {
+                    display: inline-block;
+                    float: right;
+                    margin-right: 24px;
+                    margin-top: 20px;
+                }
+                &.finance-all {
+                    margin-bottom: 0 ;
+                }
+            }
+            // 审批流程
+            .finance-flow {
+                padding: 20px;
+                margin-bottom: 20px;
+                background: @white-color;
+                .flow-title {
+                    line-height: 34px;
+                    padding-right: 30px;
+                }
+                ul {
+                    display: inline-block;
+                    li {
+                        font-size: 0;
+                        display: inline-block;
+                        a {
+                            font-size: 12px;
+                            display: inline-block;
+                            height: 36px;
+                            line-height: 36px;
+                            text-align: center;
+                            color: @blue-color;
+                            span {
+                                padding-right: 10px;
+                                font-size: 16px;
+                                vertical-align: top;
+                            }
+                        }
+                        .flow-first {
+                            width: 145px;
+                            background: url("../../images/approval-01.png");
+                        }
+                        .flow-middle {
+                            width: 155px;
+                            background: url("../../images/approval-02.png");
+                        }
+                        .flow-last {
+                            width: 157px;
+                            background: url("../../images/approval-03.png");
+                        }
+                    }
+                }
+            }
+            .financial {
+                margin-bottom: 0;
+                border-bottom: 1px solid @border-color;
+            }
+            // 标签
+            .finance-tag {
+                margin-bottom: 20px;
+                .tag-title {
+                    height: 60px;
+                    line-height: 60px;
+                }
+                .examine-tag ul {
+                    padding: 5px;
+                    margin-left: 35px;
+                    li {
+                        position: relative;
+                        .tag-a.show + .filter-time {
+                            display: block;
+                        }
+                        .filter-time {
+                            display: none;
+                            line-height: normal;
+                            position: absolute;
+                            z-index: 88;
+                            left: 0px;
+                            top: 44px;
+                            width: 330px;
+                            box-sizing: border-box;
+                            border: 1px solid #ccc;
+                            background-color: #fff;
+                            padding: 15px 9px;
+                            .choose-icon {
+                                 a {
+                                    font-size: 14px;
+                                    margin-bottom: 2px;
+                                    margin-right: 4px;
+                                    color: #666;
+                                    padding: 0 8px;
+                                    height: 24px;
+                                    display: inline-block;
+                                    line-height: 24px;
+                                    &:hover, &.active {
+                                        background-color: @blue-color;
+                                        color: #fff;
+                                        border-radius: 2px;
+                                    }
+                                    // 自定义
+                                    &:last-of-type {
+                                        &.active ~ .layui-inline {
+                                            display: block;
+                                        }
+                                    }
+                                }
+                                .choose-wait {
+                                    margin-left: 53px;
+                                }
+                                .layui-inline {
+                                    display: none;
+                                    margin-top: 6px;
+                                    color: #666;
+                                    height: 23px;
+                                    overflow: hidden;
+                                    input {
+                                        width: 96px;
+                                        color: #666;
+                                        font-size: 14px;
+                                        border: 1px solid #ccc;
+                                        height: 22px;
+                                        display: inline-block;
+                                    }
+                                    button {
+                                        border: 0;
+                                        color: @blue-color;
+                                        background-color: transparent;
+                                        font-size: 14px;
+                                        vertical-align: ~"-webkit-baseline-middle";
+                                        margin-left: 10px;
+                                        margin-bottom: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .choose-title {
+                        padding-left: 8px;
+                    }
+                }
+            }
+            .check-all {
+                margin-bottom: 20px;
+                margin-left: 30px;
+                > span {
+                    margin-left: 10px;
+                }
+            }
+            // 待审批全选,删除
+            .finance-wait {
+                margin-bottom: 10px;
+                padding-left: 20px;
+                a {
+                    float: right;
+                    padding-right: 20px;
+                    color: @blue-color;
+                    &:hover {
+                        color: @font-hover-color;
+                    }
+                }
+            }
+        }
+        .layui-table-cell {
+            overflow: inherit;
+        }
+        .audit-state {
+            position: absolute;
+            display: none;
+            top: -40px;
+            left: 155px;
+            width: 270px;
+            padding: 30px;
+            background: @white-color;
+            z-index: 999;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 5px #e1e1e1;
+            p {
+                line-height: 26px;
+                text-align: left;
+                color: #777;
+            }
+        }
+        .laytable-cell-1-status:hover .audit-state {
+            display: block;
+        }
+        // 合同
+        .contract-edit {
+            padding-left: 25px;
+            span {
+                font-size: 20px;
+                color: #222;
+                vertical-align: middle;
+                &:hover {
+                    color: @blue-color;
+                }
+            }
+        }
+        .examine-export {
+            background: #ccc;
+        }
+    }
+}
+
+// 审核
+.finance-tip {
+    .layui-form {
+        .layui-form-label {
+            width: 80px;
+            padding: 7px 0;
+        }
+        .layui-input-block {
+            margin-left: 90px;
+        }
+    }
+}
+.remark-tip {
+    border-bottom: 1px solid #ccc;
+    .icon-delete {
+        position: absolute;
+        color: #aaa;
+        top: -6px;
+        right: -6px;
+    }
+    .list-item-exist {
+        position: relative;
+        &:hover .icon-delete {
+            display: inline-block;
+        }
+    }
+
+}
+.remark-p {
+    line-height: 35px;
+}
+.check-select {
+    padding-right: 15px;
+}
+.active {
+    color: #0162c5;
+}
+// 导出财务数据
+.layui-layer-content {
+    //height: 193px;
+    .add-remark-container {
+        .tag-financal {
+            height: 90px;
+            .layui-inline {
+                margin-right: 0;
+                margin-bottom: 0;
+                .layui-input-inline {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+// 表格
+.common-table {
+    background: @white-color;
+    tr {
+        border-bottom: 1px solid @border-color;
+        //&:nth-child(2n) {
+        //    background: #fcfcfc;
+        //}
+        th {
+            height: 60px;
+            &.t-name {
+                text-align: left;
+                padding-left: 60px;
+            }
+        }
+        td {
+            height: 50px;
+            .audit-skip {
+                color: @blue-color;
+                &:hover {
+                    color: @font-hover-color;
+                }
+            }
+            &.t-name {
+                text-align: left;
+                .squaredFour {
+                    margin-left: 30px;
+                    margin-right: 15px;
+                }
+                > span {
+                    vertical-align: bottom;
+                }
+            }
+            .open-show {
+                display: inline-block;
+                line-height: 50px;
+            }
+            .open-show:hover {
+                color: #0162c5;
+            }
+        }
+    }
+    .audit-td {
+        position: relative;
+        cursor: pointer;
+        .audit-state {
+            position: absolute;
+            display: none;
+            top: -40px;
+            left: 155px;
+            width: 270px;
+            padding: 30px 15px;
+            background: @white-color;
+            z-index: 999;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 5px #e1e1e1;
+            p {
+                line-height: 26px;
+                text-align: left;
+                color: #777;
+            }
+        }
+        .audit-state-other {
+            left: -260px;
+        }
+    }
+    .audit-td:hover .audit-state {
+        display: block;
+    }
+}
+table .info{
+    width: 300px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    line-height: 50px;
+}
+.layui-upload-list{
+    margin: 0;
+    .imgs{
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        position: relative;
+        font-size: 0;
+        margin-right: 5px;
+        i.layui-icon{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+}
+.contract-confirm {
+    .layui-inline {
+        margin-bottom: 15px;
+    }
+    .layui-quote-nm {
+        border-width: 1px 1px 1px 1px;
+    }
+}
+.finance-wait {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    a {
+        float: right;
+        padding-right: 20px;
+        color: @blue-color;
+        &:hover {
+            color: @font-hover-color;
+        }
+    }
+}
+
+@import url(jquery-rebox.less);
+
+

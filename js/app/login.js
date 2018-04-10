@@ -64,11 +64,30 @@ require(['layui', 'tools', 'ajaxurl', 'layers'], function (layui, tool, ajaxurl,
                 }
             })
         },
+        /**
+         * 判断当前窗口是否是最顶层
+         */
+        isIframe: function () {
+            var flag = '';
+            window.self != window.top ? flag = true : flag = false;
+            return flag;
+        },
+        /**
+         * [goTopLoGin description]当前页面如果嵌套在iframe内，则让最顶层的地址跳转到登陆页面
+         * @return {[type]} [description]
+         */
+        goTopLoGin:function(){
+            var isTop = main.isIframe();
+            if(isTop){
+                window.top.location.href = '/admin/index/login';
+            }
+        },
     };
 
     //初始化
     var _init = function () {
         main.init();
+        main.goTopLoGin();
     };
     _init();
 });

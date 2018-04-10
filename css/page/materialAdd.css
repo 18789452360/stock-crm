@@ -1,0 +1,149 @@
+@charset "utf-8";
+.main {
+  padding: 20px 0 !important;
+}
+.main .layui-row {
+  padding: 0 !important;
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.main .layui-row .layui-row-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px;
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 20px;
+}
+.main .layui-row .layui-form {
+  padding: 0 20px;
+}
+.main .layui-row .layui-form .layui-form-item .phone-box .input-item {
+  margin-bottom: 14px;
+  position: relative;
+}
+.main .layui-row .layui-form .layui-form-item .phone-box .input-item span {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+}
+.main .layui-row .layui-form .layui-form-item .phone-box .input-item span i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.main .layui-row .layui-form .layui-form-item .phone-box .input-item span i.add-ico {
+  background: url("../../images/add_ico.png") center 0 no-repeat;
+}
+.main .layui-row .layui-form .layui-form-item .phone-box .input-item span i.del-ico {
+  background: url("../../images/del_ico.png") center no-repeat;
+}
+.main .layui-row .layui-form .layui-form-item .phone-box .input-item:last-of-type {
+  margin-bottom: 0;
+}
+.main .layui-row .layui-form .layui-form-item .err-prompt {
+  color: #f2493b;
+  display: inherit;
+  margin-top: 10px;
+}
+.main .layui-row .layui-form .layui-form-item .err {
+  padding-left: 20px;
+}
+.main .layui-row .layui-form .layui-form-item:last-of-type {
+  border: 0;
+}
+.main .layui-row.edit-info .layui-form-item .layui-form-label > span {
+  color: #f2493b;
+}
+.main .layui-row.edit-info .layui-form-item .keyword-tip {
+  margin-top: 5px;
+  color: #999;
+  font-size: 13px;
+}
+.main .layui-row.edit-info .layui-form-item .select-usr-wrap .select-usr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group {
+  padding: 5px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul.edit-doc {
+  margin-top: 20px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul.edit-doc .edit-doc-title {
+  width: 140px;
+  margin-right: 15px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul.edit-doc .edit-doc-del {
+  color: #2883E1;
+  cursor: pointer;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li {
+  padding-bottom: 25px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li:last-of-type {
+  padding-bottom: 0;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd {
+  float: left;
+  height: 25px;
+  line-height: 25px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd > .layui-input {
+  height: 25px;
+  line-height: 25px;
+  display: inline-block;
+  width: 200px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.file-group-btn {
+  margin-left: 15px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.file-group-btn i {
+  cursor: pointer;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.file-group-btn i.icon-shanchu {
+  margin-right: 5px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.upload-file-mock {
+  width: 280px;
+  margin-right: 5px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.upload-file-mock button {
+  border-radius: 3px;
+  border: 0;
+  width: 80px;
+  height: 24px;
+  background-color: #2883E1;
+  color: #fff;
+  margin-right: 5px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.upload-file-mock button:hover {
+  opacity: .8;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.upload-file-mock span {
+  margin-right: 90px;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.upload-file-mock .upload-file {
+  display: none;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.file-title {
+  position: relative;
+}
+.main .layui-row.edit-info .layui-form-item .file-group ul li dd.file-title .err {
+  position: absolute;
+  color: red;
+  left: 55px;
+  font-size: 13px;
+}
+.main .btn-box {
+  padding: 20px 0;
+  text-align: center;
+}
+.main .btn-box button {
+  height: 40px;
+  width: 140px;
+  font-size: 18px;
+}

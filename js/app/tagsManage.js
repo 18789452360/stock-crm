@@ -3,23 +3,25 @@ require(['common', 'layui', 'tools', 'ajaxurl', 'layers'], function (common, lay
     var main = {
         resultlens: 0,
         /**
-         * 初始化 Layui 表格
+         * 初始化 Layui 折叠面板
          */
         createForm: function () {
             layui.use(['element', 'form'], function () {
-                var element = layui.element,
-                    form = layui.form;
+                var element = layui.element;
+                element.init();// 重新渲染
             })
         },
         /**
-         * [getList description] 获取标签列表
-         * @return {[type]} [description]
+         * 获取标签列表
          */
         getList: function () {
             var that = this;
             tools.ajax({
                 url: ajaxurl.tag.index,
                 data: {},
+                beforeSend: function () {
+                    layers.load();
+                },
                 success: function (result) {
                     if (result.code == 1) {
                         var resultData = result.data;
@@ -28,38 +30,53 @@ require(['common', 'layui', 'tools', 'ajaxurl', 'layers'], function (common, lay
                         for (var i = 0; i < resultlens; i++) {
                             var childLen = resultData[i].child.length;
                             that.resultlens += childLen;
+                            // 初始化分组选中状态
+                            resultData[i].groupSelectAll = false;
+                            // 初始化当前分组已选择
+                            resultData[i].totalSelect = 0;
                             for (var k = 0; k < childLen; k++) {
-                                resultData[i].child[k].active = false; //处理选中状态
+                                // 所有 tag 初始化为 false 状态
+                                resultData[i].child[k].active = false;
                             }
                         }
                         vm.resultlens = that.resultlens;
-                        //获取用户默认选中的tag标签
+
+                        // 处理用户已经选中的选中的tag标签
                         that.choice(function (res) {
                             var reslens = res.length;
-                            for (var i = 0; i < resultlens; i++) {
+                            for (var i = 0; i < resultlens; i++) {// 循环分组
+                                var flag = 0;
                                 for (var j = 0; j < reslens; j++) {
                                     if (resultData[i].id == res[j].pid) {
-                                        var childData = resultData[i].child, childLens = childData.length;
-                                        for (var k = 0; k < childLens; k++) {
+                                        var childData = resultData[i].child,
+                                            childLens = childData.length;
+                                        for (var k = 0; k < childLens; k++) {// 循环分组 tag
                                             if (childData[k].id === res[j].id) {
                                                 resultData[i].child[k].active = true; //处理选中状态
+                                                flag++;
                                             }
                                         }
+                                        // 拉取用户已选择的 tag , 已经有了则可以展示取消已选按钮
+                                        resultData[i].totalSelect = flag;
+                                        resultData[i].groupSelectAll = !!flag;// 双叹号转成布尔值
                                     }
                                 }
                             }
                             vm.list = resultData;
-                            that.createForm(); //初始化layui组件
+                            that.createForm();
                         })
                     } else {
                         layers.toast(result.message);
                     }
+                },
+                complete: function () {
+                    layers.closedAll();
                 }
             })
         },
         /**
-         * [choice description] 当前员工选择标签列表
-         * @return {[type]} [description]
+         * 当前员工选择标签列表
+         * @param callback
          */
         choice: function (callback) {
             tools.ajax({
@@ -78,33 +95,33 @@ require(['common', 'layui', 'tools', 'ajaxurl', 'layers'], function (common, lay
             })
         },
         /**
-         * [determine description] 确定选择标签
-         * @return {[type]} [description]
+         * 保存选择的标签
+         * @param tag_id
          */
         determine: function (tag_id) {
             var formatTagId = '';
-            if(tag_id.length){
+            if (tag_id.length) {
                 formatTagId = tag_id.join(',');// 构造格式用于提交多个
             }
-            //if (tag_id.length) {
-                tools.ajax({
-                    url: ajaxurl.tag.determine,
-                    data: {tag_code: formatTagId},
-                    success: function (result) {
-                        if (result.code == 1) {
-                            layers.toast('保存成功！');
-                            setTimeout(function(){
-                                common.closeTab();
-                            },1000);
-                        } else {
-                            layers.toast(result.message);
-                        }
-                    },
-                    complete: function () {
-                        vm.addTagBtn = false;
+            tools.ajax({
+                url: ajaxurl.tag.determine,
+                data: {
+                    tag_code: formatTagId
+                },
+                success: function (result) {
+                    if (result.code == 1) {
+                        layers.toast('保存成功！');
+                        setTimeout(function () {
+                            window.location.href = '/admin/customers/customer';
+                        }, 1000);
+                    } else {
+                        layers.toast(result.message);
                     }
-                })
-            //}
+                },
+                complete: function () {
+                    vm.addTagBtn = false;
+                }
+            })
         }
     };
 
@@ -122,27 +139,33 @@ require(['common', 'layui', 'tools', 'ajaxurl', 'layers'], function (common, lay
             addTagBtn: false
         },
         methods: {
-            choiceAll: function () { //全选
+            // 全选
+            choiceAll: function () {
                 if (this.choiceLens == this.resultlens) return;
-                var list = this.list, lens = this.list.length;
+                var list = this.list,
+                    lens = this.list.length;
                 for (var i = 0; i < lens; i++) {
+                    this.list[i].groupSelectAll = true;
                     for (var j = 0, childLens = list[i].child.length; j < childLens; j++) {
                         this.list[i].child[j].active = true;
                     }
                 }
                 this.choiceLens = this.resultlens;
             },
-            cancelAll: function () { //取消全选
+            // 取消全选
+            cancelAll: function () {
                 if (this.choiceLens == 0) return;
                 var list = this.list, lens = this.list.length;
                 for (var i = 0; i < lens; i++) {
+                    this.list[i].groupSelectAll = false;
                     for (var j = 0, childLens = list[i].child.length; j < childLens; j++) {
                         this.list[i].child[j].active = false;
                     }
                 }
                 this.choiceLens = 0;
             },
-            choice: function (event, tag_code, pid) { //单个选中
+            // 单个选中
+            choice: function (event, tag_code, pid, groupIndex) {
                 if (tag_code == undefined && pid == undefined) {
                     throw new Error('缺少参数');
                 }
@@ -159,28 +182,57 @@ require(['common', 'layui', 'tools', 'ajaxurl', 'layers'], function (common, lay
                                 this.list[i].child[j].active = !this.list[i].child[j].active;
                                 if (this.list[i].child[j].active) {
                                     this.choiceLens++;
+                                    this.list[i].totalSelect++;
                                 } else {
                                     this.choiceLens--;
+                                    this.list[i].totalSelect--;
                                 }
                             }
                         }
                     }
                 }
                 $target.removeClass('disabled');
+                // 当前分组所有 tag 选中时, 当前分组取消全选可用
+                this.list[groupIndex].groupSelectAll = !!this.list[groupIndex].totalSelect;
             },
+            // 确定(保存)
             addTag: function () {
                 this.addTagBtn = true;
-                var listLens = this.list.length, tempArr = [];
-                if(listLens){
-                   for (var i = 0; i < listLens; i++) {
+                var listLens = this.list.length,
+                    tempArr = [];
+                if (listLens) {
+                    for (var i = 0; i < listLens; i++) {
                         for (var j = 0, childLens = this.list[i].child.length; j < childLens; j++) {
+                            // 每个 tag 上都有一个 active 属性, 遍历所有 tag
+                            // 拿到具有 active 拼接后, ajax 提交到后端
                             if (this.list[i].child[j].active) {
                                 tempArr.push(this.list[i].child[j].tag_code);
                             }
                         }
-                    } 
+                    }
                 }
                 main.determine(tempArr);
+            },
+            // 单组取消已选
+            itemCancelAll: function (index) {
+                var groupArr = this.list[index].child;
+                this.choiceLens -= groupArr.length;
+                this.list[index].groupSelectAll = false;
+                $.type(groupArr === 'array') && groupArr.forEach(function (item) {
+                    item.active = false;
+                });
+
+            },
+            // 单组全选
+            itemChoiceAll: function (index) {
+                if (this.choiceLens === this.resultlens) return;
+                var groupArr = this.list[index].child;
+                this.list[index].totalSelect = groupArr.length;
+                this.choiceLens += groupArr.length;
+                this.list[index].groupSelectAll = true;
+                $.type(groupArr === 'array') && groupArr.forEach(function (item) {
+                    item.active = true;
+                })
             }
         }
     });
@@ -190,8 +242,8 @@ require(['common', 'layui', 'tools', 'ajaxurl', 'layers'], function (common, lay
      * @private
      */
     var _init = function () {
-        common.getTabLink();
         main.getList();
+        common.getTabLink();
     };
     _init();
 });

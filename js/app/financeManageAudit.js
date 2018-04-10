@@ -65,6 +65,10 @@ require(['vue', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/assets/p
                     }
                     var action = $(".finance-select").find(".layui-this").attr("lay-value"),
                         reason = $(".finance-textarea").val();
+                    if(action === undefined) {
+                        layers.toast("请选择审核结果");
+                        return;
+                    }
                     tool.ajax({
                         url: ajaxurl.financial.financial_post,
                         type: 'post',

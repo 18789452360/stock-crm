@@ -17,16 +17,16 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools'], fun
                     if(result.code == 1 ){
                         // vm.sourceInfo = result.data.customer_from_channel;
                         vm.onlineInfo = result.data.online_consulting_plan;
-                        vm.lineInfo = result.data.line_investment_plan;
+                        vm.lineInfo = result.data.line_investment_plan;//线下
                         vm.followupInfo = result.data.follow_up_type;
                         vm.collectionInfo = result.data.collection_account;
                         vm.processInfo = result.data.sales_process;
-                        // console.log(vm.sourceInfo);
                     }else{
                         layers.toast(result.message);
                     }
                 }
             });
+            //来源
             tool.ajax({
                 url:ajaxurl.setting.sourceView,
                 type:'get',
@@ -38,6 +38,19 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools'], fun
                     }
                 }
             });
+            //标的
+            tool.ajax({
+                url: ajaxurl.setting.backNotice,
+                data: {},
+                type: 'get',
+                success: function (result) {
+                    if (result.code == 1) {
+                        vm.backNotice= result.data.list;
+                    } else {
+                        layers.toast(result.message);
+                    }
+                }
+            })
             layui.use(['table','form', 'layedit', 'laydate'], function(){
                 var table = layui.table,
                      form = layui.form,
@@ -72,6 +85,7 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools'], fun
             followupInfo:'',
             collectionInfo:'',
             processInfo:'',
+            backNotice:'',
         },
         methods: {  },
     });

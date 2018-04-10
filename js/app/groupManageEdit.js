@@ -217,74 +217,77 @@ require(["vue", 'layui', 'layers', 'common', 'ajaxurl', 'tools', 'jstree', 'jque
          * 新增群组保存
          */
         editMan: function() {
-            var urls = tool.getUrlArgs(), selCode = '';
-            if(urls.has){
-                selCode = urls.data.id;
-            }
-            var group_name = $.trim($(".group-name").val()), // 获取群组名称
-                ulMan = $(".ul-man").find("li"),
-                ulMember = $(".ul-member").find("li"),
-                administrator_id = '',
-                members_id = '';
-            // 遍历管理员成员获取id
-            ulMan.each(function() {
-                var dataID = $(this).attr("data-id");
-                administrator_id += (dataID + ",");
-            });
-            // 遍历群组成员获取id
-            ulMember.each(function() {
-                var dataID = $(this).attr("data-id");
-                members_id += (dataID + ",");
-            });
-            administrator_id = administrator_id.substring(0, administrator_id.length - 1);
-            members_id = members_id.substring(0, members_id.length - 1);
+            if(vm.isTrue) {
+                var urls = tool.getUrlArgs(), selCode = '';
+                if(urls.has){
+                    selCode = urls.data.id;
+                }
+                var group_name = $.trim($(".group-name").val()), // 获取群组名称
+                    ulMan = $(".ul-man").find("li"),
+                    ulMember = $(".ul-member").find("li"),
+                    administrator_id = '',
+                    members_id = '';
+                // 遍历管理员成员获取id
+                ulMan.each(function() {
+                    var dataID = $(this).attr("data-id");
+                    administrator_id += (dataID + ",");
+                });
+                // 遍历群组成员获取id
+                ulMember.each(function() {
+                    var dataID = $(this).attr("data-id");
+                    members_id += (dataID + ",");
+                });
+                administrator_id = administrator_id.substring(0, administrator_id.length - 1);
+                members_id = members_id.substring(0, members_id.length - 1);
 
-            if(group_name == ''){
-                layers.toast('群组名称不能为空!', {
-                    icon: 2,
-                    anim: 6
-                });
-                return;
-            }
-            if(administrator_id == ''){
-                layers.toast('请选择管理员!', {
-                    icon: 2,
-                    anim: 6
-                });
-                return;
-            }
-            if(members_id == ''){
-                layers.toast('请选择群组成员!', {
-                    icon: 2,
-                    anim: 6
-                });
-                return;
-            }
+                if(group_name == ''){
+                    layers.toast('群组名称不能为空!', {
+                        icon: 2,
+                        anim: 6
+                    });
+                    return;
+                }
+                if(administrator_id == ''){
+                    layers.toast('请选择管理员!', {
+                        icon: 2,
+                        anim: 6
+                    });
+                    return;
+                }
+                if(members_id == ''){
+                    layers.toast('请选择群组成员!', {
+                        icon: 2,
+                        anim: 6
+                    });
+                    return;
+                }
 
-            if(selCode) {
-                tool.ajax({
-                    url: ajaxurl.group.edit,
-                    type: 'post',
-                    data: {
-                        group_id: selCode,
-                        group_name: group_name,
-                        administrator_id: administrator_id,
-                        members_id: members_id
-                    },
-                    success: function(result){
-                        if(result.code == 'ok'){
-                            layers.toast(result.message);
-                            setTimeout(function() {
-                                common.closeTab()
-                            },1000)
-                        } else {
-                            layers.toast(result.message);
+                if(selCode) {
+                    vm.isTrue = false;
+                    tool.ajax({
+                        url: ajaxurl.group.edit,
+                        type: 'post',
+                        data: {
+                            group_id: selCode,
+                            group_name: group_name,
+                            administrator_id: administrator_id,
+                            members_id: members_id
+                        },
+                        success: function(result){
+                            if(result.code == 'ok'){
+                                layers.toast(result.message);
+                                setTimeout(function() {
+                                    common.closeTab();
+                                },1000)
+                            } else {
+                                layers.toast(result.message);
+                            }
+                        },
+                        error: function(){
+                            layers.toast("网络异常!")
                         }
-                    },
-                    error: function(){
-                        layers.toast("网络异常!")
-                    }
-                });
+                    });
+                }
             }
         },
         /**
@@ -496,7 +499,8 @@ require(["vue", 'layui', 'layers', 'common', 'ajaxurl', 'tools', 'jstree', 'jque
                 pagesize: 8,
                 curpage: ''
             },
-            lastChoose: [] // 添加现有群组成员返回的数据列表
+            lastChoose: [], // 添加现有群组成员返回的数据列表
+            isTrue: true
         },
         methods: {
             // 新增管理员

@@ -1,113 +1,111 @@
-/* 头部及logo用户中心 */
-.home-header {
-    background: #2883E0;
-    height: 66px;
-    .layui-container {
-        margin-top: 0;
-        padding: 0 30px;
-        .header-title {
-            float: left;
-            color: #fff;
-            font-size: 28px;
-            line-height: 66px;
-            font-weight: bold;
+@charset "utf-8";
+@import "public/_variate.less";
+
+.home-box {
+    height: 240px;
+    background: #fff;
+    padding: 0;
+    border: 1px solid #EAEDEE;
+    border-radius: 5px;
+    margin: 0 9px;
+    .header-title {
+        text-align: center;
+        color: #2883e0;
+        font-size: 2.5rem;
+        padding:20px 10px;
+        font-weight: bold;
+        height: 100px;
+        border-bottom: 1px solid #eeeeee;
+    }
+    .header-right {
+        position: relative;
+        padding:20px 40px;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items:center;
+        .user-photo {
+            height: 66px;
+            display: inline-block;
+            width: auto;
+            img {
+                width: 45px;
+                height: 45px;
+                margin-top: 10px;
+                border-radius: 50px;
+            }
         }
-        .header-right {
-            float: right;
-            text-align: right;
-            .home-user {
-                color: #fff;
-                font-size: 14px;
-                vertical-align: middle;
-                padding: 0 15px;
+        .user-data {
+            padding:0px;
+            width:90%;
+            overflow: hidden;
+            margin-left: 20px;
+            .filter-a {
+                color: #2883e0;
+                font-size: 20px;
+                border:0;
                 i {
+                    font-size: 30px;
+                    color: #000;
+                    margin-left: 0;
                 }
             }
-            .user-photo {
-                display: inline-block;
-                vertical-align: middle;
-                height: 66px;
-                margin-right: 10px;
-                img {
-                    width: 45px;
-                    height: 45px;
-                    margin-top: 10px;
-                    border-radius: 50px;
+            .filter-ul{
+                top: 50px;
+                left: 100px;
+                width: 100%;
+                overflow: hidden;
+                li{
+                    float: left;
+                    height: 40px;
+                    width: 33%;
+                    line-height: 40px;
+                    a{
+                        color: #999;
+                        display: block;
+                        font-size: 16px;
+                    }
+                    &:hover a{
+                        color: #2883e0;
+                    }
                 }
             }
-            .examine-select {
+            .open{
+                display: block;
+            }
+            .examine-filter{
+                border:0px;
+            }
+        }
+        .email-icon {
+            float: right;
+            margin: 15px 25px 0 0;
+            .icon-email {
                 position: relative;
-                display: inline-block;
-                padding:0px;
-                .filter-a {
-                    color: #fff;
-                    font-size: 16px;
-                    border:0;
-                    i {
-                        font-size: 30px;
-                        color: #fff;
-                        margin-left: 0;
-                    }
-                }
-                .filter-ul{
-                    display: none;
-                    transition: all 1s;
+                font-size: 36px;
+                color: #fff;
+                .email-total {
                     position: absolute;
-                    top: 55px;
-                    left: -40px;
-                    width: 175px;
-                    text-align: left;
-                    background: #fff;
-                    z-index: 9;
-                    box-shadow:1px 1px 3px rgba(0,0,0,0.2);
-                    li{
-                        height: 40px;
-                        line-height: 40px;
-                        a{
-                            padding:0 20px;
-                            color: #666;  
-                            display: block; 
-                        }
-                        &:hover{
-                            background: #f7f7f7;
-                            color: #222;
-                        }
-                        &:hover a{
-                            color: #222;
-                        }
-                    }
-                }
-                .open{
-                    display: block;
-                }
-                .examine-filter{
-                    border:0px;
-                }
-            }
-            .email-icon {
-                float: right;
-                margin: 15px 25px 0 0;
-                .icon-email {
-                    position: relative;
-                    font-size: 36px;
+                    top: -2px;
+                    left: 25px;
+                    padding: 0 5px;
+                    background: #e4393c;
                     color: #fff;
-                    .email-total {
-                        position: absolute;
-                        top: -2px;
-                        left: 25px;
-                        padding: 0 5px;
-                        background: #e4393c;
-                        color: #fff;
-                        font-size: 14px;
-                        border-radius: 10px;
-                    }
+                    font-size: 14px;
+                    border-radius: 10px;
                 }
             }
         }
     }
 }
-
 /* 主内容区域 */
+.index{
+    position: absolute;
+    top: 46px;
+    height: ~"calc(100% - 46px)";
+    overflow: auto;
+    width: 100%;
+}
 .index-container {
     padding: 0 20px;
     margin-top: 20px;
@@ -129,7 +127,7 @@
                 .dispose-cont {
                     height: 200px;
                     margin: 20px;
-                    background: #FAFAFA;
+                    background: #fff;
                     .dispose-list {
                         padding: 0;
                         .list-title {
@@ -209,7 +207,7 @@
                     }
                     .details {
                         color: #222;
-                        width: 60%;
+                        width: 50%;
                         display: inline-block;
                         float: left;
                         a{
@@ -224,7 +222,7 @@
                         float: right;
                     }
                     &:hover{
-                       background: #FAFAFA;
+                        background: #FAFAFA;
                     }
                 }
             }
@@ -269,4 +267,177 @@
         }
     }
 }
+@media screen and (max-width:768px){
+    .home-box{
+        .header-title{
+            font-size: 32px;
+        }
+    }
+}
+@media screen and (min-width:768px){
+    .home-box{
+        .header-title{
+            font-size: 25px;
+        }
+    }
+}
+@media screen and (min-width:992px){
+    .home-box{
+        .header-title{
+            font-size: 28px;
+        }
+    }
+}
+@media screen and (min-width:1200px){
+    .home-box{
+        .header-title{
+            font-size: 32px;
+        }
+    }
+}
+@media screen and (min-width:1600px){
+    .home-box{
+        .header-title{
+            font-size: 40px;
+        }
+    }
+}
+@media screen and (max-width:450px){
+    .home-box{
+        .header-title{
+            font-size: 30px;
+        }
+    }
+}
 @import url(player.less);
+
+//全局头部
+.global-head{
+    width:100%;
+    height:44px;
+    border-bottom:2px solid #2883e0;
+    background-color: @white-color;
+    position: relative;
+    display: flex;
+    display: -webkit-flex;
+    position: fixed;
+    top:0;
+    z-index: 99;
+    .tab-list{
+        display: flex;
+        display: -webkit-flex;
+        flex-flow:row nowrap;
+        height:44px;
+        width:~"calc(100% - 230px)";//less原样输出
+        li{
+            line-height: 44px;
+            color:#333;
+            flex:1;
+            max-width: 250px;
+            position: relative;
+            cursor: pointer;
+            font-size: 16px;
+            border-right:1px solid #eee;
+            min-width: 30px;
+            a{
+                display: inline-block;
+                float: left;
+                width:~"calc(100% - 30px)";//less原样输出
+                padding-left: 5%;
+                font-size: 1em;
+                box-sizing: border-box;
+                overflow: hidden;
+                &:active,&:hover{
+                    color:#333;
+                }
+            }
+            .icon-cha{
+                position: absolute;
+                top:0;
+                right:0;
+                color:#999;
+                display: inline-block;
+                width:30px;
+                text-align: center;
+            }
+        }
+        .tab-item{
+            background-color: @white-color;
+            text-indent:1%;
+            &:hover{
+                background-color: @bg-color;
+            }
+        }
+        li.active{
+            background-color: @blue-color;
+            color:@white-color;
+            min-width:150px;
+            border-right-color: @blue-color;
+            &:hover{
+                background-color: @blue-color;
+            }
+            a{
+                color:@white-color;
+            }
+            .icon-cha{
+                color: #fff;
+            }
+        }
+        .first-item{
+            background-color: @white-color;
+            text-align: center;
+        }
+    }
+    .operate-list{
+        position: absolute;
+        right:0;
+        width:230px;
+        display: flex;
+        flex-flow:row nowrap;
+        li{
+            flex:1;
+            height:44px;
+            line-height: 44px;
+            text-align: center;
+            border-left:1px solid #eee;
+            color:#999;
+            cursor: pointer;
+            box-sizing: border-box;
+            &:hover {
+                color: @blue-color;
+            }
+            &:active {
+                color: #0162c5;
+            }
+            .J_menuItem{
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
+            .icon-email{
+                font-size: 40px;
+                position: relative;
+                color:#ccc;
+                span{
+                    position: absolute;
+                    font-size: 12px;
+                    top:0;
+                    right:-10px;
+                }
+            }
+        }
+    }
+}
+.iframe-wrap{
+    width:100%;
+    position: absolute;
+    top:46px;
+    height:~"calc(100% - 46px)" ;
+    overflow-y:hidden;
+    iframe{
+        margin:0;
+        padding:0;
+        width:100%;
+        height:100%;
+    }
+}

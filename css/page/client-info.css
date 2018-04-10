@@ -1,5 +1,9 @@
 @charset "utf-8";
+body {
+  overflow-y: hidden;
+}
 .client-info-container {
+  padding-top: 20px;
   /* 档案头部 */
 }
 .client-info-container .file-head {
@@ -106,12 +110,18 @@
 }
 .client-info-container .layui-quote-nm .layui-upload-list section {
   display: inline-block;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
 }
 .client-info-container .layui-quote-nm .layui-upload-list a {
   display: inline-block;
   margin-right: 20px;
   position: relative;
   margin-bottom: 20px;
+  flex: 1;
+  max-width: 120px;
+  min-width: 120px;
 }
 .client-info-container .layui-quote-nm .layui-upload-list a i {
   position: absolute;
@@ -123,14 +133,16 @@
 .client-info-container .layui-quote-nm .layui-upload-list a:hover i {
   color: #222;
 }
-.client-info-container .layui-quote-nm .layui-upload-list img {
+.client-info-container .layui-quote-nm .layui-upload-list a img {
   width: 120px;
   height: 80px;
 }
 .client-info-container .layui-quote-nm .upload-btn {
-  width: 118px;
-  height: 78px;
-  line-height: 78px;
+  flex: 1;
+  max-width: 120px;
+  min-width: 120px;
+  height: 80px;
+  line-height: 80px;
   border: 1px solid #eee;
   background-color: #fff;
   color: #ccc;
@@ -223,7 +235,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  padding: 50px 0;
+  margin-bottom: 50px;
 }
 .client-info-container .no-result .no-result-icon {
   width: 150px;
@@ -234,7 +246,7 @@
 }
 .client-info-container .no-result p {
   position: absolute;
-  top: 30px;
+  top: -20px;
   left: 50%;
   transform: translateX(-55%);
   color: #999;
@@ -386,6 +398,14 @@
   margin-right: 15px;
   display: inline-block;
 }
+.client-info-container .main .basic-info .basic-item .basic-item-content .flex-box,
+.client-info-container .main .basic-info .basic-item .basic-first-content .flex-box {
+  display: flex;
+}
+.client-info-container .main .basic-info .basic-item .basic-item-content .flex-box .words-wrap,
+.client-info-container .main .basic-info .basic-item .basic-first-content .flex-box .words-wrap {
+  max-width: 370px;
+}
 .client-info-container .main .edit-basic-info .reset-input {
   border: 0;
   border: 1px solid #eee;
@@ -412,6 +432,9 @@
 .client-info-container .main .follow-info {
   /* 默认跟进信息 */
   /*  编辑跟进信息 */
+}
+.client-info-container .main .follow-info .follow-info-head {
+  margin-bottom: 20px;
 }
 .client-info-container .main .follow-info .follow-info-head .first-label {
   min-width: 60px;
@@ -458,7 +481,7 @@
   line-height: 38px;
 }
 .client-info-container .main .follow-info .follow-info-head .follow-content ul {
-  margin-right: 40px;
+  margin-right: 90px;
   padding: 5px 0;
 }
 .client-info-container .main .follow-info .follow-info-head .follow-content ul li {
@@ -500,8 +523,16 @@
   padding: 20px;
   overflow: hidden;
 }
-.client-info-container .main .follow-info .follow-info-content {
-  margin-top: 20px;
+.client-info-container .main .follow-info .edit-follow .form-content .product-row {
+  margin-bottom: 10px;
+}
+.client-info-container .main .follow-info .edit-follow .form-content .product-row .layui-input-inline {
+  width: auto;
+  float: left;
+  margin-bottom: 5px;
+}
+.client-info-container .main .follow-info .edit-follow .form-content .product-row:last-of-type {
+  margin-bottom: 0;
 }
 .client-info-container .main .follow-info .follow-info-content ul {
   overflow: hidden;
@@ -590,6 +621,15 @@
   margin-top: 15px;
   margin-right: 20px;
 }
+.client-info-container .main .follow-info .follow-back {
+  padding: 20px;
+  text-align: center;
+}
+.client-info-container .main .follow-info .follow-back a {
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+}
 .client-info-container .main .cooperation-situation {
   /* 查看合作情况 */
   /* 编辑新增合作情况 */
@@ -602,6 +642,7 @@
 }
 .client-info-container .main .cooperation-situation .examine-cooperation {
   background-color: #fff;
+  margin-bottom: 30px;
 }
 .client-info-container .main .cooperation-situation .examine-cooperation .cooperation-title {
   padding: 20px;
@@ -630,36 +671,71 @@
 .client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table {
   padding: 30px;
   overflow: hidden;
+  /*.layui-table{
+                       ul{
+                           border:1px solid @border-color;
+                           width: 100%;
+                           box-sizing: border-box;
+                           overflow: hidden;
+                           li{
+                               width:100%;
+                               line-height: 50px;
+                               border-bottom:1px solid @border-color;
+                               overflow: hidden;
+                               span{
+                                   display: inline-block;
+                                   float:left;
+                                   border:0;
+                                   padding:0;
+                                   margin: 0;
+                                   width:11%;
+                                   text-align: center;
+                                   a{
+                                       color:@blue-color;
+                                   }
+                               }
+                           }
+                           li:nth-of-type(2n){
+                               background-color: @bg-color;
+                           }
+                           li:last-of-type{
+                               border: 0;
+                           }
+                       }
+                    }*/
 }
-.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul {
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table h1 {
+  font-size: 16px;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table tr {
   border: 1px solid #eee;
-  width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
+  border-top: 0;
 }
-.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li {
-  width: 100%;
-  line-height: 50px;
-  border-bottom: 1px solid #eee;
-  overflow: hidden;
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table tr:nth-of-type(2n) {
+  background-color: #fcfcfc;
 }
-.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li span {
-  display: inline-block;
-  float: left;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  width: 11%;
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table tr td {
+  height: 48px;
+  line-height: 30px;
   text-align: center;
+  border: 0;
 }
-.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li span a {
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table tr td a {
   color: #2883E1;
 }
-.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li:nth-of-type(2n) {
-  background-color: #f5f5f5;
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table tr .operator {
+  line-height: 16px;
 }
-.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .layui-table ul li:last-of-type {
-  border: 0;
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table .first-tr {
+  height: 58px;
+  border-top: 1px solid #eee;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table .first-tr:hover {
+  background-color: #fff !important;
+}
+.client-info-container .main .cooperation-situation .examine-cooperation .cooperation-table .product-table .first-tr td {
+  height: 58px;
+  line-height: 40px;
 }
 .client-info-container .main .cooperation-situation .add-cooperation {
   /* 销售过程 */
@@ -861,9 +937,10 @@
 }
 .no-data {
   width: 100%;
-  height: 490px;
+  height: 450px;
   background-color: #fff;
   position: relative;
+  margin-bottom: 50px;
 }
 .no-data .no-data-img {
   position: absolute;
@@ -883,6 +960,23 @@
   bottom: 40px;
   left: 65px;
   font-size: 18px;
+  color: #999;
+}
+.no-coopAuth {
+  width: 100%;
+  height: 250px;
+  background-color: #fff;
+  text-align: center;
+  padding-top: 200px;
+}
+.no-coopAuth p {
+  color: #999;
+  font-size: 20px;
+}
+.basic-num {
+  float: left;
+  line-height: 34px;
+  padding-left: 10px;
   color: #999;
 }
 .rebox {

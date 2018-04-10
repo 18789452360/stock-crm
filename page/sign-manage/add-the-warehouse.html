@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>新增调仓</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/common.css"/>
+
+    <link rel="stylesheet" href="../../css/page/signManage.css"/>
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="arrow left-arrow">
+                <i class="iconfont icon-left-arrow"></i>
+            </div>
+            <ul class="tabs">
+                <li><a href="/">首页</a></li>
+                <li v-for="item in tabs"
+                    :class="['tabs-item', item.active && 'tabs-item-active']"
+                    @click="switchTabs">
+                    <a :href="item.url" v-text="item.name"></a>
+                    <i class="iconfont icon-delete"></i>
+                </li>
+            </ul>
+            <div class="arrow right-arrow">
+                <a href="javascript:;"><i class="iconfont icon-right-arrow"></i></a>
+                <a href="javascript:;">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">基本信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">股票名称：</span><span>海特高新（002023）</span></li>
+                    <li class="sign-item"><span class="sign-name">所属产品：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">总仓位：</span><span>3成</span></li>
+                    <li class="sign-item"><span class="sign-name">建仓价：</span><span>12.56元</span></li>
+                    <li class="sign-item"><span class="sign-name">止盈价：</span><span>22.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">止损价：</span><span>8.15元</span></li>
+                    <li class="sign-item"><span class="sign-name">状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">标的负责人：</span><span>张三</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">调仓</h2>
+                    </div>
+                    <!-- 总仓位 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>总仓位</label>
+                        <div class="layui-input-block">
+                            <span class="total-warehouse">5成</span>
+                            <span class="total-warehouse">现价：11.01元</span>
+                            <span class="total-warehouse">跌停价：<i class="sign-down">11.01元</i></span>
+                            <span class="total-warehouse">涨停价：<i class="sign-add">11.01元</i></span>
+                        </div>
+                    </div>
+                    <!-- 调仓类型 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>调仓类型</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="加仓" title="加仓" checked="">
+                            <input type="radio" name="sex" value="减仓" title="减仓">
+                            <input type="radio" name="sex" value="清仓" title="清仓" disabled="">
+                        </div>
+                    </div>
+                    <!-- 调仓比例 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>调仓比例</label>
+                        <div class="layui-input-block">
+                            <input type="text" placeholder="请输入股票代码或名称，代码至少3个字符" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 调仓价格 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>调仓价格</label>
+                        <div class="layui-input-block">
+                            <input type="text" placeholder="请输入股票代码或名称，代码至少3个字符" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 建议话术 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">建议话术</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <!-- 操作理由 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">操作理由</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="" class="layui-textarea"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine">
+                <div class="example-handle">
+                    <button class="examine-query add-jur-save report-cancel">取消</button><a class="examine-query">保存内容</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/require/require.min.js"></script>
+<script src="../../js/require.config.js"></script>
+
+<script src="../../js/app/signManage.js"></script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
  * Created by Administrator on 2017-09-18.
  * 帐号管理
  */
-require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'jstree', "jquery.cookie", "jquery.treeview"], function (Vue, layui, common, ajaxurl, tool, layers) {
+require(["layui", 'common', 'ajaxurl' ,'tools', 'layers', 'jstree', "jquery.cookie", "jquery.treeview"], function (layui, common, ajaxurl, tool, layers) {
     var home = {
         /**
          * 处理树形
@@ -63,12 +63,15 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'jstree', "jque
                         }else{
                             layers.toast(result.message);
                         }
-                        layers.closed(loading);
                     },
                     error: function(){
                         layers.toast("网络异常!");
-                        layers.closed(loading);
-                    }
+                    },
+                    complete:function(){
+                        setTimeout(function(){
+                            layers.closed(loading);
+                        },50)
+                    },
                 })
             }
         },
@@ -76,56 +79,59 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'jstree', "jque
          * 保存设置
          */
         saveAccount: function() {
-            // 获取路由参数id的值
-            var urls = tool.getUrlArgs(), editCode = '';
-            if(urls.has){
-                editCode = urls.data.id;
-            }
-            var datas = [],
-                rules = [],
-                dataJur = $(".data-jur").find("input:checked:not(:disabled)"),
-                ruleJur = $(".rule-jur").find("input:checked:not(:disabled)");
-            // 获取数据权限保存到datas
-            dataJur.each(function() {
-                var that = $(this),
-                    dataID = that.attr('data-type');
-                datas.push(dataID);
-            });
-            // 获取功能权限保存到rules
-            ruleJur.each(function() {
-                var that = $(this),
-                    ruleID = that.attr('data-type');
-                rules.push(ruleID);
-            });
-            if(rules.length === 0) {
-                rules = [0]
-            }
-            if(datas.length === 0) {
-                datas = [0]
-            }
-            // 获取data值
-            data= {id: editCode, rules: rules, datas: datas};
-            if (!$.isEmptyObject(data)) {
-                tool.ajax({
-                    url: ajaxurl.user.addUserAuth,
-                    data: data,
-                    type: 'post',
-                    success: function (result) {
-                        if (result.code == 1) {
-                            layers.toast(result.message);
-                            setTimeout(function() {
-                                window.history.go(-1);
-                            }, 1000)
-                        } else {
-                            layers.toast(result.message);
-                        }
-                    },
-                    error: function () {
-                        layers.toast("网络异常!")
-                    }
+            if(vm.isTrue) {
+                // 获取路由参数id的值
+                var urls = tool.getUrlArgs(), editCode = '';
+                if(urls.has){
+                    editCode = urls.data.id;
+                }
+                var datas = [],
+                    rules = [],
+                    dataJur = $(".data-jur").find("input:checked:not(:disabled)"),
+                    ruleJur = $(".rule-jur").find("input:checked:not(:disabled)");
+                // 获取数据权限保存到datas
+                dataJur.each(function() {
+                    var that = $(this),
+                        dataID = that.attr('data-type');
+                    datas.push(dataID);
                 });
+                // 获取功能权限保存到rules
+                ruleJur.each(function() {
+                    var that = $(this),
+                        ruleID = that.attr('data-type');
+                    rules.push(ruleID);
+                });
+                if(rules.length === 0) {
+                    rules = [0]
+                }
+                if(datas.length === 0) {
+                    datas = [0]
+                }
+                // 获取data值
+                data= {id: editCode, rules: rules, datas: datas};
+                if (!$.isEmptyObject(data)) {
+                    vm.isTrue = false;
+                    tool.ajax({
+                        url: ajaxurl.user.addUserAuth,
+                        data: data,
+                        type: 'post',
+                        success: function (result) {
+                            if (result.code == 1) {
+                                layers.toast(result.message);
+                                setTimeout(function() {
+                                    common.closeTab();
+                                }, 1000)
+                            } else {
+                                layers.toast(result.message);
+                            }
+                        },
+                        error: function () {
+                            layers.toast("网络异常!")
+                        }
+                    });
+                }
+                return false;
             }
-            return false;
         },
         /**
          * 全选和取消全选
@@ -162,7 +168,8 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'jstree', "jque
     var vm = new Vue({
         el: "#app",
         data: {
-            dataLists: []
+            dataLists: [],
+            isTrue: true
         },
         methods: {
             // 保存设置

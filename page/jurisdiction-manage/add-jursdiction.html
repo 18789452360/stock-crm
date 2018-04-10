@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>新增权限组</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/common.css"/>
+
+    <link rel="stylesheet" href="../../css/page/jurisdication.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="arrow left-arrow">
+                <i class="iconfont icon-left-arrow"></i>
+            </div>
+            <ul class="tabs">
+                <li><a href="/">首页</a></li>
+                <li v-for="item in tabs"
+                    :class="['tabs-item', item.active && 'tabs-item-active']"
+                    @click="switchTabs"
+                >
+                    <a :href="item.url" v-text="item.name"></a>
+                    <i class="iconfont icon-delete"></i>
+                </li>
+            </ul>
+            <div class="arrow right-arrow">
+                <a href="javascript:;"><i class="iconfont icon-right-arrow"></i></a>
+                <a href="javascript:;">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrap">
+        <div class="layui-container">
+            <div class="layui-row jur-row">
+                <form class="layui-form">
+                    <!-- 名称和描述 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="jur-label">*</span>权限组名称：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="like[write]" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">描述：</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <!-- 权限配置 -->
+                    <ul id="navigation">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">数据权限配置：</label>
+                            <div class="layui-input-block">
+                                <li class="open">
+                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户管理"></span>
+                                    <ul>
+                                        <li class="open">
+                                            <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户基本信息"></span>
+                                            <ul>
+                                                <li>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户姓名" checked></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="手机号"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="身份证号"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="open">
+                                            <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户基本信息"></span>
+                                            <ul>
+                                                <li>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户姓名"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="手机号"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="身份证号"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">功能权限配置：</label>
+                            <div class="layui-input-block">
+                                <li class="open">
+                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户管理"></span>
+                                    <ul>
+                                        <li class="open">
+                                            <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户基本信息"></span>
+                                            <ul>
+                                                <li>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户姓名"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="手机号"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="身份证号"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="open">
+                                        <span><input type="checkbox" name="like1[write]"
+                                                     lay-skin="primary" title="客户基本信息"></span>
+                                            <ul>
+                                                <li>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户姓名"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="手机号"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="身份证号"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="open">
+                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="公共池"></span>
+                                    <ul>
+                                        <li class="open">
+                                            <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户基本信息"></span>
+                                            <ul>
+                                                <li>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户姓名"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="手机号"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="身份证号"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="open">
+                                            <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户基本信息"></span>
+                                            <ul>
+                                                <li>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="客户姓名"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="手机号"></span>
+                                                    <span><input type="checkbox" name="like1[write]" lay-skin="primary" title="身份证号"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                    <!-- 保存与取消 -->
+                    <div class="examine">
+                        <div class="example-handle">
+                            <button class="examine-query add-jur-save" lay-submit="" layui-filter="*">保存</button><button class="examine-query">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/require/require.min.js"></script>
+<script src="../../js/require.config.js"></script>
+
+<script src="../../js/app/jurisdictionList.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+@charset "utf-8";
+.main {
+  padding: 20px 0 !important;
+}
+.main .layui-row {
+  padding: 0 !important;
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 18px 0 25px;
+}
+.main .layui-row .layui-row-title {
+  padding: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.main .layui-row .layui-row-title h3 {
+  font-size: 18px;
+  text-align: center;
+}
+.main .layui-row .detail-info {
+  text-align: center;
+  font-size: 14px;
+}
+.main .layui-row .detail-info ul {
+  display: inline-block;
+}
+.main .layui-row .detail-info ul li {
+  margin-left: 50px;
+  float: left;
+}
+.main .layui-row .detail-info dl {
+  font-weight: bold;
+  display: inline-block;
+}
+.main .layui-row .detail-info dl dt,
+.main .layui-row .detail-info dl dd {
+  float: left;
+  margin-left: 10px;
+}
+.main .layui-row .content-wrap {
+  width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.main .layui-row .content-wrap .content {
+  font-size: 16px;
+}
+.main .layui-row .content-wrap .content em {
+  font-weight: normal;
+  font-style: italic;
+}
+.main .layui-row .content-wrap .content p {
+  line-height: 30px;
+}
+.main .layui-row .content-wrap .content a {
+  color: #2883E1;
+}
+.main .layui-row .content-wrap .content img {
+  display: inline-block;
+  max-width: 500px;
+}
+.main .layui-row .content-wrap .content i {
+  font-style: italic !important;
+}
+.main .layui-row .content-wrap .content u {
+  text-decoration: underline !important;
+}
+.main .layui-row .content-wrap .accessory legend {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.main .layui-row .content-wrap .accessory .file-list li dl .attach-name {
+  width: 200px;
+}
+.main .layui-row .content-wrap .accessory .file-list li dl dt,
+.main .layui-row .content-wrap .accessory .file-list li dl dd {
+  float: left;
+  height: 35px;
+  line-height: 35px;
+}
+.main .layui-row .content-wrap .accessory .file-list li dl dt i,
+.main .layui-row .content-wrap .accessory .file-list li dl dd i {
+  font-size: 30px;
+  vertical-align: middle;
+}
+.main .layui-row .content-wrap .accessory .file-list li dl dt a,
+.main .layui-row .content-wrap .accessory .file-list li dl dd a {
+  color: #2883E1;
+}
+.main .layui-row .content-wrap .accessory .file-list li dl dd {
+  margin-left: 20px;
+}
+.main .btn-box {
+  text-align: center;
+}
+.main .btn-box a {
+  height: 40px;
+  line-height: 40px;
+  width: 140px;
+  font-size: 16px;
+}

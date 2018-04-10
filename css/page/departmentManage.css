@@ -32,7 +32,7 @@
   line-height: 40px;
   margin-bottom: 20px;
   color: #fff;
-  background: #0a6aa1;
+  background: #2883E1;
   text-align: center;
   border-right: 2px solid #fff;
 }
@@ -70,7 +70,7 @@
 }
 .main-wrap .layui-container .structure-row .group-arrows {
   text-align: center;
-  line-height: 450px;
+  margin-top: 220px;
 }
 .main-wrap .layui-container .structure-row .add-client {
   padding: 0 10px;
@@ -94,4 +94,22 @@
 }
 .depment-tips {
   color: #ccc;
+}
+.tree-editor:hover,
+.tree-delete:hover {
+  color: #2883E1;
+}
+.depart-head {
+  text-align: center;
+}
+.depart-save {
+  margin-left: 0;
+}
+.jstree-default .jstree-clicked {
+  background: #ddd;
+  box-shadow: none;
+}
+.jstree-default .jstree-hovered {
+  background: #eee;
+  box-shadow: none;
 }

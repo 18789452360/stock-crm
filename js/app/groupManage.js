@@ -63,12 +63,15 @@ require(['layui', 'layers', 'common', 'ajaxurl', 'tools', 'jstree',"jquery.cooki
                         }else{
                             layers.toast(result.message);
                         }
-                        layers.closed(loading);
                     },
                     error: function(){
                         layers.toast("网络异常!");
-                        layers.closed(loading);
-                    }
+                    },
+                    complete:function(){
+                        setTimeout(function(){
+                            layers.closed(loading);
+                        },200)
+                    },
                 });
             })
         },
@@ -83,6 +86,7 @@ require(['layui', 'layers', 'common', 'ajaxurl', 'tools', 'jstree',"jquery.cooki
                 form.on('submit(formSelect)', function (data) {
                     vm.data.group_name = data.field.group_name;
                     vm.data.administrator = data.field.administrator;
+                    vm.data.employee_name = data.field.employee_name;
                     vm.data.curpage = 1;
                     main.getAllList();
                     return false;
@@ -138,7 +142,7 @@ require(['layui', 'layers', 'common', 'ajaxurl', 'tools', 'jstree',"jquery.cooki
                     "root" : {
                         "icon" : "32px.png"
                     },
-                    "default" : { }
+                    "default" : {}
                 }
             });
         },
@@ -177,6 +181,7 @@ require(['layui', 'layers', 'common', 'ajaxurl', 'tools', 'jstree',"jquery.cooki
             data: {
                 group_name: '',
                 administrator: '',
+                employee_name: '',
                 start_time: '',
                 end_time: '',
                 pagesize: '',

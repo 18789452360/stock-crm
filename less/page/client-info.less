@@ -1,7 +1,12 @@
 @charset "utf-8";
 @import "../public/_variate.less";
+
 @yellow: #ffa800;
+body{
+    overflow-y: hidden;
+}
 .client-info-container {
+    padding-top: 20px;
     /* 档案头部 */
     .file-head {
         max-width: 1600px;
@@ -117,12 +122,18 @@
         .layui-upload-list {
             section{
                 display: inline-block;
+                display: flex;
+                width: 100%;
+                flex-wrap:wrap;
             }
             a {
                 display: inline-block;
                 margin-right: 20px;
                 position: relative;
                 margin-bottom: 20px;
+                flex: 1;
+                max-width: 120px;
+                min-width:120px;
                 i {
                     position: absolute;
                     right: 0;
@@ -135,16 +146,19 @@
                         color:#222;
                     }
                 }
+                img {
+                    width: 120px;
+                    height:80px;
+                }
             }
-            img {
-                width: 120px;
-                height: 80px;
-            }
+
         }
         .upload-btn {
-            width: 118px;
-            height: 78px;
-            line-height: 78px;
+            flex: 1;
+            max-width: 120px;
+            min-width: 120px;
+            height: 80px;
+            line-height: 80px;
             border: 1px solid @border-color;
             background-color: @white-color;
             color: #ccc;
@@ -240,7 +254,7 @@
         width:100%;
         overflow: hidden;
         position: relative;
-        padding:50px 0;
+        margin-bottom: 50px;
         .no-result-icon{
             width:150px;
             height:150px;
@@ -251,7 +265,7 @@
         }
         p{
             position: absolute;
-            top:30px;
+            top:-20px;
             left:50%;
             transform: translateX(-55%);
             color:#999;
@@ -403,6 +417,12 @@
                             display: inline-block;
                         }
                     }
+                    .flex-box{
+                        display: flex;
+                        .words-wrap{
+                            max-width: 370px;
+                        }
+                    }
                 }
             }
         }
@@ -440,6 +460,7 @@
         .follow-info {
             /* 默认跟进信息 */
             .follow-info-head {
+                margin-bottom: 20px;
                 .first-label {
                     min-width: 60px;
                     display: inline-block;
@@ -484,7 +505,7 @@
                     overflow: hidden;
                     line-height: 38px;
                     ul {
-                        margin-right: 40px;
+                        margin-right: 90px;
                         padding: 5px 0;
                         li {
                             width: 60px;
@@ -529,11 +550,21 @@
                     background-color: @white-color;
                     padding: 20px;
                     overflow: hidden;
+                    .product-row{
+                        margin-bottom: 10px;
+                        .layui-input-inline{
+                            width:auto;
+                            float:left;
+                            margin-bottom: 5px;
+                        }
+                        &:last-of-type{
+                            margin-bottom: 0;
+                        }
+                    }
                 }
                 
             }
             .follow-info-content {
-                margin-top: 20px;
                 ul {
                     overflow: hidden;
                     li {
@@ -626,6 +657,15 @@
                     margin-right:20px;
                 }
             }
+            .follow-back{
+                padding: 20px;
+                text-align: center;
+                a{
+                    width:140px;
+                    height: 40px;
+                    line-height:40px;
+                }
+            }
         }
         /* 合作情况 */
         .cooperation-situation{
@@ -640,6 +680,7 @@
             /* 查看合作情况 */
             .examine-cooperation{
                 background-color: @white-color;
+                margin-bottom: 30px;
                 .cooperation-title{
                     padding:20px;
                     color:#222;
@@ -667,7 +708,43 @@
                 .cooperation-table{
                     padding:30px;
                     overflow: hidden;
-                    .layui-table{
+                    h1{
+                        font-size: 16px;
+                    }
+                    .product-table{
+                        tr{
+                            border:1px solid #eee;
+                            border-top:0;
+                            &:nth-of-type(2n){
+                                background-color: #fcfcfc;
+                            }
+                            td{
+                                height: 48px;
+                                line-height: 30px;
+                                text-align: center;
+                                border:0;
+                                a{
+                                    color:@blue-color;
+                                }
+                            }
+                            .operator{
+                                line-height: 16px;
+                            }
+                        }
+                        .first-tr{
+                            height:58px;
+                            border-top:1px solid #eee;
+                            &:hover{
+                                background-color: @white-color!important;
+                            }
+                            td{
+                                height:58px;
+                                line-height: 40px;
+                            }
+                        }
+
+                    }
+                    /*.layui-table{
                        ul{
                            border:1px solid @border-color;
                            width: 100%;
@@ -698,7 +775,7 @@
                                border: 0;
                            }
                        }
-                    }
+                    }*/
                 }
             }
             /* 编辑新增合作情况 */
@@ -932,9 +1009,10 @@
 
 .no-data{
     width:100%;
-    height:490px;
+    height:450px;
     background-color: @white-color;
     position: relative;
+    margin-bottom: 50px;
     .no-data-img{
         position: absolute;
         left:50%;
@@ -955,5 +1033,22 @@
             color:#999;
         }
     }
+}
+.no-coopAuth{
+    width:100%;
+    height:250px;
+    background-color: @white-color;
+    text-align: center;
+    padding-top: 200px;
+    p{
+        color:#999;
+        font-size: 20px;
+    }
+}
+.basic-num {
+    float: left;
+    line-height: 34px;
+    padding-left: 10px;
+    color: #999;
 }
 @import url(jquery-rebox.less);

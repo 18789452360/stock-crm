@@ -26,37 +26,37 @@
         <ul class="jstree-ul">
             {? each data as item index ?}
             <li  data-id="{? item.id ?}">
-                <span class="tree-partment select-parent" data-id="{? item.id ?}">{? item.name ?}</span>
+                <span class="tree-partment select-parent" data-id="{? item.id ?}" data-pid="{? item.pid ?}">{? item.name ?}</span>
                 {?if item.child ?}
                 <ul class="jstree-ul">
                     {? each item.child as list index ?}
                     <li  data-id="{? list.id ?}">
-                        <span class="tree-partment select-parent" data-id="{? list.id ?}">{? list.name ?}</span>
+                        <span class="tree-partment select-parent" data-id="{? list.id ?}" data-pid="{? list.pid ?}">{? list.name ?}</span>
                         {?if list.child ?}
                         <ul class="jstree-ul">
                             {? each list.child as lastList index ?}
                             <li data-id="{? lastList.id ?}">
-                                <span class="tree-partment select-parent" data-id="{? lastList.id ?}" >{? lastList.name ?}</span>
+                                <span class="tree-partment select-parent" data-id="{? lastList.id ?}" data-pid="{? lastList.pid ?}">{? lastList.name ?}</span>
                                 {?if lastList.child ?}
                                 <ul class="jstree-ul">
                                     {? each lastList.child as itemFour index ?}
                                     <li data-id="{? itemFour.id ?}">
-                                        <span class="tree-partment select-parent" data-id="{? itemFour.id ?}" >{? itemFour.name ?}</span>
+                                        <span class="tree-partment select-parent" data-id="{? itemFour.id ?}" data-pid="{? itemFour.pid ?}">{? itemFour.name ?}</span>
                                         {?if itemFour.child ?}
                                         <ul class="jstree-ul">
                                             {? each itemFour.child as itemFive index ?}
                                             <li data-id="{? itemFive.id ?}">
-                                                <span class="tree-partment select-parent" data-id="{? itemFive.id ?}" >{? itemFive.name ?}</span>
+                                                <span class="tree-partment select-parent" data-id="{? itemFive.id ?}" data-pid="{? itemFive.pid ?}">{? itemFive.name ?}</span>
                                                 {?if itemFive.child ?}
                                                 <ul class="jstree-ul">
                                                     {? each itemFive.child as itemSix index ?}
                                                     <li data-id="{? itemSix.id ?}">
-                                                        <span class="tree-partment select-parent" data-id="{? itemSix.id ?}" >{? itemSix.name ?}</span>
+                                                        <span class="tree-partment select-parent" data-id="{? itemSix.id ?}" data-pid="{? itemSix.pid ?}">{? itemSix.name ?}</span>
                                                         {?if itemSix.child ?}
                                                         <ul class="jstree-ul">
                                                             {? each itemSix.child as itemSeven index ?}
                                                             <li data-id="{? itemSeven.id ?}">
-                                                                <span class="tree-partment select-parent" data-id="{? itemSeven.id ?}" >{? itemSeven.name ?}</span>
+                                                                <span class="tree-partment select-parent" data-id="{? itemSeven.id ?}" data-pid="{? itemSeven.pid ?}">{? itemSeven.name ?}</span>
                                                             </li>
                                                             {? /each ?}
                                                         </ul>

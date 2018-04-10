@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit"/>
+    <title>我的客户</title>
+    <link rel="stylesheet" href="../../css/base/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/common.css"/>
+    <style>
+        .layui-form-switch { box-sizing: content-box; }
+        .layui-form-label { width: 120px; }
+        .layui-input-block { margin-left: 120px; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <div style="margin: 20px 0;">
+            <form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">输入框：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="text" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">下拉选择框：</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="aihao">
+                            <option value="0">写作</option>
+                            <option value="1">阅读</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">复选框：</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="write" title="写作">
+                        <input type="checkbox" name="read" title="阅读">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">开关关：</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" lay-skin="switch">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">开关开：</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked lay-skin="switch">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单选框：</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="sex" value="0" title="男">
+                        <input type="radio" name="sex" value="1" title="女" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">复选框：</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="check1" title="写作" lay-skin="primary" checked>
+                        <input type="checkbox" name="check2" title="发呆" lay-skin="primary">
+                        <input type="checkbox" name="check3" title="禁用" lay-skin="primary" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">请填写描述：</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" name="textarea" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="commit">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+                <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/require/require.min.js"></script>
+<script src="../../js/require.config.js"></script>
+<script src="../../js/libs/layui/layui.js"></script>
+<script src="../../js/base/common.js"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+        //监听提交
+        form.on('submit(commit)', function(data){
+//            layer.alert(JSON.stringify(data), {
+//                title: '最终的提交信息'
+//            });
+            console.log(data.field);
+        });
+    });
+</script>
+
+</body>
+</html>

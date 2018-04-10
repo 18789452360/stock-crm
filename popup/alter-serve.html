@@ -2,7 +2,7 @@
 
 <div class="alter-server-container">
     <ul>
-        <li>
+        <li class="first-li">
             <span>购买产品</span>
             <span>服务开始时间</span>
             <span>服务结束时间</span>
@@ -15,18 +15,21 @@
     </ul>
     <div class="form-wrap">
         <div class="form-item">
-            <label class="form-label">更改服务结束时间</label>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input" readonly id="service-time" placeholder="yyyy-MM-dd HH:mm:ss" >
-            </div>
-        </div>
-        <div class="form-item">
-            <label class="form-label"><i>*</i>说明</label>
+            <label class="form-label"><i>*</i>原因</label>
             <div class="textarea-box">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="reason" placeholder="请输入提前终止服务的原因" class="layui-textarea" maxlength="500"></textarea>
                 <span><i class="text-num">0</i>/500</span>
             </div>
         </div>
     </div>
-
 </div>
+<style scoped>
+    .alter-server-container ul .first-li{
+        height: 60px;
+        line-height: 60px;
+    }
+    .alter-server-container .form-wrap .form-label{
+        min-width: 70px;
+        width:70px;
+    }
+</style>

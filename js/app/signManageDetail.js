@@ -20,10 +20,67 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                 });
                 element.on('tab(test)', function(data){
                     var layIDNew = data.index; // 获取当前tab所在的下标
-                    if(layIDNew == 4) {
-                        main.getLogList(); // 调用操作日志接口
+                    switch (layIDNew) {
+                        case 1:
+                            if(vm.isTrueTabReport) {
+                                main.getReportList(); // 调用研报接口
+                                vm.isTrueTabReport = false;
+                            }
+                            break;
+                        case 2:
+                            if(vm.isTrueTabSpace) {
+                                main.getSpaceList(); // 调用调仓接口
+                                vm.isTrueTabSpace = false;
+                            }
+                            break;
+                        case 3:
+                            if(vm.isTrueTabSpeech) {
+                                main.getSpeechList(); // 调用话术接口
+                                vm.isTrueTabSpeech = false;
+                            }
+                            break;
+                        case 4:
+                            if(vm.isTrueTabLog) {
+                                main.getLogList(); // 调用操作日志接口
+                                vm.isTrueTabLog = false;
+                            }
+                            break;
                     }
                 });
+            });
+        },
+        /**
+         * 获取标的全部信息
+         */
+        getAllList: function() {
+            var urls = tool.getUrlArgs();
+            if(urls.has){
+                vm.productStrockId = urls.data.product_stock_id;
+                vm.productId = urls.data.product_id;
+            }
+            tool.ajax({
+                url: ajaxurl.productStock.detail,
+                type: 'post',
+                data: {
+                    product_stock_id: vm.productStrockId,
+                    info_type: 0
+                },
+                success: function(result){
+                    if(result.code == 1){
+                        // 渲染到vue数据层
+                        vm.tableDataBase = result.data.product_stock_base;
+                        vm.stockCodes = result.data.product_stock_base.stock_codes;
+                        vm.stockStatus = result.data.product_stock_base.status;
+                        vm.tableDataReport = result.data.report_list;
+                        vm.tableDataSpace = result.data.transfer_list;
+                        vm.tableDataSpeech = result.data.suggest_content_list;
+                    }else{
+                        layers.toast(result.message);
+                    }
+                },
+                error: function(){
+                    layers.toast("网络异常!")
+                }
             });
         },
         /**
@@ -31,15 +88,20 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
          */
         getReportList: function() {
             tool.ajax({
-                url: ajaxurl.group.index,
+                url: ajaxurl.productStock.detail,
                 type: 'post',
-                data: vm.dataReport,
+                data: {
+                    product_stock_id: vm.productStrockId,
+                    info_type: 1,
+                    pagesize: vm.dataReport.pagesize,
+                    curpage: vm.dataReport.curpage
+                },
                 success: function(result){
                     if(result.code == 1){
                         // 渲染到vue数据层
-                        vm.tableDataReport = result.data.list;
+                        vm.tableDataReport = result.data.report_list;
                         // 获取总条数
-                        vm.getReportListTotal = result.data.all_num;
+                        vm.getReportListTotal = result.data.total_num;
                         // 调用分页
                         main.getReportPage();
                         Vue.nextTick(function() {
@@ -54,7 +116,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                     }
                 },
                 error: function(){
-                    console.log("网络异常!")
+                    layers.toast("网络异常!")
                 }
             });
         },
@@ -63,15 +125,20 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
          */
         getSpaceList: function() {
             tool.ajax({
-                url: ajaxurl.group.index,
+                url: ajaxurl.productStock.detail,
                 type: 'post',
-                data: vm.dataSpace,
+                data: {
+                    product_stock_id: vm.productStrockId,
+                    info_type: 2,
+                    pagesize: vm.dataSpace.pagesize,
+                    curpage: vm.dataSpace.curpage
+                },
                 success: function(result){
                     if(result.code == 1){
                         // 渲染到vue数据层
-                        vm.tableDataSpace = result.data.list;
+                        vm.tableDataSpace = result.data.transfer_list;
                         // 获取总条数
-                        vm.getSpaceListTotal = result.data.all_num;
+                        vm.getSpaceListTotal = result.data.total_num;
                         // 调用分页
                         main.getSpacePage();
                         Vue.nextTick(function() {
@@ -86,7 +153,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                     }
                 },
                 error: function(){
-                    console.log("网络异常!")
+                    layers.toast("网络异常!")
                 }
             });
         },
@@ -95,15 +162,20 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
          */
         getSpeechList: function() {
             tool.ajax({
-                url: ajaxurl.group.index,
+                url: ajaxurl.productStock.detail,
                 type: 'post',
-                data: vm.dataSpeech,
+                data: {
+                    product_stock_id: vm.productStrockId,
+                    info_type: 3,
+                    pagesize: vm.dataSpeech.pagesize,
+                    curpage: vm.dataSpeech.curpage
+                },
                 success: function(result){
                     if(result.code == 1){
                         // 渲染到vue数据层
-                        vm.tableDataSpeech = result.data.list;
+                        vm.tableDataSpeech = result.data.suggest_content_list;
                         // 获取总条数
-                        vm.getSpeechListTotal = result.data.all_num;
+                        vm.getSpeechListTotal = result.data.total_num;
                         // 调用分页
                         main.getSpeechPage();
                         Vue.nextTick(function() {
@@ -118,7 +190,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                     }
                 },
                 error: function(){
-                    console.log("网络异常!")
+                    layers.toast("网络异常!")
                 }
             });
         },
@@ -127,15 +199,19 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
          */
         getLogList: function() {
             tool.ajax({
-                url: ajaxurl.group.index,
+                url: ajaxurl.productStock.logList,
                 type: 'post',
-                data: vm.dataLog,
+                data: {
+                    product_stock_id: vm.productStrockId,
+                    pagesize: vm.dataLog.pagesize,
+                    curpage: vm.dataLog.curpage
+                },
                 success: function(result){
                     if(result.code == 1){
                         // 渲染到vue数据层
                         vm.tableDataLog = result.data.list;
                         // 获取总条数
-                        vm.getLogListTotal = result.data.all_num;
+                        vm.getLogListTotal = result.data.total_num;
                         // 调用分页
                         main.getLogPage();
                         Vue.nextTick(function() {
@@ -150,9 +226,111 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                     }
                 },
                 error: function(){
-                    console.log("网络异常!")
+                    layers.toast("网络异常!")
                 }
             });
+        },
+        /**
+         * 删除研报
+         */
+        delReport: function(id, indexs) {
+            layers.confirm({
+                title: '删除研报',
+                area: ['450px', '250px'],
+                content: '<div class="confirm-tips">删除操作不可逆，确认删除？</div>',
+                success: function() {
+                },
+                btn2: function (index, layero) {
+                    tool.ajax({
+                        url: ajaxurl.productReport.delete,
+                        type: 'post',
+                        data: {
+                            product_report_id: id
+                        },
+                        success: function (result) {
+                            if (result.code == 1) {
+                                layers.toast(result.message);
+                                setTimeout(function () {
+                                    vm.tableDataReport.splice(indexs, 1);
+                                }, 1000)
+                            } else {
+                                layers.toast(result.message);
+                            }
+                        },
+                        error: function () {
+                            layers.toast("网络异常!")
+                        }
+                    });
+                }
+            })
+        },
+        /**
+         * 删除调仓
+         */
+        delSpace: function(id, indexs) {
+            layers.confirm({
+                title: '删除研报',
+                area: ['450px', '250px'],
+                content: '<div class="confirm-tips">删除操作不可逆，确认删除？</div>',
+                success: function () {
+                },
+                btn2: function (index, layero) {
+                    tool.ajax({
+                        url: ajaxurl.productTransfer.delete,
+                        type: 'post',
+                        data: {
+                            transfer_id: id
+                        },
+                        success: function (result) {
+                            if (result.code == 1) {
+                                layers.toast(result.message);
+                                setTimeout(function () {
+                                    vm.tableDataSpace.splice(indexs, 1);
+                                }, 1000)
+                            } else {
+                                layers.toast(result.message);
+                            }
+                        },
+                        error: function () {
+                            layers.toast("网络异常!")
+                        }
+                    });
+                }
+            })
+        },
+        /**
+         * 删除话术
+         */
+        delSpeech: function(id, indexs) {
+            layers.confirm({
+                title: '删除研报',
+                area: ['450px', '250px'],
+                content: '<div class="confirm-tips">删除操作不可逆，确认删除？</div>',
+                success: function () {
+                },
+                btn2: function (index, layero) {
+                    tool.ajax({
+                        url: ajaxurl.productSuggest.delete,
+                        type: 'post',
+                        data: {
+                            suggest_content_id: id
+                        },
+                        success: function (result) {
+                            if (result.code == 1) {
+                                layers.toast(result.message);
+                                setTimeout(function () {
+                                    vm.tableDataSpeech.splice(indexs, 1);
+                                }, 1000)
+                            } else {
+                                layers.toast(result.message);
+                            }
+                        },
+                        error: function () {
+                            layers.toast("网络异常!")
+                        }
+                    });
+                }
+            })
         },
         /**
          * 研报分页
@@ -246,6 +424,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
     var vm = new Vue({
         el: '#app',
         data: {
+            tableDataBase: [], // 标的基本信息
             tableDataReport: [], // 研报
             tableDataSpace: [], // 调仓
             tableDataSpeech: [], // 话术
@@ -254,6 +433,14 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
             getSpaceListTotal: '', // 调仓总数
             getSpeechListTotal: '', // 话术总数
             getLogListTotal: '', // 操作日志总数
+            isTrueTabReport: true,
+            isTrueTabSpace: true,
+            isTrueTabSpeech: true,
+            isTrueTabLog: true,
+            stockCodes: '', // 股票识别码
+            productStrockId: '', // 标的id
+            productId: '', // 产品id
+            stockStatus: '', // 标的是否出局
             dataReport: {
                 pagesize: '' | 10,
                 curpage: '' | 1
@@ -272,10 +459,17 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
             }
         },
         methods: {
-
+            delReport: function(id, index) {
+                main.delReport(id, index);
+            },
+            delSpace: function(id, index) {
+                main.delSpace(id, index);
+            },
+            delSpeech: function(id, index) {
+                main.delSpeech(id, index);
+            }
         }
     });
-
     /**
      * 初始化
      * @private
@@ -283,10 +477,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
     var _init = function () {
         common.getTabLink();
         main.initTab(); // 初始化tab
-        main.getReportList(); // 研报
-        main.getSpaceList(); // 调仓
-        main.getSpeechList(); // 话术
-        //main.getLogList(); // 操作日志
+        main.getAllList(); // 获取标的全部信息
     };
     _init();
 });

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit"/>
+    <title>导航</title>
+    <style>
+        body,html { height: 100%; margin: 0;}
+        ul,li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .client-nav {
+            width: 300px;
+            height: 100%;
+            padding: 20px;
+            font-size: 16px;
+        }
+        .treeview li {
+            padding: 8px 0 8px 24px;
+            cursor: pointer;
+        }
+        .treeview li a {
+            color: #fff;
+        }
+        .treeview .hitarea {
+            background: url(../../images/minus.gif) 0 6px no-repeat;
+            height: 16px;
+            width: 16px;
+            margin-left: -16px;
+            float: left;
+            cursor: pointer;
+        }
+        .treeview .expandable-hitarea {
+            background: url(../../images/plus.gif) 0 6px no-repeat;
+        }
+    </style>
+</head>
+<body>
+
+<div class="client-nav">
+    <h2>我的客户</h2>
+    <ul id="navigation" >
+        <li><input type="checkbox"/><span>全部(9998)</span>
+            <ul>
+                <li><span>市场二部二组</span>
+                    <ul>
+                        <li><span>市场二部二组1</span>
+                            <ul>
+                                <li><span>市场二部二组三队1</span>
+                                    <ul>
+                                        <li><span>市场二部二组三队四列1</span></li>
+                                    </ul>
+                                </li>
+                                <li><span>Item 2.0.0.1</span>
+                                    <ul>
+                                        <li><span>Item2.0.0.0.1</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span>市场二部三组</span>
+                    <ul>
+                        <li><span>市场二部二组1</span>
+                            <ul>
+                                <li><span>市场二部二组三队1</span>
+                                    <ul>
+                                        <li><span>市场二部二组三队四列1</span></li>
+                                    </ul>
+                                </li>
+                                <li><span>Item 2.0.0.1</span>
+                                    <ul>
+                                        <li><span>Item2.0.0.0.1</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<!-- 全局js -->
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/jquery/jquery.cookie.js"></script>
+<script src="../../js/libs/jquery/jquery.treeview.js"></script>
+<script>
+    $(function(){
+        // first example
+        $("#browser").treeview();
+
+        // second example
+        $("#navigation").treeview({
+            persist: "location",
+            collapsed: true,
+            unique: true
+        });
+
+        // third example
+        $("#red").treeview({
+            animated: "fast",
+            collapsed: true,
+            unique: true,
+            persist: "cookie",
+            toggle: function() {
+                window.console && console.log("%o was toggled", this);
+            }
+        });
+
+        // fourth example
+        $("#black, #gray").treeview({
+            control: "#treecontrol",
+            persist: "cookie",
+            cookieId: "treeview-black"
+        });
+    });
+</script>
+
+</body>
+
+</html>

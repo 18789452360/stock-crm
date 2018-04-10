@@ -3,11 +3,27 @@
 
 /* 权限组公共样式 */
 .layui-container {
+    position: relative;
     .layui-input-block {
         margin-left: 120px;
     }
     .group-decript {
         max-width: 300px;
+    }
+    .over-decript {
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        padding: 0 20px;
+    }
+    .stock-detail {
+        padding-top: 9px;
+        display: inline-block;
+        height: 16px;
+        padding-right: 100px;
+    }
+    .stock-details {
+        padding-right: 0;
     }
     // 共用表格等样式
     .sign-row {
@@ -24,13 +40,13 @@
                         box-sizing: border-box;
                         padding: 7px 20px 0 0;
                         text-align: right;
+                        color: #999;
                         .jur-label {
                             color: #ff0000;
                         }
                     }
                     .layui-input, .layui-select, .layui-textarea {
                         height: 34px;
-                        border-color: #ccc!important;
                     }
                     .layui-form-checkbox[lay-skin=primary] {
                         margin-top: 0;
@@ -76,6 +92,37 @@
         .sign-header {
             margin-bottom: 30px;
         }
+        .report-hint {
+            color: #999;
+            vertical-align: middle;
+        }
+        .p-report {
+            line-height: 40px;
+            .report-down {
+                color: @blue-color;
+                &:hover {
+                    color: #0162c5;
+                }
+            }
+        }
+        .accessory-content {
+            height: 40px;
+            p {
+                display: inline-block;
+                height: 40px;
+                line-height: 40px;
+                .icon-delete {
+                    color: #999;
+                    cursor: pointer;
+                }
+                .report-down {
+                    color: @blue-color;
+                    &:hover {
+                        color: #0162c5;
+                    }
+                }
+            }
+        }
         .sign-list {
             padding: 20px 0;
             .sign-item {
@@ -118,8 +165,11 @@
                         border-color: @blue-color!important;
                     }
                 }
+                .slide-block {
+                    width: 190px;
+                }
                 .layui-textarea {
-                    width: 398px;
+                    width: 100%;
                     &:focus {
                         border-color: @blue-color!important;
                     }
@@ -127,9 +177,6 @@
                 .stock-price {
                     display: inline-block;
                     line-height: 34px;
-                    span {
-                        padding: 0 20px;
-                    }
                 }
                 .sign-danger {
                     padding-left: 20px;
@@ -181,7 +228,7 @@
                 .total-warehouse {
                     display: inline-block;
                     vertical-align: middle;
-                    margin: 9px 30px 0 15px;
+                    margin: 0 30px 0 15px;
                     color: @font-color;
                     .sign-down {
                         color: @down-color;
@@ -189,6 +236,12 @@
                     .sign-add {
                         color: @add-color;
                     }
+                }
+                .total-warehouses {
+                    margin-left: 0;
+                }
+                .stock-detail {
+                    margin-left: 0;
                 }
                 .layui-inline {
                     vertical-align: middle;
@@ -266,10 +319,11 @@
     }
     .organize-framework {
         position: absolute;
-        top: 40px;
-        left: 120px;
+        top: 50%;
+        left: 50%;
         height: 474px;
         //margin: 5px 0 0 120px;
+        transform: translateY(-50%) translateX(-50%);
         border-radius: 3px;
         border: 1px solid #ccc;
         box-shadow: 0px 0px 5px 1px #d7d7d7;

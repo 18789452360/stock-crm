@@ -6,7 +6,7 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
     var home = {
         reg:{
             uPattern: /^[a-zA-Z0-9_]{4,30}$/, //验证用户名
-            tPattern: /^1[3|4|5|7|8]\d{9}$/ //验证手机号
+            tPattern: /^1[2|3|4|5|6|7|8|9]\d{9}$/ //验证手机号
         },
         form: '',
          /**
@@ -44,11 +44,11 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                 
                 //自定义验证规则
                 form.verify({
-                    //uPattern: function(value){//验证用户名
-                    //    if(!new RegExp(that.reg.uPattern).test(value)){
-                    //        return '用户名不合法';
-                    //    }
-                    //},
+                    uPattern: function(value){//验证用户名
+                        if(!new RegExp(that.reg.uPattern).test(value)){
+                            return '用户名不合法';
+                        }
+                    },
                     pPattern: function(value){//验证密码
                         if( 30 < $.trim(value).length < 6){
                             return '密码长度为6-30位';
@@ -60,20 +60,36 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                         }
                     }
                 });
-
+                form.on('select(build_room)', function(data){
+                    vm.buildRoom = data.value;
+                    if(vm.seaNumber == '') { // 如果用户值选择了楼栋,未选择坐席号或坐席号为空则退出,不做验证
+                        return;
+                    }
+                    home.checkSeat(vm.userid, vm.buildRoom, vm.seaNumber);
+                });
                 //表单验证
                 form.on('submit(formSave)',function(data){
-                    if(data){
-                        if(data.field.avatar == undefined){
-                            data.field.avatar = vm.image || vm.Basicimage;
-                        }
-                        if(data.field.id == undefined){
-                            data.field.id = vm.UrlArgs.id || vm.userinfo.id;
-                        }
-                        that.editUser(data.field);
-                        var a = data.field;
+                    home.checkSeat(vm.userid, vm.buildRoom, vm.seaNumber, function() {
+                        if(data){
+                            if(data.field.avatar == undefined){
+                                data.field.avatar = vm.image || vm.Basicimage;
+                            }
+                            if(data.field.id == undefined){
+                                data.field.id = vm.UrlArgs.id || vm.userinfo.id;
+                            }
+                            data.field.build_room = vm.buildRoom;
+                            if(data.field.build_room == '' && vm.seaNumber != '') {
+                                layers.toast("楼栋不能为空")
+                            } else if (vm.checkSeat) { // 判断坐席号是否重复
+                                layers.toast("坐席号不能重复");
+                                return false;
+                            } else {
+                                that.editUser(data.field);
+                            }
+                            var a = data.field;
 
-                    }
+                        }
+                    });
                     return false;
                 });
                 that.form = form;
@@ -111,7 +127,7 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                         uploadInst.upload();
                     });
                 }
-            }
+            };
             upload.init(uploadDatas);
         },
         /**
@@ -119,24 +135,27 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
          * @param {[type]} datas [description]
          */
         editUser: function(datas){
-            if(!$.isEmptyObject(datas)){
-                tools.ajax({
-                    url: ajaxurl.user.editUser,
-                    data: datas,
-                    type: 'post',
-                    success: function(result){
-                        if(result.code == 1){
-                            layers.toast('编辑成功');
-                            setTimeout(function(){
-                               common.closeTab();
-                            },1000);
-                        }else{
-                            layers.toast(result.message);
+            if(vm.isTrue) {
+                if(!$.isEmptyObject(datas)){
+                    vm.isTrue = false;
+                    tools.ajax({
+                        url: vm.userdisabled == true ? ajaxurl.user.editUserIndex : ajaxurl.user.editUser,
+                        data: datas,
+                        type: 'post',
+                        success: function(result){
+                            if(result.code == 1){
+                                layers.toast('编辑成功');
+                                setTimeout(function(){
+                                    common.closeTab(true);
+                                },1000);
+                            }else{
+                                layers.toast(result.message);
+                            }
                         }
-                    }
-                })
-            }else{
-                throw new Error('参数错误！');
+                    })
+                }else{
+                    throw new Error('参数错误！');
+                }
             }
         },
         /**
@@ -207,6 +226,11 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                         vm.BasicGrade = result.data.grade;
                         vm.BasicPosition = result.data.position;
                         vm.BasicRule = result.data.rule;
+                        for(var i = 0; i < vm.BasicRoom.length; i ++) {
+                            if(vm.BasicRoom[i].checked == true) {
+                                vm.buildRoom = vm.BasicRoom[i].id;
+                            }
+                        }
                         that.sideMenu(function(){
                             that.filterOrgSearch();
                         });
@@ -224,18 +248,19 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
             var that = this, urls = tools.getUrlArgs(), id = '';
             if(urls.has){
                 if(urls.data.id != undefined && urls.data.id != null){
-                    id = urls.data.id;
+                    vm.userid = urls.data.id;
                 }else{
                     if(urls.data.user == 'my'){
-                        id = vm.userinfo.id;
+                        vm.userid = vm.userinfo.id;
                     }else{
                         throw new Error('缺少id参数！');
                     }
                 }
             }
+
             tools.ajax({
-                url: ajaxurl.user.selectOneUser,
-                data:{id:id},
+                url: vm.userdisabled == true ? ajaxurl.user.showIndex : ajaxurl.user.selectOneUser,
+                data:{id:vm.userid},
                 type: 'post',
                 success: function(result){
                     if(result.code == 1){
@@ -245,12 +270,15 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                             vm.Basicimage = result.data.avatar;
                             vm.readerOrgUsr.id = result.data.department;
                             vm.readerOrgUsr.department_name = result.data.department_name;
+                            vm.seaNumber = result.data.seat_number;
                             if(result.data.department && result.data.department_name){
                                 vm.selectedOrgUsr = [{id:result.data.department,department_name:result.data.department_name}]
                             }
                             $('#avatar').prop('src', result.data.avatar);
                         }
-                        tools.setStorage('userMobile',result.data.mobile);//临时缓存到session中
+                        tools.setStorage('userMobile',result.data.mobile); // 临时缓存到session中
+                        tools.setStorage('userName',result.data.username); // 临时缓存到session中
+                        tools.setStorage('seatNumber',result.data.seat_number); // 临时缓存到session中
                         that.getBasic(result.data);
                     }else{
                         layers.toast(result.message);
@@ -280,6 +308,68 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                             text: result.message
                         }
                     }
+                }
+            })
+        },
+        /**
+         * [checkmobile description] 检测用户是否存在
+         * @param  {[type]} mobile [description]
+         * @return {[type]}        [description]
+         */
+        checkUser: function(user){
+            tools.ajax({
+                url: ajaxurl.user.checkUsername,
+                type: 'post',
+                data:{username: user},
+                success: function(result){
+                    if(result.code == 1){ //不存在
+                        vm.checkTips.username = {
+                            err: false,
+                            text: ''
+                        }
+                    }else{
+                        vm.checkTips.username = {
+                            err: true,
+                            text: result.message
+                        }
+                    }
+                }
+            })
+        },
+        /**
+         * [checkmobile description] 检测用户坐席号是否重复
+         * @param  {[type]} mobile [description]
+         * @return {[type]}        [description]
+         */
+        checkSeat: function(id, build, seatNum, callback){
+            tools.ajax({
+                url: ajaxurl.customer.checkBuildWithSeatNum,
+                type: 'post',
+                data:{
+                    build: build,
+                    seat_num: seatNum,
+                    admin_id: id
+                },
+                success: function(result){
+                    if(result.code == 1){ //不存在
+                        vm.checkTips.seatNumber = {
+                            err: false,
+                            text: ''
+                        };
+                        vm.checkSeat = false;
+                    } else if (result.code == -1){
+                        vm.checkTips.seatNumber = {
+                            err: true,
+                            text: result.message
+                        };
+                        vm.checkSeat = true;
+                    } else {
+                        vm.checkTips.seatNumber = {
+                            err: true,
+                            text: result.message
+                        }
+                    }
+                    typeof callback === 'function' && callback.call(this);
                 }
             })
         },
@@ -320,18 +410,39 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
             Basicimage: '', //编辑时候获取的头像
             BasicInfo: '', //默认信息
             UrlArgs: '', //url参数
+            buildRoom: '', // 所属楼栋
+            seaNumber: '', // 坐席号
+            checkSeat: false, // 验证坐席号是否重复
             userdisabled: false, //用户禁用表单
+            userid: '',
             checkTips:{//用户检测是否存在
-                mobile: {err:false, text:''}
+                mobile: {err:false, text:''},
+                username: {err:false, text:''},
+                seatNumber: {err:false, text:''}
             },
             selectedOrgUsr: [], //暂时记录组织架构的选中
             readerOrgUsr: {id: '', department_name:''}, //渲染组织架构
             showpop: false,
             OrgSearchArr: [], //缓存组织架构搜索结果
+            isTrue: true
         },
         methods: {
             cancelAdd:function(){
                 common.closeTab();
+            },
+            checkName: function(event){ // 用户名
+                var username = $.trim(event.target.value);
+                if(!new RegExp(home.reg.uPattern).test(username)){
+                    this.checkTips.username = {
+                        err: true,
+                        text: '用户名由4-30的数字,字母和下划线组成'
+                    };
+                    return;
+                }
+                var BasicUser = tools.getStorage('userName');//获取缓存在session中的值
+                //如果当前输入的值与默认值相等不用去验证 或者是用户没有修改电话 但是在输入中有获取失去焦点的操作  也不需要去验证
+                if(username === BasicUser) return;
+                home.checkUser(username);
             },
             checkmobile: function(event){//验证手机号
                 var mobile = $.trim(event.target.value);
@@ -339,13 +450,17 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                     this.checkTips.mobile = {
                         err: true,
                         text: '手机号码不合法'
-                    }
+                    };
                     return;
                 }
                 var Basicmobile = tools.getStorage('userMobile');//获取缓存在session中的值
                 //如果当前输入的值与默认值相等不用去验证 或者是用户没有修改电话 但是在输入中有获取失去焦点的操作  也不需要去验证
                 if(mobile === Basicmobile) return;
                 home.checkmobile(mobile);
+            },
+            checkSeats: function(event){ // 验证坐席号
+                var seatNum = tools.getStorage('seatNumber');
+                home.checkSeat(vm.userid, vm.buildRoom, vm.seaNumber);
             },
             orgSelectItem: function(e, type){
                 if(type != undefined){

@@ -88,7 +88,7 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers'], function (Vue,
                 }
             }
             tools.ajax({
-                url: ajaxurl.user.selectOneUser,
+                url: vm.userdisabled == true ? ajaxurl.user.showIndex : ajaxurl.user.selectOneUser,
                 data:{id: id},
                 type: 'post',
                 success: function(result){

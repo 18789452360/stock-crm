@@ -1,5 +1,6 @@
 @charset "utf-8";
 .client-info-container {
+  margin-top: 20px;
   /* 档案头部 */
 }
 .client-info-container .file-head {
@@ -15,6 +16,9 @@
 }
 .client-info-container .file-head .head-row .file-time span {
   margin-right: 45px;
+}
+.client-info-container .file-head .head-row .client-name {
+  font-size: 20px;
 }
 .client-info-container .file-head .head-row .client-icon {
   transform: translateY(50%);

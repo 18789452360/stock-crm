@@ -2,7 +2,7 @@
  * Created by Administrator on 2017-09-28.
  * 部门管理
  */
-require(['vue', 'layui', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 'text!/assets/popup/edit-department.html', 'text!/assets/popup/add-department.html', 'text!/assets/popup/edit-depart-struct.html'], function (Vue, layui, ajaxurl, layers, jstree, tool, common, editorDepartment, addDepartment, editDepartStruct) {
+require(['layui', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 'text!/assets/popup/edit-department.html', 'text!/assets/popup/add-department.html', 'text!/assets/popup/edit-depart-struct.html'], function (layui, ajaxurl, layers, jstree, tool, common, editorDepartment, addDepartment, editDepartStruct) {
 
     var init = {
         /**
@@ -41,12 +41,15 @@ require(['vue', 'layui', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 'text
                     }else{
                         layers.toast(result.message)
                     }
-                    layers.closed(loading);
                 },
                 error: function(){
                     layers.toast("网络异常!");
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             });
         },
         /**
@@ -144,7 +147,6 @@ require(['vue', 'layui', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 'text
                         layers.toast('联系人不能为空!');
                         return;
                     }
-                    console.log(init.reg.textPhone)
                     if(!new RegExp(init.reg.textPhone).test(mobile)){
                         layers.toast('联系电话格式不正确!');
                         return;
@@ -192,10 +194,7 @@ require(['vue', 'layui', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 'text
                                 setTimeout(function(){
                                     window.location.reload();
                                 },1000);
-                            } else if (result.code == -2) {
-                                layers.closed(index);
-                                layers.toast(result.message);
-                            }else{
+                            } else {
                                 layers.toast(result.message)
                             }
                         },

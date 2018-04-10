@@ -1,6 +1,7 @@
 <!-- 导入客户询问框 -->
 <div class="import-usr-container">
     <div class="import-usr-group">
+        <!--上传组件-->
         <div class="file-upload-container clearfix">
             <span class="title pull-left">文件</span>
             <div class="file-container">
@@ -10,17 +11,30 @@
                 <span class="warning">请将excel另存为(CSV逗号分隔 *.csv)再上传</span>
             </div>
         </div>
-        <div class="select-container clearfix">
+        <!--来源选择器-->
+        <div class="select-container clearfix" style="margin-bottom: 15px">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span> 来源</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="from" class="fromOption"></select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--分组选择器-->
+        <div class="select-container group clearfix">
             <form class="layui-form" action="">
                 <div class="layui-form-item">
                     <label class="layui-form-label">移动至分组</label>
                     <div class="layui-input-block">
-                        <select name="interest" lay-filter="group" class="selectOptionWrap"></select>
+                        <select name="interest" lay-filter="group" class="groupOption"></select>
                     </div>
                 </div>
             </form>
-            <span class="ok-upload" style="font-size: 0;color: #fff;">上传</span>
         </div>
+        <!--隐藏 trigger 触发上传-->
+        <span class="ok-upload" style="font-size: 0;color: #fff;">上传</span>
     </div>
     <div class="btn">
         <p>
@@ -30,9 +44,16 @@
     </div>
 </div>
 
-<script id="selectOption" type="text/html">
+<script id="groupOption" type="text/html">
     <option value="">请选择分组</option>
     {? each data as value i ?}
     <option value="{? value.type ?}">{? value.name ?}</option>
+    {? /each ?}
+</script>
+
+<script id="fromOption" type="text/html">
+    <option value="">请选择来源</option>
+    {? each data as value key ?}
+    <option value="{? key ?}">{? value ?}</option>
     {? /each ?}
 </script>

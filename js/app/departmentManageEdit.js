@@ -11,16 +11,10 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
          */
         initTree: function() {
             $("#jstree").jstree({
-                //'core': {
-                //    'check_callback': true
-                //},
                 'plugins': ['types', 'dnd'],
                 "types" : {
                     "root" : {
                         "icon" : "32px.png"
-                    },
-                    "default" : {
-//                    "icon" : "glyphicon glyphicon-file"
                     }
                 }
             });
@@ -75,9 +69,11 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
                         //layers.toast(result.message)
                         layers.closed(loading);
                     }
+                    layers.closed(loading);
                 },
                 error: function(){
-                    layers.toast("网络异常!")
+                    layers.toast("网络异常!");
+                    layers.closed(loading);
                 }
             });
         },
@@ -233,11 +229,17 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
             $("#jstree").on("click", ".tree-editor" ,function() {
                 var $parentEdit = $(this).siblings(".tree-partment"),
                     editVal = $parentEdit.html(), // 获取当前元素下面的值
-                    editID = $parentEdit.attr("data-id"); // 获取当前元素下的id
+                    editID = $parentEdit.attr("data-id"), // 获取当前元素下的id
+                    childPidArr = [];
                 var parentID = $(this).parent("a").parent("li")
                     .parent("ul").parent("li").attr("data-id"), // 获取上一级父元素的id
                     parentVal = $(this).parent("a").parent("li")
                         .parent("ul").siblings("a").children(".tree-partment").text(); // 获取上一级父元素的值
+                var $childArr = $(this).parent("a").siblings('ul').find('.tree-editor');
+                $childArr.each(function() { // 获取当前编辑的部门下面所有子部门的父级pid
+                    childPidArr.push($(this).attr('data-pid'));
+                });
+                var newChildPidArr = init.uniqueArr(childPidArr); // 数组去重
                 layers.open({
                     title: '编辑部门',
                     area: ['600px', '500px'],
@@ -262,17 +264,20 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
                         $(".confirm-tip").on("click", ".select-parent", function() {
                             var that = $(this),
                                 dataID = that.attr("data-id"),
+                                dataPid = that.attr("data-pid"),
                                 dataHtml = that.html(),
                                 topParent = $(".select-parent");
                             topParent.val(dataHtml);
                             topParent.attr("data-id", dataID);
+                            topParent.attr("data-pid", dataPid);
                         })
                     },
                     btn2: function() {
                         // 部门结构-保存(当前)
                         var id = $(".add-parent").attr("data-id"),
                             department_name = $(".add-parent").val(),
-                            pid = $(".select-parent").attr("data-id");
+                            pid = $(".select-parent").attr("data-id"),
+                            childPid = $(".select-parent").attr("data-pid");
                         // 获取路由参数id的值
                         var urls = tool.getUrlArgs(), fPid = '';
                         if(urls.has){
@@ -285,6 +290,13 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
                         // 判断上级部门为空
                         if($(".select-parent").val() == '') {
                             pid = fPid; // 设置pid为客户id
+                        }
+                        // 判断用户是否移动到部门的子部门下边
+                        for(var i = 0; i < newChildPidArr.length; i ++) {
+                            if(newChildPidArr[i] === childPid) {
+                                layers.toast('父级部门不能移动到子级部门!');
+                                return;
+                            }
                         }
                         tool.ajax({
                             url: ajaxurl.department.editDepartment,
@@ -365,6 +377,20 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
                 }
             });
             return newArr;
+        },
+        /**
+         * 数组去重
+         */
+        uniqueArr: function(arr){
+            var obj = {};
+            var result = [];
+            for(var i in arr){
+                if(!obj[arr[i]]){
+                    obj[arr[i]] = true;
+                    result.push(arr[i]);
+                }
+            }
+            return result;
         }
     };
 
@@ -377,7 +403,7 @@ require(['layui', 'template', 'ajaxurl', 'layers', 'jstree', 'tools', 'common', 
             dataParent: [], // 部门列表
             dataParentEdit: [], // 编辑部门列表
             nextAllLength: '', // 保存删除下来的值
-            dataName: '' // 公司的值
+            dataName: '', // 公司的值
         },
         methods: {
             // 部门结构-保存

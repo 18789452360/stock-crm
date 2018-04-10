@@ -53,12 +53,15 @@ require(["layui", "layers", "common", "tools", "ajaxurl", "jsTree", "jquery.cook
                         }else{
                             layers.toast(result.message);
                         }
-                        layers.closed(loading);
                     },
                     error: function(){
                         layers.toast("网络异常!");
-                        layers.closed(loading);
-                    }
+                    },
+                    complete:function(){
+                        setTimeout(function(){
+                            layers.closed(loading);
+                        },200)
+                    },
                 });
             })
         },
@@ -152,30 +155,6 @@ require(["layui", "layers", "common", "tools", "ajaxurl", "jsTree", "jquery.cook
         home.getAllList();
         home.jurQuery();
     };
-    /**
-     * 注册全局过滤组件
-     */
-    Vue.filter("isMaxLen", function (str, len) {
-        /**
-         *  输入的只有中文,一个中文占两个字符
-         *  @param str 传入的字符串
-         *  @param len 限制的字符串的长度
-         */
-        var regexp = /[^\x00-\xff]/g, // 正则表达式匹配中文
-            strLen = str.replace(regexp, "aa").length; // 获取字符串字节长度
-        if (strLen <= len) { // 当字符串字节长度小于指定的字节长度时
-            return str;
-        }
-        // 假设指定长度内都是中文
-        var m = Math.floor(len/2);
-        for (var i = m, j = str.length; i < j; i++) {
-            // 当截取字符串字节长度满足指定的字节长度
-            if (str.substring(0, i).replace(regexp, "aa").length >= 0) {
-                return str.substring(0, i);
-            }
-        }
-        return str;
-    });
     /**
      * 实例化vue
      */

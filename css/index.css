@@ -1,100 +1,93 @@
-/* 头部及logo用户中心 */
-.home-header {
-  background: #2883E0;
-  height: 66px;
+@charset "utf-8";
+.home-box {
+  height: 240px;
+  background: #fff;
+  padding: 0;
+  border: 1px solid #EAEDEE;
+  border-radius: 5px;
+  margin: 0 9px;
 }
-.home-header .layui-container {
-  margin-top: 0;
-  padding: 0 30px;
-}
-.home-header .layui-container .header-title {
-  float: left;
-  color: #fff;
-  font-size: 28px;
-  line-height: 66px;
+.home-box .header-title {
+  text-align: center;
+  color: #2883e0;
+  font-size: 2.5rem;
+  padding: 20px 10px;
   font-weight: bold;
+  height: 100px;
+  line-height: 100px;
+  border-bottom: 1px solid #eeeeee;
 }
-.home-header .layui-container .header-right {
-  float: right;
-  text-align: right;
+.home-box .header-right {
+  position: relative;
+  padding: 20px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 }
-.home-header .layui-container .header-right .home-user {
-  color: #fff;
-  font-size: 14px;
-  vertical-align: middle;
-  padding: 0 15px;
-}
-.home-header .layui-container .header-right .user-photo {
-  display: inline-block;
-  vertical-align: middle;
+.home-box .header-right .user-photo {
   height: 66px;
-  margin-right: 10px;
+  display: inline-block;
+  width: auto;
 }
-.home-header .layui-container .header-right .user-photo img {
+.home-box .header-right .user-photo img {
   width: 45px;
   height: 45px;
   margin-top: 10px;
   border-radius: 50px;
 }
-.home-header .layui-container .header-right .examine-select {
-  position: relative;
-  display: inline-block;
+.home-box .header-right .user-data {
   padding: 0px;
+  width: 90%;
+  overflow: hidden;
+  margin-left: 20px;
 }
-.home-header .layui-container .header-right .examine-select .filter-a {
-  color: #fff;
-  font-size: 16px;
+.home-box .header-right .user-data .filter-a {
+  color: #2883e0;
+  font-size: 20px;
   border: 0;
 }
-.home-header .layui-container .header-right .examine-select .filter-a i {
+.home-box .header-right .user-data .filter-a i {
   font-size: 30px;
-  color: #fff;
+  color: #000;
   margin-left: 0;
 }
-.home-header .layui-container .header-right .examine-select .filter-ul {
-  display: none;
-  transition: all 1s;
-  position: absolute;
-  top: 55px;
-  left: -40px;
-  width: 175px;
-  text-align: left;
-  background: #fff;
-  z-index: 9;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+.home-box .header-right .user-data .filter-ul {
+  top: 50px;
+  left: 100px;
+  width: 100%;
+  overflow: hidden;
 }
-.home-header .layui-container .header-right .examine-select .filter-ul li {
+.home-box .header-right .user-data .filter-ul li {
+  float: left;
   height: 40px;
+  width: 33%;
   line-height: 40px;
 }
-.home-header .layui-container .header-right .examine-select .filter-ul li a {
-  padding: 0 20px;
-  color: #666;
+.home-box .header-right .user-data .filter-ul li a {
+  color: #999;
+  display: block;
+  font-size: 16px;
+}
+.home-box .header-right .user-data .filter-ul li:hover a {
+  color: #2883e0;
+}
+.home-box .header-right .user-data .open {
   display: block;
 }
-.home-header .layui-container .header-right .examine-select .filter-ul li:hover {
-  background: #f7f7f7;
-  color: #222;
-}
-.home-header .layui-container .header-right .examine-select .filter-ul li:hover a {
-  color: #222;
-}
-.home-header .layui-container .header-right .examine-select .open {
-  display: block;
-}
-.home-header .layui-container .header-right .examine-select .examine-filter {
+.home-box .header-right .user-data .examine-filter {
   border: 0px;
 }
-.home-header .layui-container .header-right .email-icon {
+.home-box .header-right .email-icon {
   float: right;
   margin: 15px 25px 0 0;
 }
-.home-header .layui-container .header-right .email-icon .icon-email {
+.home-box .header-right .email-icon .icon-email {
   position: relative;
   font-size: 36px;
   color: #fff;
 }
-.home-header .layui-container .header-right .email-icon .icon-email .email-total {
+.home-box .header-right .email-icon .icon-email .email-total {
   position: absolute;
   top: -2px;
   left: 25px;
@@ -105,6 +98,13 @@
   border-radius: 10px;
 }
 /* 主内容区域 */
+.index {
+  position: absolute;
+  top: 46px;
+  height: calc(100% - 46px);
+  overflow: auto;
+  width: 100%;
+}
 .index-container {
   padding: 0 20px;
   margin-top: 20px;
@@ -132,7 +132,7 @@
 .index-container .layui-row .home-title .home-dispose .dispose-cont {
   height: 200px;
   margin: 20px;
-  background: #FAFAFA;
+  background: #fff;
 }
 .index-container .layui-row .home-title .home-dispose .dispose-cont .dispose-list {
   padding: 0;
@@ -212,7 +212,7 @@
 }
 .index-container .layui-row .home-message .list-classify .classify-li .details {
   color: #222;
-  width: 60%;
+  width: 50%;
   display: inline-block;
   float: left;
 }
@@ -266,7 +266,36 @@
   color: #999;
   font-size: 16px;
 }
-@charset "utf-8";
+@media screen and (max-width: 768px) {
+  .home-box .header-title {
+    font-size: 32px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .home-box .header-title {
+    font-size: 25px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .home-box .header-title {
+    font-size: 28px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .home-box .header-title {
+    font-size: 32px;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .home-box .header-title {
+    font-size: 40px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .home-box .header-title {
+    font-size: 30px;
+  }
+}
 /**
  * 音频播放
  */
@@ -383,4 +412,134 @@
  */
 .jp-state-playing .jp-type-single .jp-controls .jp-play {
   background-position: 0 bottom;
+}
+.global-head {
+  width: 100%;
+  height: 44px;
+  border-bottom: 2px solid #2883e0;
+  background-color: #ffffff;
+  position: relative;
+  display: flex;
+  display: -webkit-flex;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+.global-head .tab-list {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row nowrap;
+  height: 44px;
+  width: calc(100% - 230px);
+}
+.global-head .tab-list li {
+  line-height: 44px;
+  color: #333;
+  flex: 1;
+  max-width: 250px;
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  border-right: 1px solid #eee;
+  min-width: 30px;
+}
+.global-head .tab-list li a {
+  display: inline-block;
+  float: left;
+  width: calc(100% - 30px);
+  padding-left: 5%;
+  font-size: 1em;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.global-head .tab-list li a:active,
+.global-head .tab-list li a:hover {
+  color: #333;
+}
+.global-head .tab-list li .icon-cha {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #999;
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+.global-head .tab-list .tab-item {
+  background-color: #ffffff;
+  text-indent: 1%;
+}
+.global-head .tab-list .tab-item:hover {
+  background-color: #f5f5f5;
+}
+.global-head .tab-list li.active {
+  background-color: #2883e1;
+  color: #ffffff;
+  min-width: 150px;
+  border-right-color: #2883e1;
+}
+.global-head .tab-list li.active:hover {
+  background-color: #2883e1;
+}
+.global-head .tab-list li.active a {
+  color: #ffffff;
+}
+.global-head .tab-list li.active .icon-cha {
+  color: #fff;
+}
+.global-head .tab-list .first-item {
+  background-color: #ffffff;
+  text-align: center;
+}
+.global-head .operate-list {
+  position: absolute;
+  right: 0;
+  width: 230px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.global-head .operate-list li {
+  flex: 1;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-left: 1px solid #eee;
+  color: #999;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.global-head .operate-list li:hover {
+  color: #2883e1;
+}
+.global-head .operate-list li:active {
+  color: #0162c5;
+}
+.global-head .operate-list li .J_menuItem {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.global-head .operate-list li .icon-email {
+  font-size: 40px;
+  position: relative;
+  color: #ccc;
+}
+.global-head .operate-list li .icon-email span {
+  position: absolute;
+  font-size: 12px;
+  top: 0;
+  right: -10px;
+}
+.iframe-wrap {
+  width: 100%;
+  position: absolute;
+  top: 46px;
+  height: calc(100% - 46px);
+  overflow-y: hidden;
+}
+.iframe-wrap iframe {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }

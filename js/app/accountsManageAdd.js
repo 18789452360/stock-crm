@@ -6,7 +6,7 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
     var home = {
         reg:{
             uPattern: /^[a-zA-Z0-9_]{4,30}$/, // 验证用户名
-            tPattern: /^1[3|4|5|7|8]\d{9}$/, // 验证手机号
+            tPattern: /^1[2|3|4|5|6|7|8|9]\d{9}$/, // 验证手机号
             pPattern: /^[\w]{6,30}$/ // 验证密码
         },
         form: '',
@@ -47,15 +47,29 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                         }
                     }
                 });
-
+                form.on('select(build_room)', function(data){
+                    vm.buildRoom = data.value;
+                    if(vm.seaNumber == '') { // 如果用户值选择了楼栋,未选择坐席号或坐席号为空则退出,不做验证
+                        return;
+                    }
+                    home.checkSeat(vm.buildRoom, vm.seaNumber);
+                });
                 //表单验证
                 form.on('submit(formSave)',function(data){
-                    if(data){
-                        if(data.field.avatar == undefined){
-                            data.field.avatar = vm.image;
+                    home.checkSeat(vm.buildRoom, vm.seaNumber, function() {
+                        if(data){
+                            if(data.field.avatar == undefined){
+                                data.field.avatar = vm.image;
+                            }
+                            if(data.field.build_room == '' && vm.seaNumber != '') {
+                                layers.toast("楼栋不能为空")
+                            } else if (vm.checkSeat) { // 判断坐席号是否重复
+                                layers.toast("坐席号不能重复");
+                            } else {
+                                that.addUser(data.field);
+                            }
                         }
-                        that.addUser(data.field);
-                    }
+                    });
                     return false;
                 });
                 that.form = form;
@@ -101,24 +115,27 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
          * @param {[type]} datas [description]
          */
         addUser: function(datas){
-            if(!$.isEmptyObject(datas)){
-                tools.ajax({
-                    url: ajaxurl.user.addUser,
-                    data: datas,
-                    type: 'post',
-                    success: function(result){
-                        if(result.code == 1){
-                            layers.toast('新增成功');
-                            setTimeout(function(){
-                                common.closeTab();
-                            },1000);
-                        }else{
-                            layers.toast(result.message);
+            if(vm.isTrue) {
+                if(!$.isEmptyObject(datas)){
+                    vm.isTrue = false;
+                    tools.ajax({
+                        url: ajaxurl.user.addUser,
+                        data: datas,
+                        type: 'post',
+                        success: function(result){
+                            if(result.code == 1){
+                                layers.toast('新增成功');
+                                setTimeout(function(){
+                                    common.closeTab(true);
+                                },1000);
+                            }else{
+                                layers.toast(result.message);
+                            }
                         }
-                    }
-                })
-            }else{
-                throw new Error('参数错误！');
+                    })
+                }else{
+                    throw new Error('参数错误！');
+                }
             }
         },
         /**
@@ -198,6 +215,43 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
             })
         },
         /**
+         * [checkmobile description] 检测用户坐席号是否重复
+         * @param  {[type]} mobile [description]
+         * @return {[type]}        [description]
+         */
+        checkSeat: function(build, seatNum, callback){
+            tools.ajax({
+                url: ajaxurl.customer.checkBuildWithSeatNum,
+                type: 'post',
+                data:{
+                    build: build,
+                    seat_num: seatNum,
+                    employee_id: ''
+                },
+                success: function(result){
+                    if(result.code == 1){ // 不存在
+                        vm.checkTips.seatNumber = {
+                            err: false,
+                            text: ''
+                        };
+                        vm.checkSeat = false;
+                    } else if (result.code == -1){
+                        vm.checkTips.seatNumber = {
+                            err: true,
+                            text: result.message
+                        };
+                        vm.checkSeat = true;
+                    } else {
+                        vm.checkTips.seatNumber = {
+                            err: true,
+                            text: result.message
+                        }
+                    }
+                    typeof callback === 'function' && callback.call(this);
+                }
+            })
+        },
+        /**
          * 筛选--组织架构搜索
          */
         filterOrgSearch: function () {
@@ -212,7 +266,6 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                 vm.selectedOrgUsr = [];
                 var addItem = {id: data.value.split(',')[0] * 1, department_name: data.value.split(',')[1]};
                 vm.selectedOrgUsr.push(addItem);
-                //vm.selectedOrgUsr = home.unique(vm.selectedOrgUsr).reverse();
             });
             setTimeout(function(){
                 home.form.render()
@@ -246,24 +299,27 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
             BasicRoom: [], //所属楼栋
             showavatar: false,
             image: '',
+            buildRoom: '', // 所属楼栋
+            seaNumber: '', // 坐席号
+            checkSeat: false, // 验证坐席号是否重复
             checkTips:{//用户检测是否存在
                 username: {err:false, text:''},
-                mobile: {err:false, text:''}
+                mobile: {err:false, text:''},
+                seatNumber: {err:false, text:''}
             },
             selectedOrgUsr: [], //暂时记录组织架构的选中
             readerOrgUsr: {id: '', department_name:''}, //渲染组织架构
             showpop: false,
             OrgSearchArr: [], //缓存组织架构搜索结果
+            isTrue: true
         },
         methods: {
             cancelAdd:function(){
                 common.closeTab();
             },
-            checkusername: function(event){ //验证用户名
+            checkNames: function(event){ //验证用户名
                 var name = $.trim(event.target.value);
-                if(name){
-                    home.checkusername(name);
-                }
+                home.checkusername(name);
             },
             checkmobile: function(event){//验证手机号
                 var mobile = $.trim(event.target.value);
@@ -271,10 +327,14 @@ require(["vue", "layui", 'common', 'ajaxurl' ,'tools', 'layers', 'upload', 'jque
                     this.checkTips.mobile = {
                         err: true,
                         text: '手机号码不合法'
-                    }
+                    };
                     return;
                 }
                 home.checkmobile(mobile);
+            },
+            checkSeats: function(event){ // 验证坐席号
+                var seat_number = $.trim(event.target.value);
+                home.checkSeat(vm.buildRoom, vm.seaNumber);
             },
             orgSelectItem: function(e, type){
                 if(type != undefined){

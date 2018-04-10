@@ -1,40 +1,40 @@
-require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers'], function (moment, layui, common, ajaxurl, tool, layers) {
+require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers', 'text!/assets/popup/document-list.html', 'page', 'template'], function (moment, layui, common, ajaxurl, tools, layers, docList, page, template) {
+
+    // 初始化 template 界定符
+    template.config('openTag', '{?');
+    template.config('closeTag', '?}');
 
     var main = {
         /**
-         * 财务审核列表
-         */
-        getWaitList: function (callback) {
-            tool.ajax({
-                url: ajaxurl.examine.examine_list,
-                type: 'post',
-                data: {
-                    keywords: '',
-                    pagesize: 10, // 每页显示条数
-                    curpage: 1 // 当前页
-                },
-                success: function (result) {
-                    if (result.code === 1) {
-                        vm.tableDataAll = result.data.list;
-                        vm.getWaitListTotal = result.data.all_num;
-
-                        typeof callback === 'function' && callback.call(this);
-                    } else {
-                        layers.toast(result.message);
-                    }
-                }
-            });
-        },
-        /**
-         * 搜索表单
+         * 初始化 Layui 搜索组件/tab 组件
          */
         searchForm: function () {
-            layui.use(['form'], function () {
-                var form = layui.form;
-                form.on('submit(formSearchAll)', function (data) {
-                    vm.contractConditon.keywords = data.field.title;
-                    vm.contractConditon.curpage = 1;
+            var _this = this;
+            layui.use(['form', 'element'], function () {
+                var form = layui.form,
+                    element = layui.element,
+                    attachFileLoadedFlag = false;// 附件是否已加载过
+                // 文档页搜索
+                form.on('submit(docSearch)', function (data) {
+                    vm.docSearchContent = data.field.titleOrName.trim();
+                    _this.getDocumentList('', vm.docSearchContent);
                     return false;
+                });
+                // 附件页搜索
+                form.on('submit(attachSearch)', function (data) {
+                    vm.attachSearchContent = data.field.titleOrName.trim();
+                    // 附件搜索
+                    _this.getAttachFileList('', '', '', vm.attachSearchContent);
+                    return false;
+                });
+                // 懒加载附件页列表数据
+                element.on('tab', function (data) {
+                    if (data.index === 1 && !attachFileLoadedFlag) {
+                        attachFileLoadedFlag = true;
+                        _this.getAttachFileList('', function () {
+                            _this.setAttachListPage();
+                        });
+                    }
                 });
             })
         },
@@ -72,19 +72,320 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers'], function (m
             };
         },
         /**
-         * 搜索框着色变蓝
+         * 删除文档二次确认
          */
-        searchBlur: function (event) {
-            var lightVal = event.target.value;
-            if (lightVal !== '') {
-                $(event.target).addClass("inputlight");
-                $(event.target).siblings("button").addClass("buttonlight");
+        delDocArticleAlert: function (id) {
+            var _this = this;
+            var alertStr = '<div class="confirm-tips">' +
+                '<p>文档删除后，所有人不可见，</p><p>确认删除？</p>' +
+                '</div>';
+            layers.confirm({
+                content: alertStr,
+                btn2: function (index, layero) {
+                    _this.delDocArticle(id);
+                }
+            });
+        },
+        /**
+         * 附件列表弹出层
+         */
+        showDocumentList: function (id) {
+            var _this = this;
+            var attachList;// 查询得到的附件数组
+            _this.getAttachFileList(id, function (attachArr) {
+                attachList = attachArr;
+                if (attachList.length) {
+                    layers.open({
+                        btn: null,
+                        title: '文档附件',
+                        area: ['604px', '373px'],
+                        content: docList,
+                        success: function (layero, index) {
+                            var $layero = $(layero);
+                            // 渲染行
+                            $layero.find('#docListWrap').html(
+                                template('docListItem', {
+                                    data: attachList
+                                })
+                            );
+                            // 附件下载
+                            $layero.on('click', '.icon-export', function () {
+                                main.downAttach($(this).data('id'));
+                            });
+                            // 关闭
+                            $layero.find('.cls-btn').click(function () {
+                                layers.closed(index);
+                            })
+                        }
+                    });
+                } else {
+                    layers.toast('该文档不含附件');
+                }
+            });
+        },
+        /**
+         * 获取当前文档库id
+         */
+        getCurDocId: function (callback) {
+            var result = tools.getUrlArgs();
+            if ($.isEmptyObject(result.data)) {
+                throw new Error('页面缺少必要的 ID 参数: docId');
             } else {
-                $(event.target).removeClass("inputlight");
-                $(event.target).siblings("button").removeClass("buttonlight");
+                if (result.data.docId) {
+                    vm.docId = result.data.docId;
+                    vm.materialId = result.data.materialId || null;
+                } else {
+                    throw new Error('页面缺少必要的参数: 文档库ID: docId')
+                }
             }
+            typeof callback === 'function' && callback.call(this);
+        },
+        /**
+         * 获取当前文档库分类
+         */
+        getCategoryList: function () {
+            tools.ajax({
+                url: ajaxurl.material.docCategoryList,
+                data: {},
+                type: 'get',
+                success: function (res) {
+                    if (res.code === 1) {
+                        vm.categoryList = res.data;
+                    } else {
+                        layers.toast(res.message);
+                    }
+                }
+            });
+        },
+        /**
+         * 获取当前文档库列表
+         */
+        getDocumentList: function (page, keywords, callback) {
+            var toastIndex;
+            tools.ajax({
+                url: ajaxurl.material.docList,
+                data: {
+                    keywords: keywords || '',
+                    document_type: vm.docListCondition.document_type,
+                    start_time: vm.docListCondition.start_time,
+                    end_time: vm.docListCondition.end_time,
+                    material_document_id: vm.docId,
+                    pagesize: vm.docPageSize,
+                    curpage: page || 1
+                },
+                type: 'post',
+                beforeSend: function () {
+                    layers.load(function (indexs) {
+                        toastIndex = indexs;
+                    });
+                },
+                success: function (res) {
+                    if (res.code === 1) {
+                        // 给每一项添加 checked 属性
+                        var originalList = res.data.list || [];
+                        originalList.forEach(function (item) {
+                            item.checked = false;
+                        });
+                        vm.docList = originalList;
+                        vm.docTotal = +res.data.all_num;
+                        // 成功后的回调
+                        typeof callback === 'function' && callback.call(this);
+                    } else {
+                        layers.toast(res.message);
+                    }
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        layers.closed(toastIndex)
+                    }, 200)
+                }
+            });
+        },
+        /**
+         * 处理文档页分页
+         */
+        setListPage: function () {
+            var _this = this;
+            page.init({
+                elem: 'doc-page',
+                count: vm.docTotal,// 总条数
+                limit: vm.docPageSize,// 每页多少条
+                jump: function (obj, flag) {
+                    if (!flag) {
+                        $('.main-wrap').animate({scrollTop: 0}, 200);
+                        var curPage = obj.curr;
+                        _this.getDocumentList(curPage);
+                    }
+                }
+            });
+        },
+        /**
+         * 处理附件页分页
+         */
+        setAttachListPage: function () {
+            var _this = this;
+            page.init({
+                elem: 'page',
+                count: vm.attachTotal,// 总条数
+                limit: vm.docPageSize,// 每页多少条
+                jump: function (obj, flag) {
+                    if (!flag) {
+                        $('.main-wrap').animate({scrollTop: 0}, 200);
+                        var curPage = obj.curr;
+                        _this.getAttachFileList('', '', curPage);
+                    }
+                }
+            });
+        },
+        /**
+         * 删除指定文档, id 可接受多个1,2,3,4和单个
+         */
+        delDocArticle: function (id) {
+            var _this = this;
+            tools.ajax({
+                url: ajaxurl.material.delDocArticle,
+                data: {
+                    material_document_article_id: id
+                },
+                type: 'post',
+                success: function (res) {
+                    if (res.code === 1) {
+                        layers.toast('删除文档成功');
+                        _this.getDocumentList('', '', function () {
+                            _this.setListPage();
+                        });
+                    } else {
+                        layers.toast(res.message);
+                    }
+                }
+            });
+        },
+        /**
+         * 查看当前文档库附件 [可返回指定文档附件和全部附件]
+         */
+        getAttachFileList: function (id, callback, page, keywords) {
+            var _this = this;
+            tools.ajax({
+                url: ajaxurl.material.attachList,
+                data: {
+                    keywords: keywords || '',
+                    material_document_id: vm.docId,
+                    material_document_article_id: id || '',
+                    start_time: vm.attachListCondition.start_time,
+                    end_time: vm.attachListCondition.end_time,
+                    pagesize: vm.attachPageSize,
+                    curpage: page || 1
+                },
+                type: 'post',
+                success: function (res) {
+                    if (res.code === 1) {
+                        var newList = res.data.list || [];
+                        // 转换文件类型
+                        newList.forEach(function (item) {
+                            // 新增字段
+                            item.suffix_style = _this.transferSuffix(item.attach_suffix);
+                        });
+                        if (id) {
+                            typeof callback === 'function' && callback.call(this, newList);
+                        } else {
+                            vm.attachTotal = res.data.all_num;
+                            vm.attachList = newList;
+                            typeof callback === 'function' && callback.call(this);
+                        }
+                    } else {
+                        layers.toast(res.message);
+                    }
+                }
+            });
+        },
+        /**
+         * 附件文件类型处理
+         */
+        transferSuffix: function (sfx) {
+            /*  附件类型处理:
+                type  suffix      description
+                ------------------------------
+                1     zip         icon-zip
+                2     doc|docx    icon-doc
+                3     png|jpg     icon-tupian
+                4     ppt         icon-ppt
+                5     xls|xlsx    icon-excel
+                6     other       icon-wendang
+            */
+            var result;
+            switch (sfx) {
+                case 'zip':
+                    result = 'icon-zip';
+                    break;
+                case 'doc':
+                    result = 'icon-doc';
+                    break;
+                case 'docx':
+                    result = 'icon-doc';
+                    break;
+                case 'png':
+                    result = 'icon-tupian';
+                    break;
+                case 'jpg':
+                    result = 'icon-tupian';
+                    break;
+                case 'ppt':
+                    result = 'icon-ppt';
+                    break;
+                case 'xls':
+                    result = 'icon-excel';
+                    break;
+                case 'xlsx':
+                    result = 'icon-excel';
+                    break;
+                case 'other':
+                    result = 'icon-wendang';
+                    break;
+                default:
+                    result = 'icon-wendang';
+            }
+            return result;
+        },
+        /**
+         * 附件下载
+         */
+        downAttach: function (id) {
+            var loadingIndex,
+                _this = this;
+            tools.ajax({
+                url: ajaxurl.material.attachDownload,
+                data: {
+                    attach_id: id
+                },
+                type: 'post',
+                beforeSend: function () {
+                    layers.load(function (indexs) {
+                        loadingIndex = indexs
+                    })
+                },
+                success: function (res) {
+                    if (res.code === 1) {
+                        // 这样处理避免图片直接打开了
+                        var a = document.createElement('a');
+                        a.download = true;
+                        a.href = res.data;
+                        a.click();
+                        // 更新附件列表下载次数数据
+                        _this.getAttachFileList('', _this.setAttachListPage);
+                    } else {
+                        layers.toast(res.message);
+                    }
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        layers.closed(loadingIndex)
+                    }, 200)
+                }
+            });
         }
+
     };
+
 
     /**
      * 实例化 ViewModel
@@ -92,81 +393,141 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers'], function (m
     var vm = new Vue({
         el: '#app',
         data: {
-            tableDataAll: [], //待审核合同列表
-            tableDataWait: [], //全部处理记录
-            contractConditon: {// 全部筛选条件
-                compliance_status: '',
+            docId: '', // 当前文档库 id
+            materialId: '', // 资料库 id
+            categoryList: '',// 文档库分类
+            checkedCategory: [],// 已选文档分类id
+            docTotal: '', // 当前文档库文档总数
+            attachTotal: '', // 当前文档库所有附件总数
+            docPageSize: 10, // 当前文档库默认展示条数
+            attachPageSize: 10, // 当前附件库默认展示条数
+            docSearchContent: '',// 文档页搜索内容
+            attachSearchContent: '',// 附件页搜索内容
+            docList: [], // 当前文档库列表
+            docCheckedIdArr: [],// 已选中的文档
+            attachList: [], // 当前附件列表
+            docListCondition: {// 文档列表筛选条件
                 start_time: '',
                 end_time: '',
-                post_start_time: '',
-                post_end_time: '',
-                pagesize: 10,
-                curpage: 1
+                document_type: ''
             },
-            conditionStr: ['合规状态', '操作时间', '审核状态'],
-            conditionTime: ['今天', '昨天', '最近7天', '最近30天', '已合规', '未合规', '待审核', '审核通过', '审核拒绝'],
+            attachListCondition: {// 附件页列表筛选条件
+                start_time: '',
+                end_time: ''
+            },
             condition: [
-                {name: '合规状态', show: false, active: false},
-                {name: '操作时间', show: false, active: false},
-                {name: '审核状态', show: false, active: false}
+                {name: '最近更新时间', show: false, active: false},
+                {name: '创建时间', show: false, active: false}
             ],
+            conditionStr: ['最近更新时间', '创建时间'],
+            conditionTime: ['今天', '昨天', '最近7天', '最近30天'],
             inputTimeA: '',
             inputTimeB: ''
         },
         methods: {
-            // 全选所有
+            // 下载附件
+            downAttach: function (id) {
+                main.downAttach(id);
+            },
+            // 展示附件
+            showDocList: function (id) {
+                if (id) {
+                    main.showDocumentList(id);
+                } else {
+                    throw new Error('缺少必要的参数 文档Id: article_id');
+                    return false;
+                }
+            },
+            // 删除文档
+            delDocArticle: function (id) {
+                id = $.type(id) === 'string'
+                    ? id
+                    : this.docCheckedIdArr.join(',');
+                id ? main.delDocArticleAlert(id)
+                    : layers.toast('请选择文档')
+            },
+            // 文档页全选所有
             checkAllUsr: function () {
                 var _this = this;
                 if (this.allChecked) {// 全选了
                     // 遍历当前用户数组, 添加到已选择中
-                    if (this.checkedIdArr.length) {
-                        this.tableDataWait.forEach(function (item) {
-                            if (_this.checkedIdArr.indexOf(item.cooper_id) === -1) {
-                                _this.checkedIdArr.push(item.cooper_id);
+                    if (this.docCheckedIdArr.length) {
+                        this.docList.forEach(function (item) {
+                            if (_this.docCheckedIdArr.indexOf(item.article_id) === -1) {
+                                _this.docCheckedIdArr.push(item.article_id);
                             }
                         })
                     } else {
                         // 已选择中为空
-                        this.tableDataWait.forEach(function (item) {
-                            _this.checkedIdArr.push(item.cooper_id);
+                        this.docList.forEach(function (item) {
+                            _this.docCheckedIdArr.push(item.article_id);
                         })
                     }
                 } else {
-                    _this.checkedIdArr = [];
+                    this.docCheckedIdArr = [];
                 }
             },
-            // 选择单个
+            // 文档页选择单个
             checkUsr: function (checkId) {
                 var _this = this;
-                if (this.checkedIdArr.indexOf(checkId) === -1) {
-                    this.checkedIdArr.push(checkId);
+                if (this.docCheckedIdArr.indexOf(checkId) === -1) {
+                    this.docCheckedIdArr.push(checkId);
                 } else {
-                    this.checkedIdArr.forEach(function (item, index) {
-                        item === checkId && _this.checkedIdArr.splice(index, 1);
+                    this.docCheckedIdArr.forEach(function (item, index) {
+                        item === checkId && _this.docCheckedIdArr.splice(index, 1);
                     });
                 }
             },
-            // 选择备注
-            checkRemark: function (e, id) {
+            // 文档分类筛选
+            checkCategory: function (e, id) {
                 var _this = this;
-                $(e.target).toggleClass('tag-active');
-                if (this.checkedMarkList.indexOf(id) === -1) {
-                    this.checkedMarkList.push(id);
-                } else {
-                    this.checkedMarkList.forEach(function (item, index) {
-                        item === id && _this.checkedMarkList.splice(index, 1);
-                    })
+                var $curTarget = $(e.target);
+                var $list = $curTarget.parent().parent();
+                var len = $list.find('a').length;
+                if (id === -1) { // 无分类
+                    if ($curTarget.hasClass('tag-active')) {
+                        $curTarget.removeClass('tag-active');
+                        this.checkedCategory = [];
+                        this.docListCondition.document_type = '';
+                        $list.find('a').eq(0).addClass('tag-active');
+                    } else {
+                        $list.find('a').each(function () {
+                            $(this).removeClass('tag-active');
+                        });
+                        $curTarget.addClass('tag-active');
+                        this.docListCondition.document_type = -1;
+                    }
+                } else { // 有分类
+                    $list.find('a').eq(0).removeClass('tag-active');
+                    $list.find('a').eq(len - 1).removeClass('tag-active');
+                    $curTarget.toggleClass('tag-active');
+                    if (this.checkedCategory.indexOf(id) === -1) {
+                        this.checkedCategory.push(id);
+                    } else {
+                        this.checkedCategory.forEach(function (item, index) {
+                            item === id && _this.checkedCategory.splice(index, 1);
+                        })
+                    }
+                    this.docListCondition.document_type = this.checkedCategory.join(',');
+                    if (!this.checkedCategory.length) {
+                        // 当没选任何分类时, 不限 active
+                        $list.find('a').eq(0).addClass('tag-active');
+                    }
                 }
-                this.contractConditon.mark_id = this.checkedMarkList.join(',');
             },
             // 备注不限
-            notLimitedRemark: function (e) {
-                this.checkedMarkList = [];
-                this.contractConditon.mark_id = '';
-                var ul = $(e.target).parent().parent();
-                $(ul).find('a').each(function () {
+            notLimitedCategory: function (e) {
+                // 置空数据
+                this.checkedCategory = [];
+                this.docListCondition.document_type = '';
+
+                // 处理样式
+                var $curTarget = $(e.target);
+                var $list = $curTarget.parent().parent();
+                $list.find('a').each(function () {
                     $(this).removeClass('tag-active');
-                })
+                });
+                $curTarget.addClass('tag-active');
             },
             // 显示筛选条件框
             showCondition: function (index) {
@@ -178,7 +539,7 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers'], function (m
                 });
                 this.condition[index].show = !this.condition[index].show;
             },
-            // 不限
+            // 筛选时间不限
             noCondition: function (e, index) {
                 this.condition[index].show = false;
                 $(e.target).parent().find('a').each(function () {
@@ -186,81 +547,72 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers'], function (m
                 });
                 vm.condition[index].name = vm.conditionStr[index];
                 this.condition[index].active = false;
-                switch (index) {
-                    case 0:// 合规状态
-                        vm.contractConditon.compliance_status = '';
-                        break;
-                    case 1:// 移交时间
-                        vm.contractConditon.start_time = '';
-                        vm.contractConditon.end_time = '';
-                        break;
-                    case 2:// 审核状态
-                        vm.contractConditon.status = '';
-                        break;
-                    default:
-                }
                 $('.lay-date-a-' + index).val('');
                 $('.lay-date-b-' + index).val('');
+                if (index) {// 附件页
+                    this.attachListCondition.start_time = '';
+                    this.attachListCondition.end_time = '';
+                } else {// 文档页
+                    this.docListCondition.start_time = '';
+                    this.docListCondition.end_time = '';
+                }
             },
             // 设置快速筛选时间
-            setCondition: function (e, index, customer) {
-                vm.contractConditon.curpage = 1;
+            setCondition: function (e, index, type) {
                 $(e.target).parent().find('a').each(function () {
                     $(this).removeClass('active');
                 });
-                if (customer) {// 自定义
+                if (type) {// 自定义
                     $(e.target).addClass('active');
                 } else {
                     this.condition[index].show = false;
                     this.condition[index].active = true;
                     vm.condition[index].name = vm.conditionStr[index];
                     vm.condition[index].name += '：' + $(e.target).text();
-                    var quicklyTime = [];
-                    switch ($(e.target).text()) {
-                        case vm.conditionTime[0]:
-                            quicklyTime = main.timeArea().today;
-                            break;
-                        case vm.conditionTime[1]:
-                            quicklyTime = main.timeArea().yesterday;
-                            break;
-                        case vm.conditionTime[2]:
-                            quicklyTime = main.timeArea().recent7day;
-                            break;
-                        case vm.conditionTime[3]:
-                            quicklyTime = main.timeArea().recent30day;
-                            break;
-                        case vm.conditionTime[4]:// 待处理
-                            vm.contractConditon.compliance_status = 1;
-                            break;
-                        case vm.conditionTime[5]:// 审核通过
-                            vm.contractConditon.compliance_status = 2;
-                            break;
-                        case vm.conditionTime[6]:// 待处理
-                            vm.contractConditon.status = 'dzjsh';
-                            break;
-                        case vm.conditionTime[7]:// 审核通过
-                            vm.contractConditon.status = 'zjytg';
-                            break;
-                        case vm.conditionTime[8]:// 审核拒绝
-                            vm.contractConditon.status = 'zjyjj';
-                            break;
-                        default:
-                    }
-                    switch (index) {
-                        case 1:// 移交时间
-                            vm.contractConditon.start_time = quicklyTime[0];
-                            vm.contractConditon.end_time = quicklyTime[1];
-                            break;
-                        case 2:// 合同邮寄时间
-                            vm.contractConditon.post_start_time = quicklyTime[0];
-                            vm.contractConditon.post_end_time = quicklyTime[1];
-                            break;
-                        default:
+
+                    if (index) {// 附件页
+                        switch ($(e.target).text()) {
+                            case vm.conditionTime[0]:// 今天
+                                this.attachListCondition.start_time = main.timeArea().today[0];
+                                this.attachListCondition.end_time = main.timeArea().today[0];
+                                break;
+                            case vm.conditionTime[1]:// 昨天
+                                this.attachListCondition.start_time = main.timeArea().yesterday[0];
+                                this.attachListCondition.end_time = main.timeArea().yesterday[0];
+                                break;
+                            case vm.conditionTime[2]:// 最近7天
+                                this.attachListCondition.start_time = main.timeArea().recent7day[0];
+                                this.attachListCondition.end_time = main.timeArea().recent7day[1];
+                                break;
+                            case vm.conditionTime[3]:// 最近30天
+                                this.attachListCondition.start_time = main.timeArea().recent30day[0];
+                                this.attachListCondition.end_time = main.timeArea().recent30day[1];
+                                break;
+                        }
+                    } else {// 文档页
+                        switch ($(e.target).text()) {
+                            case vm.conditionTime[0]:// 今天
+                                this.docListCondition.start_time = main.timeArea().today[0];
+                                this.docListCondition.end_time = main.timeArea().today[0];
+                                break;
+                            case vm.conditionTime[1]:// 昨天
+                                this.docListCondition.start_time = main.timeArea().yesterday[0];
+                                this.docListCondition.end_time = main.timeArea().yesterday[0];
+                                break;
+                            case vm.conditionTime[2]:// 最近7天
+                                this.docListCondition.start_time = main.timeArea().recent7day[0];
+                                this.docListCondition.end_time = main.timeArea().recent7day[1];
+                                break;
+                            case vm.conditionTime[3]:// 最近30天
+                                this.docListCondition.start_time = main.timeArea().recent30day[0];
+                                this.docListCondition.end_time = main.timeArea().recent30day[1];
+                                break;
+                        }
                     }
                 }
             },
             // 添加自定义筛选时间
-            addConditons: function (e, index) {
+            addConditions: function (e, index) {
                 // 时间范围验证
                 if ((new Date(vm.inputTimeB) - new Date(vm.inputTimeA)) < 0) {
                     layers.toast('开始时间不能大于结束时间', {time: 2500});
@@ -276,63 +628,95 @@ require(['moment', 'layui', 'common', 'ajaxurl', 'tools', 'layers'], function (m
                         vm.condition[index].active = true;
                         vm.condition[index].name = vm.conditionStr[index];
                         vm.condition[index].name += ('：' + vm.inputTimeA + '到' + vm.inputTimeB);
-                        switch (index) {
-                            case 1:// 移交时间
-                                vm.contractConditon.start_time = this.inputTimeA;
-                                vm.contractConditon.end_time = this.inputTimeB;
-                                break;
-                            case 2:// 合同邮寄时间
-                                vm.contractConditon.post_start_time = this.inputTimeA;
-                                vm.contractConditon.post_end_time = this.inputTimeB;
-                                break;
-                            default:
+
+                        if (index) { // 附件页
+                            this.attachListCondition.start_time = this.inputTimeA;
+                            this.attachListCondition.end_time = this.inputTimeB;
+                        } else {// 文档页
+                            this.docListCondition.start_time = this.inputTimeA;
+                            this.docListCondition.end_time = this.inputTimeB;
                         }
                     } else {
                         layers.toast('请填入自定义时间范围');
                     }
                 }
             },
-            // 搜索框样式
-            searchBlur: function (event) {
-                main.searchBlur(event);
+            // 跳转到文档详情
+            jumpArticle: function (id) {
+                window.location.href = '/admin/material/material_document_article/detail?articleId=' + id;
             }
         },
         computed: {
-            // 全选
+            // 文档页全选
             allChecked: {
                 get: function () {
-                    if (this.tableDataWait.length) {
-                        return this.checkedCount === this.tableDataWait.length;
+                    if (this.docList.length) {
+                        return this.checkedCount === this.docList.length;
                     }
                 },
                 set: function (value) {
-                    this.tableDataWait.forEach(function (item) {
+                    this.docList.forEach(function (item) {
                         item.checked = value
                     });
                     return value;
                 }
             },
-            // 计算选中个数
+            // 文档页选中个数
             checkedCount: {
                 get: function () {
                     var i = 0;
-                    this.tableDataWait.forEach(function (item) {
+                    this.docList.forEach(function (item) {
                         if (item.checked === true) i++;
                     });
                     return i;
                 }
             }
+        },
+        watch: {
+            docListCondition: {// 文档页筛选监控
+                handler: function (val, oldVal) {
+                    main.getDocumentList('', '', function () {
+                        main.setListPage();
+                    });
+                },
+                deep: true
+            },
+            attachListCondition: {// 附件页筛选监控
+                handler: function (val, oldVal) {
+                    main.getAttachFileList('', function () {
+                        main.setAttachListPage();
+                    });
+                },
+                deep: true
+            },
+            // 内容为空时触发一次搜索
+            docSearchContent: function (val, oldVal) {
+                !val && main.getDocumentList('', '', function () {
+                    main.setListPage();
+                });
+            },
+            attachSearchContent: function (val, oldVal) {
+                !val && main.getAttachFileList('', function () {
+                    main.setAttachListPage();
+                });
+            }
         }
     });
+
 
     /**
      * 初始化
      * @private
      */
     var _init = function () {
+        main.getCategoryList();
+        main.getCurDocId(function () {
+            main.getDocumentList('', '', function () {
+                main.setListPage();
+            });
+        });
         main.renderLayDate();
         main.searchForm();
-        main.getWaitList();
         common.getTabLink();
     };
     _init();

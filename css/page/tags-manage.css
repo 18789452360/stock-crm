@@ -175,6 +175,9 @@
 .add-client-container .main .layui-collapse .layui-colla-item .layui-colla-title {
   background-color: #fff;
   font-size: 16px;
+  padding-right: 0;
+  width: 91%;
+  display: inline-block;
 }
 .add-client-container .main .layui-collapse .layui-colla-item .layui-colla-title span {
   font-size: 14px;
@@ -190,7 +193,23 @@
   color: #2883E1;
 }
 .add-client-container .main .layui-collapse .layui-colla-item .layui-colla-title .layui-colla-icon {
-  left: 97%;
+  right: 0;
+}
+.add-client-container .main .layui-collapse .layui-colla-item .inner-check-btn {
+  display: inline-block;
+  line-height: 40px;
+  position: relative;
+  left: -11px;
+}
+.add-client-container .main .layui-collapse .layui-colla-item .inner-check-btn a {
+  color: #999;
+}
+.add-client-container .main .layui-collapse .layui-colla-item .inner-check-btn a:hover {
+  color: #2883E1;
+}
+.add-client-container .main .layui-collapse .layui-colla-item .inner-check-btn a.cancel {
+  margin-right: 6px;
+  color: #2883E1;
 }
 .add-client-container .main .layui-collapse .layui-colla-item .layui-colla-content .layui-form {
   padding-top: 10px;
@@ -233,5 +252,11 @@
 .add-client-container .main .btn-box button {
   width: 140px;
   height: 40px;
+  font-size: 18px;
+}
+.add-client-container .main .btn-box a {
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
   font-size: 18px;
 }

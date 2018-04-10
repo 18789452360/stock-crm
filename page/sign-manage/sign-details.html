@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>标的基本信息</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/common.css"/>
+
+    <link rel="stylesheet" href="../../css/page/signManage.css"/>
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="arrow left-arrow">
+                <i class="iconfont icon-left-arrow"></i>
+            </div>
+            <ul class="tabs">
+                <li><a href="/">首页</a></li>
+                <li v-for="item in tabs"
+                    :class="['tabs-item', item.active && 'tabs-item-active']"
+                    @click="switchTabs">
+                    <a :href="item.url" v-text="item.name"></a>
+                    <i class="iconfont icon-delete"></i>
+                </li>
+            </ul>
+            <div class="arrow right-arrow">
+                <a href="javascript:;"><i class="iconfont icon-right-arrow"></i></a>
+                <a href="javascript:;">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本标的信息</li>
+                    <li>研报</li>
+                    <li>调仓记录</li>
+                    <li>话术</li>
+                    <li>操作日志</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">基本信息</h2>
+                            </div>
+                            <ul class="sign-list clearfix">
+                                <li class="sign-item"><span class="sign-name">股票名称：</span><span>海特高新（002023）</span></li>
+                                <li class="sign-item"><span class="sign-name">所属产品：</span><span>凤凰一号</span></li>
+                                <li class="sign-item"><span class="sign-name">总仓位：</span><span>3成</span></li>
+                                <li class="sign-item"><span class="sign-name">建仓价：</span><span>12.56元</span></li>
+                                <li class="sign-item"><span class="sign-name">止盈价：</span><span>22.15元</span></li>
+                                <li class="sign-item"><span class="sign-name">止损价：</span><span>8.15元</span></li>
+                                <li class="sign-item"><span class="sign-name">状态：</span><span>未出局</span></li>
+                                <li class="sign-item"><span class="sign-name">标的负责人：</span><span>张三</span></li>
+                            </ul>
+                        </div>
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">研报
+                                    <span class="detail-title">此处只显示最近发布的五条记录，查看更多请前往 </span>
+                                    <a href="" class="to-report"> 研报</a>
+                                    <div class="example-handle">
+                                        <a href="" class="examine-operate">新增研报</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">调仓
+                                    <span class="detail-title">此处只显示最近发布的五条记录，查看更多请前往 </span>
+                                    <a href="" class="to-report"> 调仓</a>
+                                    <div class="example-handle">
+                                        <a href="" class="examine-operate">新增调仓</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="jur-head">话术
+                                    <span class="detail-title">此处只显示最近发布的五条记录，查看更多请前往 </span>
+                                    <a href="" class="to-report"> 话术</a>
+                                    <div class="example-handle">
+                                        <a href="" class="examine-operate">新增话术</a>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="details-head">
+                                    <div class="example-handle">
+                                        <button href="" class="examine-operate">新增研报</button>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="page-choice">
+                                <ul>
+                                    <li><a href="javascript:;">&lt;</a></li>
+                                    <li><a href="javascript:;">1</a></li>
+                                    <li><a href="javascript:;" class="page-active">2</a></li>
+                                    <li><a href="javascript:;">3</a></li>
+                                    <li><a href="javascript:;">...</a></li>
+                                    <li><a href="javascript:;">99</a></li>
+                                    <li><a href="javascript:;">&gt;</a></li>
+                                </ul>
+                            </div>
+                            <p class="page-total">共有<span>99</span>条记录</p>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="details-head">
+                                    <div class="example-handle">
+                                        <button href="" class="examine-operate">新增调仓</button>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="page-choice">
+                                <ul>
+                                    <li><a href="javascript:;">&lt;</a></li>
+                                    <li><a href="javascript:;">1</a></li>
+                                    <li><a href="javascript:;" class="page-active">2</a></li>
+                                    <li><a href="javascript:;">3</a></li>
+                                    <li><a href="javascript:;">...</a></li>
+                                    <li><a href="javascript:;">99</a></li>
+                                    <li><a href="javascript:;">&gt;</a></li>
+                                </ul>
+                            </div>
+                            <p class="page-total">共有<span>99</span>条记录</p>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 头部 -->
+                            <div class="layui-col-md12">
+                                <h2 class="details-head">
+                                    <div class="example-handle">
+                                        <button href="" class="examine-operate">新增话术</button>
+                                    </div>
+                                </h2>
+                            </div>
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="page-choice">
+                                <ul>
+                                    <li><a href="javascript:;">&lt;</a></li>
+                                    <li><a href="javascript:;">1</a></li>
+                                    <li><a href="javascript:;" class="page-active">2</a></li>
+                                    <li><a href="javascript:;">3</a></li>
+                                    <li><a href="javascript:;">...</a></li>
+                                    <li><a href="javascript:;">99</a></li>
+                                    <li><a href="javascript:;">&gt;</a></li>
+                                </ul>
+                            </div>
+                            <p class="page-total">共有<span>99</span>条记录</p>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-row common-row add-sign-row">
+                            <!-- 表格部分 -->
+                            <div class="layui-col-md12 table-row">
+                                <!-- 表格(自动化渲染) -->
+                                <table class="layui-table" lay-data="{ id:'idTest', height: 'auto', even: true, limit: 5, limits: [5,10,20] }" lay-filter="jurTable">
+                                    <thead>
+                                    <tr>
+                                        <th lay-data="{field:'name', width:260}">权限组名称</th>
+                                        <th lay-data="{field:'describe', width:610}">描述</th>
+                                        <th lay-data="{field:'date', width:320}">创建时间</th>
+                                        <th lay-data="{field:'operation', width:350, align:'center', toolbar: '#barDemo'}">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="item in tableList">
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.describe}}</td>
+                                        <td>{{item.date}}</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <script type="text/html" id="barDemo">
+                                    <a href="look-jursdiction.html" class="" lay-event="detail">查看</a>
+                                    <a href="add-jursdiction.html" class="" lay-event="edit">编辑</a>
+                                    <a href="javascript:;" class="" lay-event="del">删除</a>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="page-choice">
+                                <ul>
+                                    <li><a href="javascript:;">&lt;</a></li>
+                                    <li><a href="javascript:;">1</a></li>
+                                    <li><a href="javascript:;" class="page-active">2</a></li>
+                                    <li><a href="javascript:;">3</a></li>
+                                    <li><a href="javascript:;">...</a></li>
+                                    <li><a href="javascript:;">99</a></li>
+                                    <li><a href="javascript:;">&gt;</a></li>
+                                </ul>
+                            </div>
+                            <p class="page-total">共有<span>99</span>条记录</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/require/require.min.js"></script>
+<script src="../../js/require.config.js"></script>
+
+<script src="../../js/app/jurisdictionList.js"></script>
+
+</body>
+</html>

@@ -9,37 +9,22 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
          * 渲染列表
          */
         getAllList: function() {
-            layui.use(['form', 'laydate'],function() {
-                var form = layui.form,
-                    laydate = layui.laydate;
-                laydate.render({
-                    elem: '#test-start'
-                    ,trigger: 'click'
-                    ,type: "datetime"
-                    ,done: function(value, date) {
-                        vm.data.start_time = value
-                    }
-                });
-                laydate.render({
-                    elem: '#test-stop'
-                    ,trigger: 'click'
-                    ,type: "datetime"
-                    ,done: function(value, date) {
-                        vm.data.stop_time = value
-                    }
-                });
-            });
+            var loading = '';
             tool.ajax({
                 url: ajaxurl.productStock.index,
                 type: 'post',
                 data: vm.data,
+                beforeSend: function() {
+                    layers.load(function(indexs) {
+                        loading = indexs
+                    })
+                },
                 success: function(result){
                     if(result.code == 1){
                         // 渲染到vue数据层
                         vm.tableDataAll = result.data.list;
                         // 获取总条数
                         vm.getAllListTotal = result.data.total_num;
-                        console.log(vm.tableDataAll);
                         // 调用分页
                         main.getAllPage();
                         Vue.nextTick(function() {
@@ -54,8 +39,13 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                     }
                 },
                 error: function(){
-                    console.log("网络异常!")
-                }
+                    layers.toast("网络异常!");
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             });
         },
         /**
@@ -65,7 +55,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
             layui.use(['form', 'laydate'],function() {
                 var form = layui.form,
                     laydate = layui.laydate;
-                form.on('select(level)', function(data){
+                form.on('select(status)', function(data){
                     vm.data.status = data.value; // 得到下来框状态的值
                 });
                 laydate.render({
@@ -86,9 +76,9 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                 });
                 //监听提交
                 form.on('submit(formSelect)', function (data) {
-                    if(data.field.product_stock_create_time_start != '' && data.field.product_stock_create_time_end != ''){
-                        if(data.field.product_stock_create_time_start > data.field.product_stock_create_time_start){
-                            layers.toast('开始时间不能大于结束时间！');
+                    if(vm.data.product_stock_create_time_start != '' && vm.data.product_stock_create_time_end != ''){
+                        if(vm.data.product_stock_create_time_start > vm.data.product_stock_create_time_end){
+                            layers.toast('开始时间不能大于结束时间');
                             return false;
                         }
                     }
@@ -122,11 +112,11 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
         /**
          * 删除
          */
-        stockDelete: function(StockID) {
+        stockDelete: function(StockID, indexs) {
             layers.confirm({
                 title: '提示',
                 area: ['450px', '250px'],
-                content: '<div class="confirm-tips"><p>确定删除？</p></div>',
+                content: '<div class="confirm-tips"><p>删除操作不可逆，确认删除？</p></div>',
                 btn2: function (index, layero) {
                     tool.ajax({
                         url: ajaxurl.productStock.delete,
@@ -136,14 +126,14 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                             if(result.code == 1){
                                 layers.toast(result.message);
                                 setTimeout(function() {
-                                    window.location.reload();
+                                    vm.tableDataAll.splice(indexs, 1);
                                 }, 1000)
                             }else{
                                 layers.toast(result.message);
                             }
                         },
                         error: function(){
-                            console.log("网络异常!")
+                            layers.toast("网络异常!")
                         }
                     });
                 }
@@ -152,28 +142,30 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
         /**
          * 出局
          */
-        stockOutPut: function(StockID) {
+        stockOutPut: function(indexs, StockID, productID, stockStatus) {
             layers.confirm({
                 title: '提示',
                 area: ['450px', '250px'],
-                content: '<div class="confirm-tips"><p>确定出局？</p></div>',
+                content: '<div class="confirm-tips"><p>出局后内容不可再进行更改，确认出局？</p></div>',
                 btn2: function (index, layero) {
                     tool.ajax({
                         url: ajaxurl.productStock.outProductStock,
                         type: 'post',
-                        data: { product_id: StockID },
+                        data: {
+                            product_id: productID,
+                            product_stock_id: StockID
+                        },
                         success: function(result){
                             if(result.code == 1){
                                 layers.toast(result.message);
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 1000)
+                                var statusIndex = stockStatus == 1 ? 2 : 1;
+                                vm.tableDataAll[indexs].status = statusIndex;
                             }else{
                                 layers.toast(result.message);
                             }
                         },
                         error: function(){
-                            console.log("网络异常!")
+                            layers.toast("网络异常!")
                         }
                     });
                 }
@@ -201,7 +193,7 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
                 product_name: '',
                 product_stock_create_time_start: '',
                 product_stock_create_time_end: '',
-                status: '', // 标的状态,0为全部,1为正常, 2为已结束
+                status: '', // 标的状态,1为正常, 2为已结束
                 product_stock_leader_name: '',
                 pagesize: 10,
                 curpage: 1
@@ -209,18 +201,21 @@ require(['common', 'layui', 'ajaxurl', 'tools', 'layers'], function (common, lay
         },
         methods: {
             // 删除标的
-            stockDelete: function(StockID) {
-                if(StockID == undefined) {
+            stockDelete: function(StockID, indexs) {
+                if(StockID == undefined || indexs == undefined) {
                     throw new Error("缺少参数")
                 }
-                main.stockDelete(StockID);
+                main.stockDelete(StockID, indexs);
             },
             // 标的出局
-            stockOutPut: function(StockID) {
-                if(StockID == undefined) {
+            stockOutPut: function(index, StockID, productID, stockStatus) {
+                if(index == undefined ||StockID == undefined || productID == undefined || stockStatus == undefined) {
                     throw new Error("缺少参数")
                 }
-                main.stockOutPut(StockID);
+                main.stockOutPut(index, StockID, productID, stockStatus);
+            },
+            reset: function() {
+                main.reset();
             }
         }
     });

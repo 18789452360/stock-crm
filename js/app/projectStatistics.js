@@ -1,18 +1,79 @@
 require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, common, layers, tool, ajaxurl) {
     var main = {
         /**
-         * Highcharts图
+         * 获取数据 type 为空 获取所有的数据  1 获取新增操盘信息统计  2 操盘信息统计
+         * @param data
          */
-        setHighcharts: function () {
-            //项目运营情况
-            Highcharts.chart('product', {
+        getData:function(data){
+            var obj = {};
+            data ? obj = data : obj = {page:'1',type:'',date_start:'',date_end:'',page_size:10};
+            var loading='';
+            tool.ajax({
+                url:ajaxurl.statistics.project,
+                data:obj,
+                beforeSend: function () {
+                    layers.load(function (indexs) {
+                        loading = indexs;
+                    });
+                },
+                success:function(data){
+                    if(data.code == 1){//当返回的数据中有该模块的数据时，该模块的数据才会去加载变化
+                        if(data.data.project || data.data.product_stock){
+                            if(data.data.project.total > 0){
+                                vm.showProduct = true;
+                                Vue.nextTick(function(){
+                                    main.productHighcharts('product','项目运营情况统计',data.data.project);
+                                })
+                            }
+                            if(data.data.product_stock.total > 0){
+                                vm.showProduct_stock = true;
+                                Vue.nextTick(function(){
+                                    main.productHighcharts('product-stock','标的运营情况统计',data.data.product_stock);
+                                })
+                            }
+                        }
+                        if(data.data.product_stock_transfer_position){//新增操盘信息统计
+                            vm.addProduct_stock = data.data.product_stock_transfer_position;
+                            if(vm.addProduct_stock.data && vm.addProduct_stock.data.length){
+                                Vue.nextTick(function(){
+                                    main.operateHighCharts();
+                                    main.initLayui();
+                                })
+                            }
+                        }
+                        if(data.data.product_stock_transfer_position_statistics){//操盘信息统计
+                            vm.statisticsInfo = data.data.product_stock_transfer_position_statistics;
+                            main.operateInfoPage();
+                        }
+                    }else{
+                        layers.toast(data.message);
+                    }
+                },
+                error:function(){
+                    layers.toast('网络异常');
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
+            })
+        },
+        /**
+         * 项目、标的运营情况饼状图
+         * @param elem 该图所在的盒子 传该盒子id的字符串  string
+         * @param title 该图的名字 string
+         * @param data 该图的数据 obj
+         */
+        productHighcharts: function (elem,title,data) {
+            Highcharts.chart(elem, {
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false
                 },
                 title: {
-                    text: '项目运营情况统计',
+                    text: title,
                     style: {
                         fontWeight: 'bold'
                     }
@@ -26,9 +87,14 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, comm
                     pie: {//饼图
                         allowPointSelect: true,//是否允许选中点
                         cursor: 'pointer',
+                        size:'90%',//饼状图大小，默认是 75%，
                         dataLabels: {
                             enabled: true,
-                            format: '<b>{point.name}</b>: {point.y}',
+                            /*format: '<b>{point.name}</b>: {point.y}',*/
+                            formatter: function() {//当所占百分比为 0 时不显示边线及 0.0%
+                                if (this.percentage > 0)
+                                    return '<b>' + this.point.name + '</b>: ' + this.point.y; // 这里进行判断
+                            },
                             style: {
                                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                             }
@@ -41,70 +107,17 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, comm
                 },
                 series: [{
                     type: 'pie',
-                    name: '项目运营情况统计',
+                    name: title,
                     data: [
                         {
                             name: '已结束',
-                            y: 31,
+                            y: data.stop,
                             sliced: true,
                             selected: true
                         },
                         {
                             name: '运作中',
-                            y: 12
-                        },
-                    ]
-                }]
-            })
-            //标的运营情况
-            Highcharts.chart('product-stock', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    verticalAlign: top,
-                },
-                title: {
-                    text: '标的运营情况统计',
-                    style: {
-                        fontWeight: 'bold'
-                    }
-                },
-                tooltip: {//鼠标悬停的时候提示
-                    headerFormat: '{series.name}<br>',
-                    pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                colors: ['#F2493b', '#2883e0'],//设置显示的饼状颜色
-                plotOptions: {//数据列表配置
-                    pie: {//饼图
-                        allowPointSelect: true,//是否允许选中点
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.y}',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        },
-                        showInLegend: true //显示下边图例
-                    }
-                },
-                credits: {//去除版权信息
-                    enabled: false,
-                },
-                series: [{
-                    type: 'pie',
-                    name: '标的运营情况统计',
-                    data: [
-                        {
-                            name: '已出局',
-                            y: 31,
-                            sliced: true,
-                            selected: true
-                        },
-                        {
-                            name: '运作中',
-                            y: 12
+                            y: data.starting,
                         },
                     ]
                 }]
@@ -114,6 +127,15 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, comm
          * 新增操作数量折线图
          */
         operateHighCharts: function () {
+            var xArr = [],
+                yArr = [],
+                len = vm.addProduct_stock.data.length;
+            for(var i = 0;i<len;i++){
+                xArr.push(vm.addProduct_stock.data[i].time_date + '');//转换成string类型
+                yArr.push(vm.addProduct_stock.data[i].total - 0);//转换成number类型
+            }
+            xArr = xArr.reverse();
+            yArr = yArr.reverse();
             Highcharts.chart('operate', {
                 chart: {
                     type: 'spline'//配置线条是曲线还是折线
@@ -125,11 +147,11 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, comm
                     }
                 },
                 xAxis: {
-                    tickInterval: 1,
+                    categories: xArr
                 },
                 tooltip: {
-                    headerFormat: '<b>操盘新增数量</b><br />',
-                    pointFormat: 'x = {point.x}, y = {point.y}'
+                    headerFormat: '<b>当日操盘新增数量{point.y}</b><br />',
+                    pointFormat: ''
                 },
                 credits: {//去除版权信息
                     enabled: false,
@@ -145,12 +167,12 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, comm
                             enabled: true          // 开启数据标签
                         },
                         enableMouseTracking: true, // 关闭鼠标跟踪，对应的提示框、点击事件会失效
-                        pointStart: 1//默认从1开始
+                       // pointStart: 1//默认从1开始
                     }
                 },
                 series: [{
                     name: '新增数量',
-                    data: [10, 7, 6, 9, 14, 18, 21, 25, 26, 23, 18, 13, 9, 20, 10, 15, 9, 18, 25, 23, 29, 30, 5, 25, 15, 16, 9, 21, 29, 8],
+                    data: yArr,
                 }]
             })
         },
@@ -162,44 +184,95 @@ require(['layui', 'common', 'layers', 'tools', 'ajaxurl'], function (layui, comm
                 var laypage = layui.laypage
                 laypage.render({
                     elem: 'stat-page', //注意，这里的 test1 是 ID，不用加 # 号
-                    count: 20, //数据总数，从服务端得到
-                    curr: 1,
+                    count: vm.statisticsInfo.total, //数据总数，从服务端得到
+                    limit:vm.statisticsInfo.page_size,
+                    curr: vm.statisticsInfo.page,
                     jump: function (obj, first) {
                         if (!first) {
-
+                            vm.statisticsInfo.page = obj.curr;
+                            var data = {
+                                page:vm.statisticsInfo.page,
+                                type:2,
+                                page_size:10
+                            }
+                            main.getData(data);
                         }
                     }
                 })
             })
         },
         /**
-         * 初始化layui
+         * 初始化layui时间控件
          */
         initLayui: function () {
             layui.use('laydate', function () {
-                var laydate = layui.laydate
+                var laydate = layui.laydate;
                 laydate.render({//初始化开始时间
                     elem: '#operate_time_start',
-                    type: 'datetime'
-                })
+                    done:function (value) {
+                        vm.startTime = value;
+                    }
+                });
                 laydate.render({//初始化结束时间
                     elem: '#operate_time_end',
-                    type: 'datetime'
-                })
+                    done:function (value) {
+                        vm.endTime = value;
+                    }
+                });
             })
-        }
+        },
+        /**
+         * 查询新增操盘信息
+         * @returns {boolean}
+         */
+        inquire:function(){
+            if(!vm.startTime || !vm.endTime){
+                layers.toast('请输入筛选时间');
+                return false;
+            }
+            if(vm.startTime > vm.endTime){
+                layers.toast('开始时间不能大于结束时间');
+                return false;
+            }
+            var data = {type:1,date_start:vm.startTime,date_end:vm.endTime};
+            main.getData(data);
+        },
+        /**
+         * 重置查询新增操盘信息
+         */
+        reset:function(){
+            vm.startTime = '';
+            vm.endTime = '';
+            var $input = $('input');
+            $input.each(function(){
+                $(this).val('');
+            });
+            var data = {type:1,date_start:'',date_end:''};
+            main.getData(data);
+        },
     }
     var vm = new Vue({
         el: '#app',
-        data: {},
-        methods: {}
+        data: {
+            showProduct:false,//是否显示项目饼状图
+            showProduct_stock:false,//是否显示标的饼状图
+            addProduct_stock:{},//新增操盘信息统计
+            statisticsInfo:{},//操盘信息统计
+            startTime:'',//筛选的开始时间
+            endTime:'',//筛选的结束时间
+        },
+        methods: {
+            inquire:function(){//查询操作
+                main.inquire();
+            },
+            reset:function(){//重置操作
+                main.reset();
+            },
+        }
     })
     var _init = function () {
         common.getTabLink()
-        main.setHighcharts()
-        main.operateInfoPage()
-        main.operateHighCharts()
-        main.initLayui()
+        main.getData();
     }
     _init()
 })

@@ -84,8 +84,22 @@
                 .file-group {
                     padding: 5px;
                     ul {
+                        &.edit-doc{
+                            margin-top: 20px;
+                            .edit-doc-title {
+                                width: 140px;
+                                margin-right: 15px;
+                            }
+                            .edit-doc-del {
+                                color: @blue-color;
+                                cursor: pointer;
+                            }
+                        }
                         li {
                             padding-bottom: 25px;
+                            &:last-of-type {
+                                padding-bottom: 0;
+                            }
                             dd {
                                 float: left;
                                 height: 25px;
@@ -107,6 +121,8 @@
                                 }
                                 // 模拟文件上传
                                 &.upload-file-mock {
+                                    width: 280px;
+                                    margin-right: 5px;
                                     button {
                                         border-radius: 3px;
                                         border: 0;
@@ -145,7 +161,7 @@
         }
     }
     .btn-box {
-        padding: 36px 0;
+        padding: 20px 0;
         text-align: center;
         button {
             height: 40px;

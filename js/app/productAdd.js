@@ -1,38 +1,38 @@
-require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-news.html','jquery.metisMenu'],function(layui,common,layers,tool,ajaxurl,tips){
+require(['layui','common','layers','tools','ajaxurl','moment','jquery.metisMenu'],function(layui,common,layers,tool,ajaxurl,moment){
     var main = {
         /**
          * 初始化layui表单
          */
         initLayui:function(){
+            var minDate = moment().add(1,'days').format('YYYY-MM-DD 00:00:00');
             layui.use(['form','laydate'],function(){
                 var form = layui.form,
                     laydate = layui.laydate;
-                laydate.render({//初始化开始时间
-                    elem:'#start-time',
-                    type: 'datetime'
+                form.verify({
+                    productName:function(value, item){
+                        if(!(/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test($.trim(value)))){
+                            return '产品名称只能是数字、字母或汉字'
+                        }
+                    },
                 });
                 laydate.render({//初始化结束时间,默认为当天的23:59:59
                     elem:'#end-time',
                     type: 'datetime',
+                    min:minDate,
+                    btns: ['clear', 'confirm'],
                     done:function(value,date){
                         if(value.substring(11,value.length) == '00:00:00'){
                             vm.endTime = value.substring(0,11) +'23:59:59';
+                        }else{
+                            vm.endTime = value;
                         }
                     }
                 });
-                var nowDate = main.getNowFormatDate();
-                $('input[name="product_start_time"]').val(nowDate +' 00:00:00');//默认开始时间为打开页面的当天的00:00:00
                 setTimeout(function(){
                     form.render();
                 },200);
                 form.on('submit(product-ok)',function(data){
-                    if(data.field.product_start_time > vm.endTime){
-                        layers.toast('结束时间不能小于开始时间', {
-                            icon: 2,
-                            anim: 6
-                        });
-                        return false;
-                    }
+                    data.product_name = $.trim(data.product_name);
                     if(!data.field.product_person_leader){
                         layers.toast('请选择产品负责人', {
                             icon: 2,
@@ -40,8 +40,10 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                         });
                         return false;
                     }
+                    //当所有验证通过后，禁用按钮防止重复点击，发送请求
+                    vm.isAdd = true;
                     var loading = '';
-                    tool.ajax({
+                    vm.isAdd && tool.ajax({
                         url:ajaxurl.product.add,
                         data:data.field,
                         type:'post',
@@ -54,17 +56,22 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                             if(data.code == 1){
                                 layers.toast('产品添加成功');
                                 setTimeout(function(){
-                                    common.closeTab();
+                                    common.closeTab(true);
                                 },1000)
                             }else{
+                                vm.isAdd = true;
                                 layers.toast(data.message) 
                             }
-                            layers.closed(loading);
                         },
                         error:function(){
+                            vm.isAdd = true;
                             layers.toast('网络异常!');
-                            layers.closed(loading);
-                        }
+                        },
+                        complete:function(){
+                            setTimeout(function(){
+                                layers.closed(loading);
+                            },50)
+                        },
                     })
                     return false;
                 });
@@ -90,31 +97,16 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                     }else{
                         layers.toast(data.message);
                     }
-                    layers.closed(loading);
                 },
                 error:function(){
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },50)
+                },
             })
-        },
-        /**
-         * 获取当前时间
-         */
-        getNowFormatDate: function () {
-            var date = new Date();
-            var seperator1 = "-";
-            var seperator2 = ":";
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate ;
-            return currentdate;
         },
         /**
          * 取消按钮提示框
@@ -122,11 +114,7 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
         cancel:function(){
             layers.confirm({
                 title:'提示',
-                content:tips,
-                success:function(obj){
-                    $elem = $(obj);
-                    $elem.find('p').text('取消操作将不保留已变更信息，确认取消？');
-                },
+                content:'<div class="confirm-tips"><p>取消操作将不保留已变更信息，确认取消？</p></div>',
                 btn2:function(){
                     common.closeTab();
                     layers.closedAll();
@@ -166,12 +154,15 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                     }else{
                         layers.toast(result.message);
                     }
-                    layers.closed(loading);
                 },
                 error:function(){
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             })
         },
         /**
@@ -188,9 +179,14 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
             layui.use(['form'], function () {
                 var form = layui.form;
                 form.on('select(search-org)', function (data) {
-                    vm.selectedOrgUsr = [];
-                    var addItem = {id: data.value.split(',')[0] * 1, department_name: data.value.split(',')[1]};
-                    vm.selectedOrgUsr.push(addItem);
+                    if(data.value != ''){
+                        vm.selectedOrgUsr = [];
+                        var addItem = {id: data.value.split(',')[0] * 1, department_name: data.value.split(',')[1]};
+                        vm.selectedOrgUsr.push(addItem);
+                    }else{
+                        vm.selectedOrgUsr = [];
+                        vm.selectedOrgUsr = [];
+                    }
                     //vm.selectedOrgUsr = home.unique(vm.selectedOrgUsr).reverse();
                 });
                 setTimeout(function(){
@@ -221,6 +217,7 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
             getUrls: tool.getUrlArgs(), //获取Url参数
             userinfo: common.getUserInfo(),
             product_name:'',//产品名字
+            product_introduce:'',//产品简介
             departMent:[],//获取的组织架构
             personne:[],//处理过后的组织架构人员名单
             endTime:'',//产品结束时间
@@ -228,10 +225,15 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
             selectedOrgUsr: [], // 暂时记录组织架构的选中
             readerOrgUsr: {id: '', department_name:''}, // 组织架构选中
             showpop: false, // 组织架构显示隐藏
-            OrgSearchArr: [] // 缓存组织架构搜索结果
+            OrgSearchArr: [], // 缓存组织架构搜索结果
+            isAdd:false,//防止连续点击提交按钮
         },
         methods:{
             cancel:function(){//取消操作
+                if(this.product_name == '' && this.product_introduce == '' && this.endTime == '' && this.readerOrgUsr.id == ''){
+                    common.closeTab();
+                    return false;
+                }
                 main.cancel();
             },
             // 组织架构获取成员模糊搜索

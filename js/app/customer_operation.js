@@ -21,6 +21,29 @@ require(['layui', 'common', 'layers','ajaxurl', 'tools', 'upload', 'lightbox', '
             }
         },
         /**
+         * 设置权限管理
+         */
+        getDataAuth: function (callback) {
+            tool.ajax({
+                url: ajaxurl.setting.getDataAuth,
+                type: 'post',
+                success: function (data) {
+                    if (data.code == 1) {
+                        vm.customer = data.data.noHas_auth.customer;
+                        vm.customer_contact = data.data.noHas_auth.customer_contact;
+                    } else {
+                        layers.toast(data.message, {
+                            icon: 2,
+                            anim: 6
+                        });
+                    }
+                },
+                error: function (err) {
+                    layers.toast('网络异常!');
+                }
+            })
+        },
+        /**
          * 获取全局配置项1
          */
         globalSet: function (callback) {
@@ -104,7 +127,6 @@ require(['layui', 'common', 'layers','ajaxurl', 'tools', 'upload', 'lightbox', '
          */
         getTableData:function(type,name,Stime,Dtime){
             vm.customer_id = tool.getUrlArgs().data.customer_id;
-            console.log(vm.customer_id);
             layui.use([ 'laydate'],function(){
                 var laydate = layui.laydate;
                 // 执行一个laydate实例
@@ -216,6 +238,8 @@ require(['layui', 'common', 'layers','ajaxurl', 'tools', 'upload', 'lightbox', '
             type:'',
             page:1,
             pagesize:'',
+            customer:{},
+            customer_contact:'',
         },
         filters: {
             formatSex: function (value) {
@@ -256,7 +280,7 @@ require(['layui', 'common', 'layers','ajaxurl', 'tools', 'upload', 'lightbox', '
         },
         methods: {
             callTell: function (mobile) { //拨打电话1
-                common.callTellFn(mobile, true);
+                window.top.callTellFn(mobile, true);
             },
             reset:function(){
                 vm.Etime = '';
@@ -285,6 +309,7 @@ require(['layui', 'common', 'layers','ajaxurl', 'tools', 'upload', 'lightbox', '
         });
         main.getTableData();
         main.jurQuery();
+        main.getDataAuth();
     };
     _init();
 });

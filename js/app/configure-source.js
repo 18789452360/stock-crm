@@ -58,7 +58,7 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools','text
                            var lens = result.data.list.length;
                             if(lens){
                                 for(var i = 0; i < lens; i++){
-                                    temp.push({name: result.data.list[i].name, id:result.data.list[i].id});
+                                    temp.push({name: result.data.list[i].name, id:result.data.list[i].id,cid:result.data.list[i].cid});
                                 }   
                             } 
                         }
@@ -71,7 +71,7 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools','text
             });
         },
         /**
-         * [addRemark description] 提交删除id来源
+         * [sourceDele description] 提交删除id来源
          */
         sourceDele:function(data){
             tool.ajax({
@@ -86,9 +86,9 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools','text
                         //         icon: 1,
                         //         anim: 1
                         // });
-                        setTimeout(function() {
-                            common.closeTab();
-                        }, 1000);
+                        // setTimeout(function() {
+                        //     common.closeTab();
+                        // }, 1000);
                     }else{
                         layer.toast(result.message);
                     }
@@ -117,6 +117,7 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools','text
                         }, 1000);   
                     }else{
                         // vm.tipsRemarkWord = result.message
+                        layer.toast(result.message);
                     }
                 }
             });
@@ -187,7 +188,11 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools','text
     var vm = new Vue({
         el: "#app",
         data: {
-            sourceInfo: [],
+            sourceInfo: {
+                name:'',
+                id:'',
+                cid:''
+            },
             sourceId: [],
             addRemarkShow: false, 
             addRemarkVal: '',//客户备注的错误提示
@@ -196,7 +201,7 @@ require(['common', 'jquery.metisMenu', 'layui', 'layers','ajaxurl','tools','text
         methods: { 
             //增加input框
             addInput: function(){
-                this.sourceInfo.push({name:'',id:0});
+                this.sourceInfo.push({name:'',id:0,cid:''});
             },
             //删除
             removeMobile: function(index){

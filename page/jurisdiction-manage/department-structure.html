@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>部门结构</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/common.css"/>
+
+    <link rel="stylesheet" href="../../js/libs/jsTree/css/style.min.css"/>
+    <link rel="stylesheet" href="../../css/page/departmentManage.css">
+
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="arrow left-arrow">
+                <i class="iconfont icon-left-arrow"></i>
+            </div>
+            <ul class="tabs">
+                <li><a href="/">首页</a></li>
+                <li v-for="item in tabs"
+                    :class="['tabs-item', item.active && 'tabs-item-active']"
+                    @click="switchTabs"
+                >
+                    <a :href="item.url" v-text="item.name"></a>
+                    <i class="iconfont icon-delete"></i>
+                </li>
+            </ul>
+            <div class="arrow right-arrow">
+                <a href="javascript:;"><i class="iconfont icon-right-arrow"></i></a>
+                <a href="javascript:;">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrap">
+        <div class="layui-container">
+            <div class="layui-row structure-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">股先生部门结构</h2>
+                </div>
+                <div class="layui-col-md6 sturcture-title">部门结构</div>
+                <div class="layui-col-md6 sturcture-title">下级部门</div>
+            </div>
+            <div class="layui-row structure-row">
+                <div class="layui-col-md3">
+                    <div id="jstree">
+                        <ul class="jstree-ul">
+                            <li class="jstree-open">
+                                <span class="tree-partment" data-id="1">市场部</span>
+                                <span class="iconfont icon-drag"></span>
+                                <span class="tree-editor">编辑</span>
+                                <span class="tree-delete">删除</span>
+                                <ul>
+                                    <li class="jstree-open">
+                                        <span class="tree-partment" data-id="11">市场一部</span>
+                                        <span class="iconfont icon-drag"></span>
+                                        <span class="tree-editor">编辑</span>
+                                        <span class="tree-delete">删除</span>
+                                        <ul>
+                                            <li>
+                                                <span class="tree-partment" data-id="111">市场一部一组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="112">市场一部二组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="113">市场一部三组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="jstree-open">
+                                        <span class="tree-partment" data-id="12">市场二部</span>
+                                        <span class="iconfont icon-drag"></span>
+                                        <span class="tree-editor">编辑</span>
+                                        <span class="tree-delete">删除</span>
+                                        <ul>
+                                            <li>
+                                                <span class="tree-partment" data-id="121">市场二部一组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="122">市场二部二组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="123">市场二部三组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="jstree-open">
+                                <span class="tree-partment" data-id="2">销售部</span>
+                                <span class="iconfont icon-drag"></span>
+                                <span class="tree-editor">编辑</span>
+                                <span class="tree-delete">删除</span>
+                                <ul>
+                                    <li class="jstree-open">
+                                        <span class="tree-partment" data-id="21">市场一部</span>
+                                        <span class="iconfont icon-drag"></span>
+                                        <span class="tree-editor">编辑</span>
+                                        <span class="tree-delete">删除</span>
+                                        <ul>
+                                            <li>
+                                                <span class="tree-partment" data-id="211">市场一部一组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="212">市场一部二组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="213">市场一部三组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="jstree-open">
+                                        <span class="tree-partment" data-id="22">市场二部</span>
+                                        <span class="iconfont icon-drag"></span>
+                                        <span class="tree-editor">编辑</span>
+                                        <span class="tree-delete">删除</span>
+                                        <ul>
+                                            <li>
+                                                <span class="tree-partment" data-id="221">市场二部一组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="222">市场二部二组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                            <li>
+                                                <span class="tree-partment" data-id="223">市场二部三组</span>
+                                                <span class="iconfont icon-drag"></span>
+                                                <span class="tree-editor">编辑</span>
+                                                <span class="tree-delete">删除</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-col-md3 group-arrows" style="line-height: 450px;">
+                    <a href="javascript:;">市场部 &gt;</a>
+                    <a href="javascript:;">市场一部 &gt;</a>
+                    <a href="javascript:;">市场一部一组 &gt;</a>
+                </div>
+                <div class="layui-col-md3">
+                    <form class="layui-form form-list" action="">
+                        <div class="form-item">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input value="" type="text" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入所属部门" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example-handle">
+                            <a class="examine-operate save-name">保存</a>
+                            <a class="examine-operate add-client"><i class="iconfont icon-add"></i>新增下级部门</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!--<ul role="group" class="jstree-children">-->
+                <!--<li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_7_anchor" id="j1_7" class="jstree-node  jstree-leaf">-->
+                <!--<i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j1_7_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>-->
+                <!--<span data-id="123" class="tree-partment">市场二部一组</span>-->
+                <!--<span class="iconfont icon-drag"></span>-->
+                <!--<span class="tree-editor">编辑</span>-->
+                <!--<span class="tree-delete">删除</span></a>-->
+                <!--</li>-->
+                <!--</ul>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/require/require.min.js"></script>
+<script src="../../js/require.config.js"></script>
+
+<script src="../../js/app/departmentManage.js"></script>
+
+</body>
+</html>

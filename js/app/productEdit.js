@@ -1,26 +1,60 @@
-require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-news.html','jquery.metisMenu'],function(layui,common,layers,tool,ajaxurl,tips){
+require(['layui','common','layers','tools','ajaxurl','moment','jquery.metisMenu'],function(layui,common,layers,tool,ajaxurl,moment){
     var main = {
         /**
          * 初始化layui表单
          */
         initLayui:function(){
+            var minDate = moment(vm.productData.start_time).add(1,'days').format('YYYY-MM-DD 00:00:00'),
+                nowDate = moment().format('YYYY-MM-DD 00:00:00');
             layui.use(['form','laydate'],function(){
                 var form = layui.form,
                     laydate = layui.laydate;
-                var nowDate = main.getNowFormatDate();
-                laydate.render({//初始化时间控件
-                    elem:'#end-time',
-                    type: 'datetime',
-                    min:nowDate,//设置最小值不能小于今天
+                form.verify({
+                    productName:function(value, item){
+                        if(!(/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test($.trim(value)))){
+                            return '产品名称只能是数字、字母或汉字'
+                        }
+                    },
                 });
+                if(nowDate > minDate){
+                    minDate = nowDate;
+                    laydate.render({//初始化时间控件
+                        elem:'#end-time',
+                        type: 'datetime',
+                        min:minDate,//设置最小值不能小于当前时间
+                        done:function(value){
+                            if(value.substring(11,value.length) == '00:00:00'){
+                                vm.productData.end_time = value.substring(0,11) +'23:59:59';
+                            }else{
+                                vm.productData.end_time = value;
+                            }
+                        }
+                    });
+                }else{
+                    laydate.render({//初始化时间控件
+                        elem:'#end-time',
+                        type: 'datetime',
+                        min:minDate,//设置最小值不能小于当前时间
+                        btns: ['clear', 'confirm'],
+                        done:function(value){
+                            if(value.substring(11,value.length) == '00:00:00'){
+                                vm.productData.end_time = value.substring(0,11) +'23:59:59';
+                            }else{
+                                vm.productData.end_time = value;
+                            }
+                        }
+                    });
+                }
+
                 //提交
                 form.on('submit(editOk)',function(data){
                     if(!vm.product_id){
                         layers.toast('缺少产品id参数');
                         return false; 
                     }
+                    data.product_name = $.trim(data.product_name);
                     if(vm.productData.start_time > data.field.product_end_time){
-                        layers.toast('结束时间不能小于开始时间', {
+                        layers.toast('结束时间不能小于当前时间', {
                             icon: 2,
                             anim: 6
                         });
@@ -28,8 +62,10 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                     }
                     var obj = data.field;
                     obj.product_id = vm.product_id;
+                    //当所有验证通过后，禁用按钮防止重复点击，发送请求
+                    vm.isBtn = true;
                     var loading = '';
-                    tool.ajax({
+                    vm.isBtn && tool.ajax({
                         url:ajaxurl.product.editPost,
                         data:obj,
                         type:'post',
@@ -45,36 +81,23 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                                     common.closeTab();
                                 },1000)
                             }else{
+                                vm.isBtn = true;
                                 layers.toast(data.message);
                             }
-                            layers.closed(loading);
                         },
                         error:function(){
+                            vm.isBtn = true;
                             layers.toast('网络异常!');
-                            layers.closed(loading);
-                        }
+                        },
+                        complete:function(){
+                            setTimeout(function(){
+                                layers.closed(loading);
+                            },50)
+                        },
                     })
                     return false;
                 });
             });
-        },
-        /**
-         * 获取当前时间
-         */
-        getNowFormatDate: function () {
-            var date = new Date();
-            var seperator1 = "-";
-            var seperator2 = ":";
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate ;
-            return currentdate;
         },
         /**
          * 获取产品参数
@@ -102,35 +125,41 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                 success:function(data){
                     if(data.code == 1){
                         vm.productData = data.data;
+                        vm.initDta = JSON.stringify(data.data);
                         vm.readerOrgUsr.id = data.data.product_leader;
                         vm.readerOrgUsr.department_name = data.data.product_leader_name;
+                        main.initLayui();
                     }else{
                         layers.toast(data.message);
                     }
-                    layers.closed(loading);
                 },
                 error:function(){
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },50)
+                },
             })
         },
         /**
          * 取消按钮提示框
          */
         cancel:function(){
-            layers.confirm({
-                title:'提示',
-                content:tips,
-                success:function(obj){
-                    $elem = $(obj);
-                    $elem.find('p').text('取消操作将不保留已变更信息，确认取消？');
-                },
-                btn2:function(){
-                    common.closeTab();
-                    layers.closedAll();
-                }
-            });
+            var data = JSON.parse(vm.initDta);
+            if(vm.productData.product_name != data.product_name || vm.productData.product_introduce != data.product_introduce || vm.productData.end_time != data.end_time || vm.readerOrgUsr.department_name != data.product_leader_name){
+                layers.confirm({
+                    title:'提示',
+                    content:'<div class="confirm-tips"><p>取消操作将不保留已变更信息，确认取消？</p></div>',
+                    btn2:function(){
+                        common.closeTab();
+                        layers.closedAll();
+                    }
+                });
+            }else{
+                common.closeTab();
+            }
             return false;
         },
         /**
@@ -165,12 +194,15 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
                     }else{
                         layers.toast(result.message);
                     }
-                    layers.closed(loading);
                 },
                 error:function(){
                     layers.toast('网络异常!');
-                    layers.closed(loading);
-                }
+                },
+                complete:function(){
+                    setTimeout(function(){
+                        layers.closed(loading);
+                    },200)
+                },
             })
         },
         /**
@@ -187,9 +219,14 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
             layui.use(['form'], function () {
                 var form = layui.form;
                 form.on('select(search-org)', function (data) {
-                    vm.selectedOrgUsr = [];
-                    var addItem = {id: data.value.split(',')[0] * 1, department_name: data.value.split(',')[1]};
-                    vm.selectedOrgUsr.push(addItem);
+                    if(data.value !=''){
+                        vm.selectedOrgUsr = [];
+                        var addItem = {id: data.value.split(',')[0] * 1, department_name: data.value.split(',')[1]};
+                        vm.selectedOrgUsr.push(addItem);
+                    }else{
+                        vm.selectedOrgUsr = [];
+                        vm.selectedOrgUsr = [];
+                    }
                     //vm.selectedOrgUsr = home.unique(vm.selectedOrgUsr).reverse();
                 });
                 setTimeout(function(){
@@ -219,6 +256,7 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
         data:{
             getUrls: tool.getUrlArgs(), //获取Url参数
             productData:{},//产品详情
+            initDta:{},//产品数据数据，用于取消时比对
             product_id:'',//产品id
             departMent:[],//组织架构
             personne:[],//处理过后的组织架构人员名单
@@ -226,7 +264,8 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
             selectedOrgUsr: [], // 暂时记录组织架构的选中
             readerOrgUsr: {id: '', department_name:''}, // 组织架构选中
             showpop: false, // 组织架构显示隐藏
-            OrgSearchArr: [] // 缓存组织架构搜索结果
+            OrgSearchArr: [], // 缓存组织架构搜索结果
+            isBtn:false,//防止连续点击提交按钮
         },
         methods:{
             cancel:function(){//取消操作
@@ -267,7 +306,6 @@ require(['layui','common','layers','tools','ajaxurl','text!/assets/popup/clear-n
     });
     var _init = function(){
         common.getTabLink();
-        main.initLayui();
         main.getProductDetail();
         main.getBasic(); // 获取组织架构基础数据
     };

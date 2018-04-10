@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>新增标的</title>
+    <link rel="stylesheet" href="../../js/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/common.css"/>
+
+    <link rel="stylesheet" href="../../css/page/signManage.css"/>
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="header">
+        <div class="nav">
+            <div class="arrow left-arrow">
+                <i class="iconfont icon-left-arrow"></i>
+            </div>
+            <ul class="tabs">
+                <li><a href="/">首页</a></li>
+                <li v-for="item in tabs"
+                    :class="['tabs-item', item.active && 'tabs-item-active']"
+                    @click="switchTabs">
+                    <a :href="item.url" v-text="item.name"></a>
+                    <i class="iconfont icon-delete"></i>
+                </li>
+            </ul>
+            <div class="arrow right-arrow">
+                <a href="javascript:;"><i class="iconfont icon-right-arrow"></i></a>
+                <a href="javascript:;">关闭操作<i class="iconfont icon-down-arrow"></i></a>
+                <a href="javascript:;"><i class="iconfont icon-back"></i>退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrap">
+        <!-- 权限组列表主内容区域 -->
+        <div class="layui-container">
+            <div class="layui-row add-sign-row">
+                <!-- 头部 -->
+                <div class="layui-col-md12">
+                    <h2 class="jur-head">产品信息</h2>
+                </div>
+                <ul class="sign-list clearfix">
+                    <li class="sign-item"><span class="sign-name">产品名称：</span><span>凤凰一号</span></li>
+                    <li class="sign-item"><span class="sign-name">产品创建人：</span><span>张三</span></li>
+                    <li class="sign-item"><span class="sign-name">产品状态：</span><span>未出局</span></li>
+                    <li class="sign-item"><span class="sign-name">创建时间：</span><span>2016-08-14 23：59：59</span></li>
+                    <li class="sign-item"><span class="sign-name">开始时间：</span><span>2016-08-14 23：59：59</span></li>
+                    <li class="sign-item"><span class="sign-name">结束时间：</span><span>2016-08-14 23：59：59</span></li>
+                </ul>
+            </div>
+            <div class="layui-row add-sign-row">
+                <div class="layui-form">
+                    <!-- 头部 -->
+                    <div class="layui-col-md12 sign-header">
+                        <h2 class="jur-head">产品基本资料</h2>
+                    </div>
+                    <!-- 股票名称 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>股票名称</label>
+                        <div class="layui-input-block">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="">
+                                        <option value="">请输入股票代码或名称，代码至少3个字符</option>
+                                        <option value="1">layer</option>
+                                        <option value="2">form</option>
+                                        <option value="3">layim</option>
+                                        <option value="4">element</option>
+                                        <option value="5">laytpl</option>
+                                        <option value="6">upload</option>
+                                    </select>
+                                </div>
+                                <p class="stock-price"><span>现价：12元</span><span>跌停价：12元</span><span>涨停价：12元</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 建仓价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>建仓价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="password" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 调仓比例 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>调仓比例</label>
+                        <div class="layui-input-block">
+                            <input type="text" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 止盈价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>止盈价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="password" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 止损价 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>止损价</label>
+                        <div class="layui-input-block phone-box">
+                            <input type="password" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 标的负责人 -->
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label"><span>*</span>标的负责人</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">请输入用户真实姓名，至少1个字符</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                    <option value="4">element</option>
+                                    <option value="5">laytpl</option>
+                                    <option value="6">upload</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label"><span>*</span>标的负责人</label>-->
+                    <!--<div class="layui-input-block phone-box">-->
+                    <!--<input type="password" placeholder="" class="layui-input">-->
+                    <!--<i class="sign-danger">请输入用户真实姓名，至少1个字符</i>-->
+                    <!--</div>-->
+                    <!--<select name="" id="">-->
+                    <!--<option value="">风决定要走</option>-->
+                    <!--<option value="">风决定要走</option>-->
+                    <!--<option value="">风决定要走</option>-->
+                    <!--<option value="">风决定要走</option>-->
+                    <!--</select>-->
+                    <!--<ul class="stock-name">-->
+                    <!--<li>风决定要走</li>-->
+                    <!--<li>风决定要走</li>-->
+                    <!--<li>风决定要走</li>-->
+                    <!--<li>风决定要走</li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!-- 建议话术 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>建议话术</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <!-- 操作理由 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span>*</span>操作理由</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存与取消 -->
+            <div class="examine">
+                <div class="example-handle">
+                    <button class="examine-query add-jur-save report-cancel">取消</button><a class="examine-query">保存内容</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../js/libs/jquery/jquery.min.js"></script>
+<script src="../../js/libs/require/require.min.js"></script>
+<script src="../../js/require.config.js"></script>
+
+<script src="../../js/app/signManage.js"></script>
+
+</body>
+</html>

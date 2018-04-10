@@ -80,9 +80,13 @@
         }
     }
     // 侧栏
+    #app{
+        height:100%;
+    }
     .sidebar-collapse {
         position: fixed;
-        height: ~"calc(100% - 51px)";
+        /*height: ~"calc(100% - 47px)";*/
+        height:100%;
         outline: 1px solid;
         width: 240px;
         background: #243443;
@@ -423,7 +427,7 @@
     .main-wrap {
         width: auto;
         margin-left: 240px;
-        margin-top: 51px;
+        //margin-top: 51px;
         // 搜索条
         .search-btn-container {
             min-width: 1600px;
@@ -444,7 +448,7 @@
                     .t-header {
                         &.fixedTop {
                             position: fixed;
-                            top: 41px;
+                            top: -10px;
                             width: 1560px;
                             z-index: 1;
                         }
@@ -501,16 +505,22 @@
                                     th {
                                         font-size: 16px;
                                         text-align: center;
-                                        &.usr-name {
-                                            text-align: left;
-                                            padding-left: 80px;
-                                            width: 240px;
-                                            box-sizing: border-box;
-                                        }
+                                        width: auto !important;
                                         a {
                                             color: #777;
                                         }
-                                        &.recent-contact, &.recent-news {
+                                        &.usr-name {
+                                            width: 240px;
+                                            text-align: left;
+                                            padding-left: 20px;
+                                            box-sizing: border-box;
+                                            > span {
+                                                padding-right: 20px;
+                                                color: #777;
+                                            }
+                                        }
+                                        &.recent-contact,
+                                        &.recent-news {
                                             width: 220px;
                                             a {
                                                 padding-right: 10px;
@@ -534,6 +544,10 @@
                                                 }
                                             }
                                         }
+                                        &.call {
+                                            width: 140px !important;
+                                            padding-right: 20px;
+                                        }
                                     }
                                 }
                             }
@@ -551,27 +565,28 @@
                                     }
                                     td {
                                         text-align: center;
+                                        width: auto !important;
                                         > a {
                                             display: inline-block;
                                             vertical-align: inherit;
                                             height: 70px;
+                                            width: 100% !important;
                                             dl {
                                                 margin-top: 14px;
                                                 span {
+                                                    width: 220px;
                                                     text-overflow: ellipsis;
                                                     overflow: hidden;
-                                                    /* outline: 1px solid; */
                                                     white-space: nowrap;
-                                                    width: 220px;
                                                     display: inline-block;
                                                 }
                                             }
                                             &.empty {
                                                 line-height: 70px;
-                                                width: 100%;
                                             }
                                         }
                                         &.usr-name {
+                                            position: relative;
                                             padding-left: 20px;
                                             width: 220px;
                                             text-align: left;
@@ -598,28 +613,34 @@
                                                     }
                                                 }
                                             }
+                                            .squaredFour {
+                                                position: absolute;
+                                                top: 25px;
+                                            }
                                         }
                                         &.from-channel {
-                                            width: 125px;
+                                            width: 150px;
                                             a {
                                                 width: inherit;
                                                 line-height: 70px;
+                                                max-width: 130px;
                                             }
                                         }
                                         &.contact {
                                             width: 240px;
                                         }
                                         &.recent-buy {
-                                            width: 300px;
+                                            width: 200px;
                                         }
                                         &.product {
-                                            width: 300px;
+                                            width: 220px;
                                             span {
-                                                width: 300px;
+                                                width: inherit;
                                             }
                                         }
                                         &.call-it {
                                             position: relative;
+                                            padding-right: 20px;
                                             &.has-more {
                                                 .more-tells-boxs {
                                                     display: block;

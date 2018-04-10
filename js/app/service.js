@@ -102,6 +102,30 @@ require(["vue", "layui", "layers", "common", "tools", "ajaxurl",], function (Vue
                 });
             });
         },
+         /**
+         * 设置权限管理
+         */
+        getDataAuth: function (callback) {
+            tool.ajax({
+                url: ajaxurl.setting.getDataAuth,
+                type: 'post',
+                success: function (data) {
+                    if (data.code == 1) {
+                        vm.customer = data.data.noHas_auth.customer;
+                        vm.customer_contact = data.data.noHas_auth.customer_contact;
+                        vm.cooper_situation = data.data.noHas_auth.customer_cooper_situation;
+                    } else {
+                        layers.toast(data.message, {
+                            icon: 2,
+                            anim: 6
+                        });
+                    }
+                },
+                error: function (err) {
+                    layers.toast('网络异常!');
+                }
+            })
+        },
     };
     /**
      * 实例化vue
@@ -119,6 +143,9 @@ require(["vue", "layui", "layers", "common", "tools", "ajaxurl",], function (Vue
             Opname:'',
             Pname:'',
             num:'',
+            customer:'',
+            customer_contact:'',
+            cooper_situation:'',
         },
         methods: {
             // 重置
@@ -152,6 +179,7 @@ require(["vue", "layui", "layers", "common", "tools", "ajaxurl",], function (Vue
     var _init = function() {
         home.getserviceData();
         home.jurQuery();
+        home.getDataAuth();
     };
     _init();
 

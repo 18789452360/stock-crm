@@ -63,6 +63,10 @@ require(['vue', 'layui', 'common', 'upload', 'tools', 'ajaxurl', 'layers', 'text
                         if(vm.getUrls.has){
                             selCode = vm.getUrls.data.id;
                         }
+                    if(action === undefined) {
+                        layers.toast("请选择审核结果");
+                        return;
+                    }
                     tool.ajax({
                         url: ajaxurl.contract.contract_post,
                         type: 'post',
@@ -322,34 +326,6 @@ require(['vue', 'layui', 'common', 'upload', 'tools', 'ajaxurl', 'layers', 'text
                     var time = $.trim($(layero).find('input[name="time"]').val());
                     var waybill = $.trim($(layero).find('textarea[name="waybill"]').val());
                     var contract = $.trim($(layero).find('input[name="contract"]').val());
-                    // if(time == ''){
-                    //     layers.toast('请选择邮寄时间！', {
-                    //         icon: 2,
-                    //         anim: 6
-                    //     });
-                    //     return false;
-                    // }
-                    // if(waybill == ''){
-                    //     layers.toast('请填写快递公司及运单号！', {
-                    //         icon: 2,
-                    //         anim: 6
-                    //     });
-                    //     return false;
-                    // }
-                    // if(contract == ''){
-                    //     layers.toast('请填写合同编号！', {
-                    //         icon: 2,
-                    //         anim: 6
-                    //     });
-                    //     return false;
-                    // }
-                    // if(vm.tempImages.length == 0){
-                    //     layers.toast('请上传合同图片！', {
-                    //         icon: 2,
-                    //         anim: 6
-                    //     });
-                    //     return false;
-                    // }
                     if(time == '' && waybill == '' && contract == '' && vm.tempImages.length == 0) {
                         return;
                     }

@@ -10,8 +10,7 @@
   width: 272px;
 }
 .condition .search-parent .search-inp {
-  display: block;
-  width: 260px;
+  width: 120px;
   height: 28px;
   padding-left: 10px;
   border: 1px solid #D0CECD;
@@ -19,30 +18,58 @@
   border-radius: 3px;
   -webkit-border-radius: 3px;
 }
+.condition .search-parent .search-inp:focus {
+  border-color: #2883E1;
+}
+.condition .search-parent .search-inp:focus ~ .search-icon {
+  background: #2883E1;
+}
 .condition .search-parent .search-icon {
   display: inline-block;
   position: absolute;
-  top: 1px;
-  right: 0;
+  top: 0;
+  right: -30px;
   width: 28px;
-  height: 28px;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
   color: #fff;
   background: #D0CECD;
   text-align: center;
   font-size: 18px;
-  border: 1px solid #D0CECD;
-  border-left: 0;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border: 0;
+  border-radius: 3px;
   cursor: pointer;
+}
+.condition .examine-query {
+  margin-bottom: 0;
 }
 .condition .holderBg {
   height: 20px;
   background: #f5f5f5;
 }
 .condition .fontIcon {
-  margin-left: 5px;
+  vertical-align: middle;
+  padding-left: 8px;
+}
+.condition .holder-ul {
+  background: #f5f5f5;
+  height: 60px;
+  line-height: 60px;
+}
+.condition .holder-ul li {
+  float: left;
+  margin-left: 20px;
+  margin-right: 30px;
+}
+.condition .holder-ul li span {
+  color: #f2493b;
+}
+.condition .sort-down {
+  float: right;
+  margin-top: 13px;
+}
+.condition .sort-down .gray-down {
+  background: #ccc;
 }
 .table-box .t-header {
   border-radius: 3px;
@@ -82,8 +109,6 @@
 }
 .table-box .table-container {
   background-color: #fff;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 .table-box .table-container .m-table thead {
   height: 60px;
@@ -97,25 +122,21 @@
   text-align: inherit;
 }
 .table-box .table-container .m-table thead tr th a {
-  color: #777;
+  position: relative;
 }
-.table-box .table-container .m-table thead tr th.recent-contact a,
-.table-box .table-container .m-table thead tr th.recent-news a {
-  padding-right: 10px;
-}
-.table-box .table-container .m-table thead tr th.recent-contact a i,
-.table-box .table-container .m-table thead tr th.recent-news a i {
+.table-box .table-container .m-table thead tr th a i {
+  position: absolute;
+  right: -12px;
+  top: 3px;
   width: 8px;
   height: 14px;
   display: inline-block;
   background: url("../../images/sort_default.png") center no-repeat;
 }
-.table-box .table-container .m-table thead tr th.recent-contact a.asc i,
-.table-box .table-container .m-table thead tr th.recent-news a.asc i {
+.table-box .table-container .m-table thead tr th a.asc i {
   background: url("../../images/sort_asc.png") center no-repeat;
 }
-.table-box .table-container .m-table thead tr th.recent-contact a.desc i,
-.table-box .table-container .m-table thead tr th.recent-news a.desc i {
+.table-box .table-container .m-table thead tr th a.desc i {
   background: url("../../images/sort_desc.png") center no-repeat;
 }
 .table-box .table-container .m-table tbody tr {
@@ -172,6 +193,7 @@
   left: 80px;
   width: 600px;
   height: 474px;
+  z-index: 10;
 }
 .examine-filter .filter-a {
   display: inline-block;
@@ -213,7 +235,7 @@
   position: relative;
 }
 .examine-filter .organize-framework .organize-nav a {
-  background: url(../images/tel-close.png) no-repeat center;
+  background: url(../../images/tel-close.png) no-repeat center;
   width: 10px;
   height: 10px;
   display: inherit;
@@ -381,59 +403,17 @@
   color: #fff;
   margin-right: 20px;
 }
-.filter-time {
-  width: 330px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  position: absolute;
-  z-index: 88;
-  left: 82px;
-  top: 210px;
-  background-color: #fff;
-  padding: 15px 9px;
+.call-filter {
+  top: 108px;
 }
-.filter-time .choose-icon > a {
-  font-size: 14px;
-  margin-bottom: 2px;
-  margin-right: 4px;
-  color: #666;
-  padding: 0 8px;
-  height: 24px;
-  display: inline-block;
-  line-height: 24px;
+.call-filter-call {
+  top: 45px;
 }
-.filter-time .choose-icon > a:hover,
-.filter-time .choose-icon > a.active {
-  background-color: #2883E1;
-  color: #fff;
-  border-radius: 2px;
+.filter-select {
+  top: 192px;
 }
-.filter-time .choose-icon > a:last-of-type.active ~ .layui-inline {
-  display: block;
-}
-.filter-time .choose-icon .layui-inline {
-  display: none;
-  margin-top: 6px;
-  color: #666;
-  height: 23px;
-  overflow: hidden;
-}
-.filter-time .choose-icon .layui-inline input {
-  width: 96px;
-  color: #666;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  height: 22px;
-  display: inline-block;
-}
-.filter-time .choose-icon .layui-inline button {
-  border: 0;
-  color: #2883E1;
-  background-color: transparent;
-  font-size: 14px;
-  vertical-align: -webkit-baseline-middle;
-  margin-left: 10px;
-  margin-bottom: 12px;
+.filter-select-call {
+  top: 100px;
 }
 .filter-time-long {
   left: 200px;
@@ -464,4 +444,67 @@
 }
 .callpage .page-boxs {
   display: inline-block;
+}
+#filtrate {
+  position: relative;
+}
+#filtrate .filter-time {
+  line-height: 0 !important;
+  position: absolute;
+  width: 330px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  z-index: 88;
+  top: 42px;
+  background-color: #fff;
+  padding: 15px 9px;
+}
+#filtrate .filter-time .choose-icon > a {
+  font-size: 14px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  color: #666;
+  padding: 0 8px;
+  height: 24px;
+  display: inline-block;
+  line-height: 24px;
+}
+#filtrate .filter-time .choose-icon > a:hover,
+#filtrate .filter-time .choose-icon > a.active {
+  background-color: #2883E1;
+  color: #fff;
+  border-radius: 2px;
+}
+#filtrate .filter-time .choose-icon > a:last-of-type.active ~ .layui-inline {
+  display: block;
+}
+#filtrate .filter-time .choose-icon .layui-inline {
+  display: none;
+  margin-top: 6px;
+  color: #666;
+  height: 23px;
+  overflow: hidden;
+}
+#filtrate .filter-time .choose-icon .layui-inline input {
+  width: 96px;
+  color: #666;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  height: 22px;
+  display: inline-block;
+}
+#filtrate .filter-time .choose-icon .layui-inline button {
+  border: 0;
+  color: #2883E1;
+  background-color: transparent;
+  font-size: 14px;
+  vertical-align: -webkit-baseline-middle;
+  margin-left: 10px;
+  margin-bottom: 12px;
+}
+#filtrate .filter-time.filter-time-long {
+  left: 184px;
+}
+.filter-select-call {
+  left: 0;
 }

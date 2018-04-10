@@ -27,6 +27,7 @@ h2 {
   position: relative;
   top: 2px;
   left: -4px;
+  color: #f2493b;
 }
 .form .form-item .input-block {
   margin-left: 5px;
@@ -37,11 +38,28 @@ h2 {
   border-color: #ccc;
 }
 .form .form-item .input-block textarea {
-  height: 200px;
+  min-height: 200px;
+}
+.form .form-item .input-block .edit-start-time {
+  display: inline-block;
+  width: 100%;
+  border: 1px solid #ccc;
+  text-indent: 8px;
+  height: 32px;
+  line-height: 32px;
 }
 .form .form-item .prompt {
   color: #f2493b;
   margin-left: 20px;
+}
+.form .form-item .textarea-box {
+  position: relative;
+}
+.form .form-item .textarea-box span {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  font-size: 12px;
 }
 .form .btn-box {
   padding: 30px;
@@ -63,8 +81,8 @@ h2 {
 }
 .organize-framework {
   position: absolute;
-  top: -100px;
-  left: 355px;
+  top: 280px;
+  left: 600px;
   height: 484px;
   border-radius: 3px;
   border: 1px solid #ccc;
@@ -91,6 +109,11 @@ h2 {
   right: 19px;
   top: 20px;
   z-index: 3;
+}
+.organize-framework .organize-nav i {
+  float: right;
+  color: #999;
+  cursor: pointer;
 }
 .organize-framework .organize-content {
   background-color: #fcfcfc;

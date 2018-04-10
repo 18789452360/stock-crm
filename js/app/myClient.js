@@ -1,4 +1,4 @@
-require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', 'jquery.metisMenu', 'layui', 'layers', 'text!/assets/popup/rem-sea.html', 'text!/assets/popup/del-usr.html', 'text!/assets/popup/clear-usr.html', 'text!/assets/popup/mov-group.html', 'text!/assets/popup/add-remark.html', 'text!/assets/popup/clear-usr-detail.html', 'text!/assets/popup/import-usr.html', 'text!/assets/popup/share-usr.html', 'text!/assets/popup/move-usr.html', 'text!/assets/popup/del-group.html', 'text!/assets/popup/allot-usr.html', 'text!/assets/popup/export-server.html'], function (moment, page, upload, template, ajaxurl, tools, common, undefined, layui, layers, remSea, delUsr, clearUsr, movGroup, addRemark, clearUsrDetail, importUsr, shareUsr, moveUsr, delGroup, allotUsr, expServer) {
+require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', 'jquery.metisMenu', 'layui', 'layers', 'text!/assets/popup/rem-sea.html', 'text!/assets/popup/del-usr.html', 'text!/assets/popup/clear-usr.html', 'text!/assets/popup/mov-group.html', 'text!/assets/popup/add-remark.html', 'text!/assets/popup/clear-usr-detail.html', 'text!/assets/popup/import-usr.html', 'text!/assets/popup/share-usr.html', 'text!/assets/popup/move-usr.html', 'text!/assets/popup/del-group.html', 'text!/assets/popup/allot-usr.html', 'text!/assets/popup/export-server.html', 'text!/assets/popup/export-customers.html'], function (moment, page, upload, template, ajaxurl, tools, common, undefined, layui, layers, remSea, delUsr, clearUsr, movGroup, addRemark, clearUsrDetail, importUsr, shareUsr, moveUsr, delGroup, allotUsr, expServer, exportUser) {
 
     // 初始化 template 界定符
     template.config('openTag', '{?');
@@ -15,8 +15,11 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
         },
         /**
          * 我的客户--客户列表
+         * @param callback 请求完成的回调
+         * @param page  请求的页数
+         * @param isGetCsv  是否导出当前符合提交的 csv 文件
          */
-        getNavData: function (callback, page) {
+        getNavData: function (callback, page, isGetCsv) {
             layers.load(function (indexs) {
                 vm.isLoadingIndex = indexs;
             });
@@ -28,7 +31,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                 data: {
                     username: vm.username,
                     phone: vm.phone,
-                    mark_id: vm.ajaxCondition.remarkId.join(','),
+                    mark_id: vm.showPool ? '' : vm.ajaxCondition.remarkId.join(','),
                     tag_code: vm.ajaxCondition.tagId.join(','),
                     // 筛选
                     create_time: vm.ajaxCondition.timeArea.create_time.join(','),
@@ -44,17 +47,24 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     system_label_id: vm.ajaxCondition.system_label_id,// ECTag
                     channel_id: vm.ajaxCondition.selectSource, // 来源
                     pagesize: vm.pagesize,
-                    curpage: page
+                    curpage: page,
+                    csv: isGetCsv ? 1 : ''// 导出符合当前条件的 csv 文件
                 },
+                type: 'post',
                 success: function (res) {
                     if (res.code === 1) {
-                        // 表格详细数据
-                        res.data.list.forEach(function (item) {
-                            item.checked = false;
-                        });
-                        vm.usrDataList = $.isArray(res.data.list) ? res.data.list : [];
-                        vm.usrDataTotalNum = res.data.total_num;
-                        vm.usrDataTotalPage = res.data.total_page;
+                        var originalList = $.isArray(res.data.list) ? res.data.list : [];
+                        if (isGetCsv) {
+                            layers.closed(vm.isLoadingIndex);
+                            layers.toast(res.data);
+                        } else {
+                            originalList.forEach(function (item) {
+                                item.checked = false;
+                            });
+                            vm.usrDataList = originalList;
+                            vm.usrDataTotalNum = res.data.total_num;
+                            vm.usrDataTotalPage = res.data.total_page;
+                        }
                         typeof callback === 'function' && callback.call(this);
                     } else {
                         layers.toast(res.message);
@@ -154,7 +164,9 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         type: 'post',
                         data: {
                             customerIds: vm.checkedIdArr,
-                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename
+                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename,
+                            cache_file_name_all: vm.all_num.filename,
+                            cache_file_name_groupall: vm.ajaxCondition.sideGroupId.indexOf('group_employee') > -1 ? vm.operaList[2].filename : ''
                         },
                         success: function (res) {
                             if (res.code === 1) {
@@ -168,8 +180,17 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                                 });
                                 vm.checkedIdArr = [];
                                 layers.closed(index);
-                            } else if (res.code === -1) {
-                                layers.toast(res.message);
+                            } else if (res.code === -2) {// 部分操作成功
+                                main.getAllNum(function () {
+                                    main.getLeftMenu(function () {
+                                        main.getNavData(function () {
+                                            layers.toast(res.message);
+                                            layers.closed(vm.isLoadingIndex);
+                                        }, vm.curPage);
+                                    }, true);
+                                });
+                                vm.checkedIdArr = [];
+                                layers.closed(index);
                             } else {
                                 layers.toast(res.message);
                             }
@@ -204,15 +225,31 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         type: 'post',
                         data: {
                             customerIds: delUsrId,
-                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename
+                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename,
+                            cache_file_name_all: vm.all_num.filename,
+                            cache_file_name_groupall: vm.ajaxCondition.sideGroupId.indexOf('group_employee') > -1 ? vm.operaList[2].filename : ''
                         },
                         success: function (res) {
+                            vm.curPage = 1;
                             if (res.code === 1) {
                                 main.getAllNum(function () {
                                     main.getLeftMenu(function () {
                                         main.getNavData(function () {
                                             layers.toast('删除成功！');
                                             layers.closed(vm.isLoadingIndex);
+                                            main.setTablePage();
+                                        }, vm.curPage);
+                                    }, true);
+                                });
+                                vm.checkedIdArr = [];
+                                layers.closed(index);
+                            } else if (res.code === -2) {// 部分操作成功
+                                main.getAllNum(function () {
+                                    main.getLeftMenu(function () {
+                                        main.getNavData(function () {
+                                            layers.toast(res.message);
+                                            layers.closed(vm.isLoadingIndex);
+                                            main.setTablePage();
                                         }, vm.curPage);
                                     }, true);
                                 });
@@ -223,6 +260,29 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                             }
                         }
                     })
+                }
+            });
+        },
+        /**
+         * 客户导出询问框
+         */
+        exportUser: function () {
+            layers.confirm({
+                title: '导出客户',
+                area: ['430px', '254px'],
+                content: exportUser,
+                success: function (layero, index) {
+                    var $layero = $(layero);
+                    $layero.find('.blue').click(function () {
+                        common.getTabLinkWithJS({
+                            name: '消息管理',
+                            url: '/admin/sms/sms?type=2&sontype=24'
+                        })
+                    })
+                },
+                btn2: function (index, layero) {
+                    // 确认的回调
+                    main.getNavData('', '', 1);
                 }
             });
         },
@@ -242,7 +302,9 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         url: ajaxurl.customer.clearPool,
                         data: {
                             customerIds: willDelArr,
-                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename
+                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename,
+                            cache_file_name_all: vm.all_num.filename,
+                            cache_file_name_groupall: vm.ajaxCondition.sideGroupId.indexOf('group_employee') > -1 ? vm.operaList[2].filename : ''
                         },
                         success: function (res) {
                             if (res.code === 1) {
@@ -252,6 +314,16 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                                             layers.toast('清理成功！');
                                             layers.closed(vm.isLoadingIndex);
                                         });
+                                    }, true);
+                                });
+                                layers.closed(index);
+                            } else if (res.code === -2) {// 部分操作成功
+                                main.getAllNum(function () {
+                                    main.getLeftMenu(function () {
+                                        main.getNavData(function () {
+                                            layers.toast(res.message);
+                                            layers.closed(vm.isLoadingIndex);
+                                        }, vm.curPage);
                                     }, true);
                                 });
                                 layers.closed(index);
@@ -438,6 +510,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                 content: importUsr,
                 success: function (layero, index) {
                     var groupId = '';// 选择的分组 id
+                    var channelId = '';// 选择的来源 id
                     var fileName = '';// 选择的文件名
                     var $layero = $(layero);
                     var uploadLoading = '';// 上传中动画
@@ -448,13 +521,24 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         $('.file-btn span').text('修改');
                         $('.file-container').addClass('uploaded');
                     });
-                    $layero.find('.selectOptionWrap').html(template('selectOption', {data: vm.generalList}));
                     layui.use(['form'], function () {
+                        // 渲染数据
+                        if (vm.generalList.length) {
+                            $layero.find('.groupOption').html(template('groupOption', {data: vm.generalList}));
+                        }
+                        if (!$.isEmptyObject(vm.channelSource)) {
+                            $layero.find('.fromOption').html(template('fromOption', {data: vm.channelSource}));
+                        }
+                        // 初始化表格
                         var form = layui.form;
+                        form.render();
+                        // 监听表格事件
                         form.on('select(group)', function (data) {
                             groupId = data.value;
                         });
-                        form.render();
+                        form.on('select(from)', function (data) {
+                            channelId = data.value;
+                        });
                     });
                     //上传
                     upload.init({
@@ -467,7 +551,11 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         auto: false, // 关闭自动上传
                         bindAction: '.ok-upload',// 由确定按钮触发上传
                         before: function () {
-                            this.data = {customer_type: groupId};// 上传参数
+                            // 上传参数
+                            this.data = {
+                                customer_type: groupId,
+                                channel_id: channelId
+                            };
                             layers.load(function (indexs) {
                                 uploadLoading = indexs;
                             });
@@ -495,13 +583,13 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     });
                     $layero.find('.ok').click(function () {
                         if (!fileName.length) {
-                            layers.toast('请选择文件！');
+                            layers.toast('请选择上传文件');
                             return;
                         }
-                        // if (!groupId.length) {
-                        //     layers.toast('请选择分组！');
-                        //     return;
-                        // }
+                        if (!channelId.length) {
+                            layers.toast('请选择来源');
+                            return;
+                        }
                         $('.ok-upload').trigger('click');
                     });
                 }
@@ -531,8 +619,13 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                             var newItem = {id: $(this).data('id'), name: $(this).data('name')};
                             rightData.data.push(newItem);
                         });
-                        // 渲染到右侧已选择
-                        rightData.data = main.unique(rightData.data).reverse();
+                        if (rightData.data.length > 10) {
+                            layers.toast('最多只能共享给10个人');
+                            rightData.data = main.unique(rightData.data).reverse().splice(0, 10);
+                        } else {
+                            // 渲染到右侧已选择
+                            rightData.data = main.unique(rightData.data).reverse();
+                        }
                         $layero.find('.choose-people ul').html(template('share-usr-right', rightData));
                         $layero.find('.choose-people h2 span').text(rightData.data.length);
                     });
@@ -540,8 +633,13 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     $layero.on('click', '.metismenu a:not(.has-arrow)', function (e) {
                         var newItem = {id: $(this).data('id'), name: $(this).data('name')};
                         rightData.data.push(newItem);
-                        // 渲染到右侧已选择
-                        rightData.data = main.unique(rightData.data).reverse();
+                        if (rightData.data.length > 10) {
+                            layers.toast('最多只能共享给10个人');
+                            rightData.data = main.unique(rightData.data).reverse().splice(0, 10);
+                        } else {
+                            // 渲染到右侧已选择
+                            rightData.data = main.unique(rightData.data).reverse();
+                        }
                         $layero.find('.choose-people ul').html(template('share-usr-right', rightData));
                         $layero.find('.choose-people h2 span').text(rightData.data.length);
                     });
@@ -559,9 +657,20 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         $layero.find('.choose-people h2 span').text(rightData.data.length);
                     });
                     // 渲染组织架构 && 搜索
-                    $layero.find('.search-org').html(template('org-search', {data: vm.OrgSearchArr}));
+                    var searchAll = [];
+                    var _form;
+                    setTimeout(function () {
+                        var $item = $layero.find('.sidebar-nav a').not('.has-arrow');
+                        $item.each(function () {
+                            var newItem = {id: $(this).data('id'), name: $(this).data('name')};
+                            searchAll.push(newItem);
+                        });
+                        $layero.find('.search-org').html(template('org-search', {data: searchAll}));
+                        _form.render();
+                    }, 50);
                     layui.use(['form'], function () {
                         var form = layui.form;
+                        _form = form;
                         form.on('select(search-org)', function (data) {
                             var addItem = {id: data.value.split(',')[0] * 1, name: data.value.split(',')[1]};
                             rightData.data.push(addItem);
@@ -569,7 +678,6 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                             $layero.find('.choose-people ul').html(template('share-usr-right', rightData));
                             $layero.find('.choose-people h2 span').text(rightData.data.length);
                         });
-                        form.render();
                     });
                     $layero.find('.sidebar-nav').html(template('share-usr-left', leftData));
                     $layero.find('.metismenu').metisMenu();
@@ -654,9 +762,20 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     });
                     // 渲染组织架构
                     $layero.find('.sidebar-nav').html(template('share-usr-left', leftData));
-                    $layero.find('.search-org').html(template('org-search', {data: vm.OrgSearchArr}));
+                    var searchAll = [];
+                    var _form;
+                    setTimeout(function () {
+                        var $item = $layero.find('.sidebar-nav a').not('.has-arrow');
+                        $item.each(function () {
+                            var newItem = {id: $(this).data('id'), name: $(this).data('name')};
+                            searchAll.push(newItem);
+                        });
+                        $layero.find('.search-org').html(template('org-search', {data: searchAll}));
+                        _form.render();
+                    }, 50);
                     layui.use(['form'], function () {
                         var form = layui.form;
+                        _form = form;
                         form.on('select(search-org)', function (data) {
                             var addItem = {id: data.value.split(',')[0] * 1, name: data.value.split(',')[1]};
                             rightData.data.push(addItem);
@@ -668,7 +787,6 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                                 $layero.find('.choose-people h2 span').text(rightData.data.length);
                             }
                         });
-                        form.render();
                     });
                     $layero.find('.metismenu').metisMenu();
                 },
@@ -683,7 +801,9 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         data: {
                             toEmployeeId: selectedId[0],
                             customerIds: vm.checkedIdArr,
-                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename
+                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename,
+                            cache_file_name_all: vm.all_num.filename,
+                            cache_file_name_groupall: vm.ajaxCondition.sideGroupId.indexOf('group_employee') > -1 ? vm.operaList[2].filename : ''
                         },
                         success: function (res) {
                             if (res.code === 1) {
@@ -696,6 +816,18 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                                     }, true);
                                 });
                                 vm.checkedIdArr = [];
+                                layers.closed(index);
+                            } else if (res.code === -2) {// 部分操作成功
+                                main.getAllNum(function () {
+                                    main.getLeftMenu(function () {
+                                        main.getNavData(function () {
+                                            layers.toast(res.message);
+                                            layers.closed(vm.isLoadingIndex);
+                                        }, vm.curPage);
+                                    }, true);
+                                });
+                                vm.checkedIdArr = [];
+                                layers.closed(index);
                             } else {
                                 layers.toast(res.message);
                             }
@@ -756,9 +888,20 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     });
                     // 渲染组织架构
                     $layero.find('.sidebar-nav').html(template('share-usr-left', leftData));
-                    $layero.find('.search-org').html(template('org-search', {data: vm.OrgSearchArr}));
+                    var searchAll = [];
+                    var _form;
+                    setTimeout(function () {
+                        var $item = $layero.find('.sidebar-nav a').not('.has-arrow');
+                        $item.each(function () {
+                            var newItem = {id: $(this).data('id'), name: $(this).data('name')};
+                            searchAll.push(newItem);
+                        });
+                        $layero.find('.search-org').html(template('org-search', {data: searchAll}));
+                        _form.render();
+                    }, 50);
                     layui.use(['form'], function () {
                         var form = layui.form;
+                        _form = form;
                         form.on('select(search-org)', function (data) {
                             var addItem = {id: data.value.split(',')[0] * 1, name: data.value.split(',')[1]};
                             rightData.data.push(addItem);
@@ -770,7 +913,6 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                                 $layero.find('.choose-people h2 span').text(rightData.data.length);
                             }
                         });
-                        form.render();
                     });
                     $layero.find('.metismenu').metisMenu();
                 },
@@ -785,7 +927,9 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                         data: {
                             toEmployeeId: selectedId[0],
                             customerIds: vm.checkedIdArr,
-                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename
+                            cache_file_name: vm.ajaxCondition.sideGroupId ? vm.ajaxCondition.sideGroupId : vm.all_num.filename,
+                            cache_file_name_all: vm.all_num.filename,
+                            cache_file_name_groupall: vm.ajaxCondition.sideGroupId.indexOf('group_employee') > -1 ? vm.operaList[2].filename : ''
                         },
                         success: function (res) {
                             if (res.code === 1) {
@@ -1190,7 +1334,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             };
         },
         /**
-         * 初始化搜索表单
+         * 初始化搜索 表单
          */
         createForm: function () {
             var _this = this;
@@ -1329,17 +1473,23 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
         /**
          * 获取组织架构数据
          */
-        getUsrOrgList: function (callback) {
+        getUsrOrgList: function (callback, type) {
+            type = type || 1;
             tools.ajax({
                 url: ajaxurl.department.getdepartment,
-                data: {},
+                data: {
+                    type: type
+                },
                 success: function (res) {
                     if (res.code === 1) {
-                        vm.usrOrgList = res.data;
+                        type === 1
+                            ? vm.usrOrgList = res.data
+                            : vm.usrOrgListInFiltrate = res.data;
+                        // vm.usrOrgList = res.data;
                         // 获取组织架构完成后, 初始化组织架构树形结构
-                        Vue.nextTick(function () {
-                            $('#org-framework').metisMenu();
-                        });
+                        // Vue.nextTick(function () {
+                        //     $('#org-framework').metisMenu();
+                        // });
                         typeof callback === 'function' && callback.call(this);
                     } else {
                         layers.toast(res.message);
@@ -1402,16 +1552,6 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
          */
         filterOrgSearch: function () {
             var _this = this;
-            // 下面2个方法是同步执行, 在 render form 时, 可能数据还不存在
-            // 所以需要把当前这个 form 挂载到 main 上
-            // 然后 Vue 去监听当这个筛选框展示在用户面前时才去 render form
-            Vue.nextTick(function () {
-                var $item = $('#org-framework').find('a').not('.has-arrow');
-                $item.each(function () {
-                    var newItem = {id: $(this).data('id'), name: $(this).data('text')};
-                    vm.OrgSearchArr.push(newItem);
-                });
-            });
             layui.use(['form'], function () {
                 var form = layui.form;
                 _this.form = layui.form;
@@ -1544,9 +1684,25 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                 data: {},
                 success: function (res) {
                     if (res.code === 1) {
-                        // console.log(res.data.customer_from_channel);
+                        //console.log(res.data.customer_from_channel);
                         vm.channelSource = res.data.customer_from_channel;
                     }
+                }
+            })
+        },
+        /**
+         * 数据权限控制, dataAuth 中的字段表示没有权限
+         */
+        getDataAuth: function (callback) {
+            tools.ajax({
+                url: ajaxurl.setting.getDataAuth,
+                success: function (res) {
+                    if (res.code === 1) {
+                        vm.dataAuth = res.data.noHas_auth;
+                    } else {
+                        layers.toast(res.message);
+                    }
+                    typeof callback === 'function' && callback.call(this)
                 }
             })
         }
@@ -1570,6 +1726,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             pagesize: 300, // 每页数量
             curPage: '',// 当前页
             usrOrgList: [],// 全局组织架构
+            usrOrgListInFiltrate: [],// 筛选专用组织架构
             selectedOrgUsr: [],// 全局组织架构已选用户 {id:1, name: '张三'},{id:2, name: '李四'}
             OrgSearchArr: [],// 组织架构中遍历得到的所有员工
             usrDataTotalNum: '',// 用户总条数
@@ -1612,6 +1769,11 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             },
             channelSource: '',// 来源列表数据
             ECTagArr: '',// ECTag 展示列表数据
+            dataAuth: {// 基本信息数据权限
+                customer: {},// 基本信息
+                customer_contact: {},// 联系方式
+                customer_cooper_situation: {}// 合作情况
+            },
             // 固定数据
             conditionStr: ['今天', '昨天', '最近7天', '最近30天', '自定义'],
             conditionName: ['创建时间', '联系时间', '成交时间', '加入时间', '未联系时间', '更新动态时间', '服务到期时间', 'EC标签', '组织架构', '来源'],
@@ -1698,7 +1860,9 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             // 导出客户
             exportUsr: function () {
                 if (this.all_num.total_num) {
-                    window.location.href = '/admin/customers/customer/export';
+                    //main.getNavData('', '', 1);
+                    // window.location.href = '/admin/customers/customer/export';
+                    main.exportUser();
                 } else {
                     layers.toast('无客户可导出！');
                 }
@@ -1714,38 +1878,25 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     });
                 }
             },
-            // 最近动态排序过滤
-            recentNewsFilter: function (e) {
+            // 表头排序公共方法 orderType : 0最近联系 1最近动态 2创建时间
+            orderFilter: function (e, orderType) {
+                // 升序传入参数
+                var ascStrArr = ['dyn_up', 'relation_up', 'create_up'];
+                // 降序传入参数
+                var descStrArr = ['dyn_down', 'relation_down', 'create_down'];
                 var $that = $(e.currentTarget);
-                var sorttype = $that.data('type');
+                var sortFlag = $that.data('type');
                 $that.closest('th').siblings('th').find('a').removeClass('asc desc').data('type', 0);
-                if (sorttype === 0) {
+                if (sortFlag === 0) {
                     $that.prop('class', 'asc');
                     $that.data('type', 1);
                     // 升序
-                    vm.ajaxCondition.order = 'dyn_up';
+                    vm.ajaxCondition.order = ascStrArr[orderType];
                 } else {
                     $that.prop('class', 'desc');
                     $that.data('type', 0);
                     // 降序
-                    vm.ajaxCondition.order = 'dyn_down';
-                }
-            },
-            // 最近联系排序过滤
-            recentContactFilter: function (e) {
-                var $that = $(e.currentTarget);
-                var sorttype = $that.data('type');
-                $that.closest('th').siblings('th').find('a').removeClass('asc desc').data('type', 0);
-                if (sorttype === 0) {
-                    $that.prop('class', 'asc');
-                    $that.data('type', 1);
-                    // 升序
-                    vm.ajaxCondition.order = 'relation_up';
-                } else {
-                    $that.prop('class', 'desc');
-                    $that.data('type', 0);
-                    // 降序
-                    vm.ajaxCondition.order = 'relation_down';
+                    vm.ajaxCondition.order = descStrArr[orderType];
                 }
             },
             // 客户分配
@@ -1763,7 +1914,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                             }
                         } else {
                             // 只有一个号码
-                            common.callTellFn(mobileArr[0].contact_id, true);
+                            window.top.callTellFn(mobileArr[0].contact_id, true);
                         }
                     }
                 } else {
@@ -1775,7 +1926,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             },
             // 拨打更多列表中的号码
             moreTelCallIt: function (telId) {
-                common.callTellFn(telId, true);
+                window.top.callTellFn(telId, true);
             },
             // 设置显示数据条数
             setShowNum: function (e) {
@@ -1836,10 +1987,10 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             },
             // 备注不限
             cancelAllRemarks: function (e) {
-                this.ajaxCondition.remarkId = [];
                 if ($(e.target).hasClass('tag-active')) {
                     return false;
                 }
+                this.ajaxCondition.remarkId = [];
                 var ul = $(e.target).parentsUntil('.examine-tag')[1];
                 $(ul).find('a').each(function () {
                     $(this).removeClass('tag-active');
@@ -1847,10 +1998,10 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
             },
             // 标签不限
             cancelAllTag: function (e) {
-                this.ajaxCondition.tagId = [];
                 if ($(e.target).hasClass('tag-active')) {
                     return false;
                 }
+                this.ajaxCondition.tagId = [];
                 var ul = $(e.target).parentsUntil('.examine-tag')[1];
                 $(ul).find('a').each(function () {
                     $(this).removeClass('tag-active');
@@ -2014,7 +2165,24 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     }
                 }
                 vm.condition[index].show = !vm.condition[index].show;
-
+                // 如果点击的是筛选中的组织架构, 则重新请求一次组织架构 type = 2 的数据
+                if (index === 8 && !this.usrOrgListInFiltrate.length) {
+                    main.getUsrOrgList(function () {
+                        Vue.nextTick(function () {
+                            $('#org-framework').metisMenu();
+                            setTimeout(function () {
+                                var $item = $('#org-framework').find('a').not('.has-arrow');
+                                $item.each(function () {
+                                    var newItem = {id: $(this).data('id'), name: $(this).data('text')};
+                                    vm.OrgSearchArr.push(newItem);
+                                });
+                                Vue.nextTick(function () {
+                                    main.form.render();
+                                });
+                            }, 500)
+                        });
+                    }, 2);
+                }
                 // 处理组织架构筛选框左侧被隐藏的问题
                 var orgIndex = '';// 组织架构的索引
                 var $org = $('.organize-framework');
@@ -2079,7 +2247,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
         watch: {
             // 监听已选择的筛选数据, 发生变动时请求 ajax 更新表格
             ajaxCondition: {
-                handler: function (val, newVal) {
+                handler: function (val, oldVal) {
                     main.getNavData(function () {
                         layers.closed(vm.isLoadingIndex);
                         main.setTablePage();
@@ -2087,7 +2255,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                 },
                 deep: true
             },
-            username: function (val, newVal) {
+            username: function (val, oldVal) {
                 if (val.length === 0) {
                     main.getNavData(function () {
                         layers.closed(vm.isLoadingIndex);
@@ -2096,7 +2264,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     });
                 }
             },
-            phone: function (val, newVal) {
+            phone: function (val, oldVal) {
                 if (val.length === 0) {
                     main.getNavData(function () {
                         layers.closed(vm.isLoadingIndex);
@@ -2104,26 +2272,26 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     });
                 }
             },
-            addedGroupName: function (val, newVal) {
+            addedGroupName: function (val, oldVal) {
                 if (val.length > 0) {
                     this.addedGroupNameExist = false;
                     this.addedGroupNameEmpty = false;
                 }
             },
-            editingGroupName: function (val, newVal) {
+            editingGroupName: function (val, oldVal) {
                 if (val && val.length > 0) {
                     this.addedGroupNameExist = false;
                     this.addedGroupNameEmpty = false;
                 }
             },
             condition: {
-                handler: function (val, newVal) {
+                handler: function (val, oldVal) {
                     main.form.render();
                 },
                 deep: true
             },
             // 针对客户公海中的 `加入时间` 文案调整
-            showPool: function (val, newVal) {
+            showPool: function (val, oldVal) {
                 if (val) {
                     if (this.condition[3].active) {
                         this.condition[3].name = this.condition[3].name.replace('加入时间', '客户群组加入时间');
@@ -2168,6 +2336,27 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
                     return i;
                 }
             }
+        },
+        filters: {
+            formatSex: function (value) {
+                var sex = '';
+                if (value === '**') return value;
+                switch (value) {
+                    case '0':
+                        sex = '(--)';
+                        break;
+                    case '1':
+                        sex = '(男)';
+                        break;
+                    case '2':
+                        sex = '(女)';
+                        break;
+                    case '3':
+                        sex = '(未知)';
+                        break;
+                }
+                return sex;
+            }
         }
     });
 
@@ -2196,6 +2385,7 @@ require(['moment', 'page', 'upload', 'template', 'ajaxurl', 'tools', 'common', '
         main.createForm();
         main.renderLayDate();
         main.setTableMenuFixed();
+        main.getDataAuth();
         common.getTabLink();
     };
     _init();

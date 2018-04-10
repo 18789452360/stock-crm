@@ -1,0 +1,117 @@
+@charset "utf-8";
+.layui-container {
+  padding: 20px 0 0 0 !important;
+}
+.layui-container .finance-search {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+.layui-container .finance-search .layui-input-block {
+  margin: 0 0 0 20px;
+  padding: 20px 0 0;
+  width: 343px;
+  display: inline-block;
+}
+.layui-container .finance-search .layui-input-block .layui-input {
+  display: inline-block;
+  width: 343px;
+  border-color: #ccc;
+  border-radius: 0;
+}
+.layui-container .finance-search .layui-input-block .layui-input:focus {
+  border-color: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .layui-input:focus + .icon-search {
+  background: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .inputlight {
+  border-color: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .buttonlight {
+  background: #2883E1 !important;
+}
+.layui-container .finance-search .layui-input-block .icon-search {
+  position: absolute;
+  top: 21px;
+  right: 1px;
+  width: 34px;
+  min-width: 34px;
+  height: 32px;
+  background-color: #ccc;
+  padding: 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+}
+.layui-container .finance-search .example-handle {
+  display: inline-block;
+  float: right;
+  margin-right: 24px;
+  margin-top: 20px;
+}
+.layui-container .finance-search.finance-all {
+  margin-bottom: 0;
+}
+.layui-container .finance-search.layui-form-item {
+  margin-bottom: 0 !important;
+}
+.layui-container .finance-search .btns {
+  padding-top: 20px;
+  padding-right: 20px;
+}
+.layui-container .common-table {
+  background: #fff;
+}
+.layui-container .common-table tr {
+  border-bottom: 1px solid #eee;
+}
+.layui-container .common-table tr th {
+  height: 60px;
+}
+.layui-container .common-table tr th.t-name {
+  width: 15%;
+}
+.layui-container .common-table tr th.check {
+  width: 5%;
+}
+.layui-container .common-table tr td {
+  height: 50px;
+}
+.layui-container .common-table tr td.btns a.edit {
+  margin-right: 20px;
+}
+.layui-container .no-result > p {
+  position: relative;
+  left: -5px;
+  padding-top: 280px;
+  font-size: 16px;
+  color: #999;
+}
+.layui-container .page {
+  margin: 20px 0 0 !important;
+}
+.layui-container .btn-box {
+  text-align: center;
+}
+.layui-container .btn-box a {
+  height: 40px;
+  line-height: 40px;
+  width: 140px;
+  font-size: 16px;
+}
+.confirm-tips {
+  height: 50px;
+  line-height: 50px;
+}
+.confirm-tips .category-name {
+  font-size: 16px;
+}
+.confirm-tips .input-category-name {
+  font-size: 16px;
+  padding: 5px;
+}
+.confirm-tips .err {
+  font-size: 14px !important;
+  color: red !important;
+  padding-left: 85px;
+}

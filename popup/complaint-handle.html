@@ -1,0 +1,35 @@
+<!-- 投诉处理 -->
+<div class="confirm-tip finance-tip">
+    <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">处理状态：</label>
+                <div class="layui-input-block finance-select">
+                    <select name="status" lay-verify="required">
+                        <option value=""></option>
+                        <option value="1">待处理</option>
+                        <option value="2">处理中</option>
+                        <option value="3">已处理</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">处理结果：</label>
+                <div class="layui-input-block finance-select">
+                    <select name="result" lay-verify="required">
+                        <option value=""></option>
+                        <option value="1">用户满意</option>
+                        <option value="2">投诉升级</option>
+                        <option value="3">需销售协助</option>
+                        <option value="4">线下退款</option>
+                        <option value="5">其它</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注：</label>
+                <div class="layui-input-block">
+                    <textarea name="info" placeholder="请输入投诉处理说明,字数200字符以内" class="layui-textarea finance-textarea" maxlength="200"></textarea>
+                </div>
+            </div>
+    </form>
+</div>

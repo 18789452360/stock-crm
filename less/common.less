@@ -708,8 +708,7 @@ html, body {
         width: 100%;
         height: 100%;
         overflow-y: auto;
-        margin-top: 51px;
-        height: calc(100vh - 5px);
+        height: 100%;
         .main,
         .layui-container {
             padding: 18px 30px;
@@ -1380,6 +1379,7 @@ body .layer-gxscrm-confirm {
 
 // 导入客户弹出层
 .import-usr-container {
+    overflow-y: hidden !important;
     .import-usr-group {
         box-sizing: border-box;
         height: 307px;
@@ -1489,6 +1489,12 @@ body .layer-gxscrm-confirm {
                     top: 33px;
                 }
             }
+            // 分组
+            &.group {
+                .layui-form-selected dl {
+                    max-height: 145px;
+                }
+            }
             .layui-form-selected dl {
                 max-height: 192px;
             }
@@ -1544,6 +1550,7 @@ body .layer-gxscrm-confirm {
     .side-nav {
         position: relative;
         float: left;
+        left: 10px;
         z-index: 99;
         margin-right: 28px;
         ul {
@@ -1697,7 +1704,7 @@ body .layer-gxscrm-confirm {
     // 电话窗口
     .tel-window {
         position: absolute;
-        left: 90px;
+        left: 94px;
         background-color: #fff;
         margin-top: -200px;
         margin-right: 20px;
@@ -3304,6 +3311,8 @@ body {
         p {
             padding-top: 300px;
             text-align: center;
+            color:#999;
+            text-indent: -10px;
         }
     }
 }
